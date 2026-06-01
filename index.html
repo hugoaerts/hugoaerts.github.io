@@ -1,1103 +1,1070 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dr. Jane Doe — Cognitive Neuroscientist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Syne:wght@300;400;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0c0c0c;
-      --surface: #141414;
-      --border: #242424;
-      --mid: #555;
-      --muted: #888;
-      --light: #bbb;
-      --white: #f0ede8;
-      --accent: #e8e0d0;
-      --display: 'Syne', sans-serif;
-      --serif: 'Libre Baskerville', Georgia, serif;
-      --mono: 'JetBrains Mono', monospace;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: var(--display);
-      font-weight: 300;
-      font-size: 15px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── NOISE TEXTURE ── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 9000;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      height: 56px;
-      display: flex;
-      align-items: stretch;
-      border-bottom: 1px solid var(--border);
-      background: rgba(12,12,12,0.92);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-      border-right: 1px solid var(--border);
-      text-decoration: none;
-      gap: 0.8rem;
-      min-width: 220px;
-    }
-    .nav-logo-mark {
-      width: 24px; height: 24px;
-      border: 1px solid var(--muted);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
-    .nav-logo-name {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: stretch;
-      list-style: none;
-      flex: 1;
-    }
-    .nav-links a {
-      display: flex;
-      align-items: center;
-      padding: 0 1.1rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--mid);
-      text-decoration: none;
-      border-right: 1px solid var(--border);
-      transition: color 0.2s, background 0.2s;
-      white-space: nowrap;
-    }
-    .nav-links a:hover { color: var(--white); background: var(--surface); }
-
-    .nav-end {
-      display: flex;
-      align-items: center;
-      padding: 0 1.5rem;
-      border-left: 1px solid var(--border);
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--border);
-      letter-spacing: 0.1em;
-      gap: 1.5rem;
-    }
-
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0 1.5rem;
-      flex-direction: column;
-      gap: 5px;
-      align-items: center;
-      justify-content: center;
-      margin-left: auto;
-    }
-    .hamburger span {
-      display: block; width: 18px; height: 1px;
-      background: var(--white);
-      transition: transform 0.25s, opacity 0.25s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none;
-      position: fixed; inset: 0; z-index: 99;
-      background: var(--bg);
-      flex-direction: column;
-      padding: 6rem 2.5rem 2.5rem;
-      gap: 0;
-      border-top: 1px solid var(--border);
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 2.5rem;
-      color: var(--white);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
-      letter-spacing: -0.01em;
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--muted); }
-
-    /* ── HERO ── */
-    #home {
-      min-height: 100vh;
-      padding-top: 56px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Large background number */
-    .hero-bg-num {
-      position: absolute;
-      right: -0.05em;
-      bottom: -0.15em;
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 30vw;
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1px var(--border);
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
-    }
-
-    .hero-main {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-left {
-      padding: 5rem 4rem 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-right: 1px solid var(--border);
-    }
-
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 3rem;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 32px; height: 1px;
-      background: var(--mid);
-    }
-
-    h1 {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(3.5rem, 7vw, 7.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      color: var(--white);
-      margin-bottom: 3rem;
-    }
-    h1 .serif {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-style: italic;
-      letter-spacing: -0.01em;
-    }
-
-    .hero-desc {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 500px;
-      line-height: 1.9;
-    }
-
-    .hero-right {
-      padding: 5rem 2.5rem 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .hero-meta-list { display: flex; flex-direction: column; gap: 0; }
-    .hero-meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .hm-label {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .hm-val {
-      font-size: 0.85rem;
-      color: var(--light);
-      line-height: 1.5;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--white);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 0.9rem 1.4rem;
-      transition: background 0.2s, border-color 0.2s;
-      margin-top: 2rem;
-      align-self: flex-start;
-    }
-    .hero-cta:hover { background: var(--white); color: var(--bg); border-color: var(--white); }
-    .hero-cta-arrow { transition: transform 0.2s; }
-    .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
-
-    .hero-bar {
-      display: flex;
-      border-top: 1px solid var(--border);
-      z-index: 1;
-      position: relative;
-    }
-    .hero-bar-item {
-      flex: 1;
-      padding: 1rem 2rem;
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .hero-bar-item:last-child { border-right: none; }
-    .hbi-num {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 1.6rem;
-      line-height: 1;
-      color: var(--white);
-    }
-    .hbi-label {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-
-    /* ── SECTIONS ── */
-    .sec {
-      border-top: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .sec.visible { opacity: 1; transform: none; }
-
-    .sec-head {
-      display: flex;
-      align-items: stretch;
-      border-bottom: 1px solid var(--border);
-      min-height: 100px;
-    }
-    .sec-num {
-      width: 80px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-right: 1px solid var(--border);
-      font-family: var(--mono);
-      font-size: 0.58rem;
-      color: var(--mid);
-      letter-spacing: 0.1em;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-    }
-    .sec-head-inner {
-      flex: 1;
-      padding: 2rem 3rem;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-    h2 {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(2.2rem, 4vw, 4rem);
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      color: var(--white);
-    }
-    h2 .serif {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-style: italic;
-    }
-    .sec-head-desc {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--mid);
-      letter-spacing: 0.06em;
-      line-height: 1.8;
-      max-width: 280px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .sec-body { padding: 3rem; }
-
-    /* ── RESEARCH ── */
-    .research-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .rg-item {
-      background: var(--bg);
-      padding: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.2s;
-    }
-    .rg-item:hover { background: var(--surface); }
-    .rg-n {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--border);
-      letter-spacing: 0.12em;
-      margin-bottom: 1.5rem;
-    }
-    .rg-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.8rem;
-      color: var(--white);
-    }
-    .rg-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-    .rg-corner {
-      position: absolute;
-      bottom: 1.5rem; right: 1.5rem;
-      font-family: var(--mono);
-      font-size: 2rem;
-      color: var(--border);
-      line-height: 1;
-    }
-
-    /* ── PUBLICATIONS ── */
-    .pub-item {
-      display: grid;
-      grid-template-columns: 56px 1fr auto;
-      gap: 2rem;
-      padding: 1.8rem 0;
-      border-bottom: 1px solid var(--border);
-      align-items: start;
-      transition: background 0.15s;
-    }
-    .pub-item:first-child { border-top: 1px solid var(--border); }
-    .pub-yr {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--mid);
-      padding-top: 3px;
-      letter-spacing: 0.06em;
-    }
-    .pub-title {
-      font-family: var(--serif);
-      font-size: 1rem;
-      font-style: italic;
-      line-height: 1.5;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
-    }
-    .pub-meta {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--mid);
-      letter-spacing: 0.04em;
-    }
-    .pub-links { display: flex; gap: 0.5rem; padding-top: 3px; }
-    .tag {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-      white-space: nowrap;
-    }
-    .tag:hover { border-color: var(--white); color: var(--white); }
-
-    /* ── NEWS ── */
-    .news-list { display: flex; flex-direction: column; gap: 0; }
-    .news-item {
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      border-bottom: 1px solid var(--border);
-      padding: 1.6rem 0;
-      gap: 2rem;
-      align-items: start;
-    }
-    .news-item:first-child { border-top: 1px solid var(--border); }
-    .ni-left { display: flex; flex-direction: column; gap: 6px; }
-    .ni-date {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--mid);
-      letter-spacing: 0.08em;
-    }
-    .ni-tag {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.5rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: fit-content;
-    }
-    .ni-text {
-      font-size: 0.9rem;
-      color: var(--light);
-      line-height: 1.8;
-    }
-
-    /* ── OPEN SCIENCE ── */
-    .os-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.5rem;
-    }
-    .os-card {
-      border: 1px solid var(--border);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: border-color 0.2s;
-    }
-    .os-card:hover { border-color: var(--muted); }
-    .os-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .os-glyph {
-      font-family: var(--mono);
-      font-size: 1.4rem;
-      color: var(--border);
-      line-height: 1;
-    }
-    .os-card-label {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .os-card-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--white);
-    }
-    .os-card p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.75;
-      flex: 1;
-    }
-    .os-card a {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 2px;
-      width: fit-content;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .os-card a:hover { color: var(--white); border-color: var(--white); }
-
-    /* ── SPEAKING ── */
-    .speaking-item {
-      display: grid;
-      grid-template-columns: 56px 1fr 160px 120px;
-      padding: 1.4rem 0;
-      border-bottom: 1px solid var(--border);
-      gap: 2rem;
-      align-items: center;
-      transition: background 0.15s;
-    }
-    .speaking-item:first-child { border-top: 1px solid var(--border); }
-    .si-yr {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--mid);
-    }
-    .si-name {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: -0.01em;
-      color: var(--white);
-    }
-    .si-loc {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--mid);
-      letter-spacing: 0.04em;
-    }
-    .si-type {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--border);
-      text-align: right;
-    }
-
-    /* ── CONTACT ── */
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    .contact-item {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      padding: 1.1rem 0;
-      border-bottom: 1px solid var(--border);
-      gap: 1rem;
-      align-items: center;
-    }
-    .contact-item:first-child { border-top: 1px solid var(--border); }
-    .ci-label {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--mid);
-    }
-    .ci-val {
-      font-size: 0.85rem;
-      color: var(--light);
-      text-decoration: none;
-      line-height: 1.5;
-    }
-    .ci-val:hover { text-decoration: underline; }
-    .contact-note {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 2;
-      margin-bottom: 2rem;
-    }
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--white);
-      text-decoration: none;
-      border: 1px solid var(--white);
-      padding: 0.9rem 1.6rem;
-      transition: background 0.2s;
-    }
-    .btn-outline:hover { background: var(--white); color: var(--bg); }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 3rem;
-      position: relative;
-      z-index: 1;
-    }
-    footer span {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      color: var(--border);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .nav-links, .nav-end { display: none; }
-      .hamburger { display: flex; }
-      .nav-logo { min-width: unset; }
-
-      .hero-main { grid-template-columns: 1fr; }
-      .hero-left { border-right: none; padding: 3rem 1.5rem 2rem; }
-      .hero-right { padding: 2rem 1.5rem; }
-      .hero-bar { flex-wrap: wrap; }
-      .hero-bar-item { min-width: 50%; }
-
-      .sec-head-desc { display: none; }
-      .sec-num { display: none; }
-      .sec-body { padding: 1.5rem; }
-      .sec-head-inner { padding: 1.5rem; }
-
-      .research-grid { grid-template-columns: 1fr; }
-      .pub-item { grid-template-columns: 40px 1fr; }
-      .pub-links { display: none; }
-      .os-grid { grid-template-columns: 1fr; }
-      .speaking-item { grid-template-columns: 40px 1fr; }
-      .si-loc, .si-type { display: none; }
-      .contact-wrap { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hugo Aerts — AI in Medicine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+:root {
+  --bg: #ffffff;
+  --fg: #0a0812;
+  --fg2: rgba(10,8,18,.48);
+  --fg3: rgba(10,8,18,.28);
+  --b: rgba(10,8,18,.07);
+  --g1: #7b2ff7;
+  --g2: #2b8fff;
+  --g3: #00d4aa;
+  --g4: #e040fb;
+}
+ 
+html { scroll-behavior: smooth; }
+ 
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+ 
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,.9);
+  border-bottom: 1px solid var(--b);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 60px;
+}
+ 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo-mark { width: 30px; height: 30px; }
+.logo-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg);
+  letter-spacing: -.02em;
+}
+ 
+.nav-links { display: flex; gap: .1rem; }
+.nav-link {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--fg2);
+  text-decoration: none;
+  padding: .35rem .85rem;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+  letter-spacing: -.01em;
+}
+.nav-link:hover { color: var(--fg); background: rgba(10,8,18,.04); }
+ 
+/* ── HERO ── */
+.hero {
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  position: relative;
+  overflow: hidden;
+}
+ 
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+ 
+.hero-left {
+  padding: 5rem 3rem 5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+ 
+.hero-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 3rem 3rem 5rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+ 
+.eyebrow {
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--fg3);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--fg3);
+  flex-shrink: 0;
+}
+ 
+h1 {
+  font-size: clamp(3rem, 5vw, 5.4rem);
+  font-weight: 200;
+  line-height: 1.02;
+  letter-spacing: -.04em;
+  margin-bottom: 1.8rem;
+}
+ 
+.grad {
+  background: linear-gradient(105deg, var(--g1), var(--g2), var(--g3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 300;
+}
+ 
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--fg2);
+  line-height: 1.8;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  letter-spacing: -.01em;
+}
+ 
+.hero-btns { display: flex; gap: .75rem; flex-wrap: wrap; }
+ 
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: linear-gradient(105deg, var(--g1), var(--g2));
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: .68rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  letter-spacing: -.01em;
+  transition: opacity .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { opacity: .85; }
+ 
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: transparent;
+  color: var(--fg);
+  font-size: 12.5px;
+  font-weight: 400;
+  padding: .68rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid rgba(10,8,18,.12);
+  letter-spacing: -.01em;
+  transition: background .15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-ghost:hover { background: rgba(10,8,18,.04); }
+ 
+/* ── HEADSHOT ── */
+.headshot-wrap { position: relative; display: inline-block; }
+ 
+.headshot {
+  width: 270px;
+  height: 330px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(10,8,18,.1);
+  background: linear-gradient(135deg, #f0edf8, #e8f3fe);
+  position: relative;
+}
+ 
+.headshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+ 
+.headshot-fallback {
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: 200;
+  color: rgba(10,8,18,.15);
+  letter-spacing: -.04em;
+}
+ 
+.headshot-badge {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid var(--b);
+  border-radius: 9px;
+  padding: .48rem 1.1rem;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--fg2);
+  letter-spacing: -.01em;
+  box-shadow: 0 2px 16px rgba(10,8,18,.06);
+}
+ 
+/* ── STATS ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--b);
+  border-bottom: 1px solid var(--b);
+}
+ 
+.stat {
+  padding: 1.8rem 3rem;
+  text-align: center;
+  border-right: 1px solid var(--b);
+}
+.stat:last-child { border-right: none; }
+ 
+.stat-num {
+  font-size: 2.1rem;
+  font-weight: 200;
+  letter-spacing: -.05em;
+  line-height: 1;
+  background: linear-gradient(105deg, var(--g1), var(--g2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.stat-label {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--fg3);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  margin-top: .35rem;
+}
+ 
+/* ── SECTIONS ── */
+.section {
+  padding: 5.5rem 3rem;
+  border-bottom: 1px solid var(--b);
+}
+.section:last-of-type { border-bottom: none; }
+ 
+.section-label {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.section-label::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--fg3);
+  flex-shrink: 0;
+}
+ 
+.section-heading {
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-weight: 200;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  margin-bottom: 1.1rem;
+}
+ 
+.grad2 {
+  background: linear-gradient(105deg, var(--g2), var(--g3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.section-subtext {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--fg2);
+  line-height: 1.82;
+  max-width: 580px;
+  letter-spacing: -.01em;
+  margin-bottom: 2.8rem;
+}
+ 
+/* ── RESEARCH GRID ── */
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--b);
+  border-radius: 14px;
+  overflow: hidden;
+}
+ 
+.research-card {
+  background: #fff;
+  padding: 2.2rem 2rem;
+  border-right: 1px solid var(--b);
+  border-bottom: 1px solid var(--b);
+  transition: background .15s;
+}
+.research-card:nth-child(3n) { border-right: none; }
+.research-card:nth-child(4),
+.research-card:nth-child(5),
+.research-card:nth-child(6) { border-bottom: none; }
+.research-card:hover { background: #fafafa; }
+ 
+.research-icon {
+  font-size: 18px;
+  color: rgba(10,8,18,.22);
+  margin-bottom: 1.3rem;
+  display: block;
+}
+ 
+.research-title {
+  font-size: .97rem;
+  font-weight: 500;
+  line-height: 1.32;
+  letter-spacing: -.02em;
+  margin-bottom: .5rem;
+}
+ 
+.research-desc {
+  font-size: .84rem;
+  color: var(--fg2);
+  line-height: 1.68;
+  font-weight: 300;
+}
+ 
+/* ── PUBLICATIONS ── */
+.pub-list { margin-top: 1.5rem; }
+ 
+.pub-row {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr auto;
+  gap: 1.2rem;
+  align-items: baseline;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--b);
+}
+.pub-row:first-child { border-top: 1px solid var(--b); }
+ 
+.pub-year {
+  font-size: 11px;
+  color: var(--fg3);
+  font-family: ui-monospace, monospace;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+ 
+.pub-title {
+  font-size: .95rem;
+  font-weight: 400;
+  line-height: 1.44;
+  letter-spacing: -.015em;
+  margin-bottom: .22rem;
+}
+ 
+.pub-meta {
+  font-size: 11px;
+  color: var(--fg2);
+  font-weight: 300;
+  font-style: italic;
+}
+ 
+.pub-badge {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+  border: 1px solid;
+  flex-shrink: 0;
+  align-self: start;
+  margin-top: 2px;
+}
+.pub-badge.oa {
+  border-color: rgba(0,212,170,.35);
+  color: #008f72;
+  background: rgba(0,212,170,.07);
+}
+.pub-badge.peer {
+  border-color: var(--b);
+  color: var(--fg3);
+  background: transparent;
+}
+ 
+/* ── PRESS ── */
+.press-bar {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+  flex-wrap: wrap;
+  padding: 1.4rem 2rem;
+  border: 1px solid var(--b);
+  border-radius: 11px;
+  margin-bottom: 2.8rem;
+}
+ 
+.press-label {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+ 
+.press-logo {
+  opacity: .28;
+  filter: grayscale(1);
+  transition: opacity .2s;
+  flex-shrink: 0;
+}
+.press-logo:hover { opacity: .6; }
+ 
+/* ── NEWS GRID ── */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--b);
+  border-radius: 14px;
+  overflow: hidden;
+}
+ 
+.news-card {
+  background: #fff;
+  padding: 1.9rem;
+  border-right: 1px solid var(--b);
+  border-bottom: 1px solid var(--b);
+  transition: background .15s;
+}
+.news-card:nth-child(3n) { border-right: none; }
+.news-card:nth-child(4),
+.news-card:nth-child(5),
+.news-card:nth-child(6) { border-bottom: none; }
+.news-card:hover { background: #fafafa; }
+ 
+.news-date {
+  font-size: 10px;
+  font-family: ui-monospace, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: .75rem;
+}
+ 
+.news-title {
+  font-size: .93rem;
+  font-weight: 400;
+  line-height: 1.48;
+  letter-spacing: -.015em;
+  margin-bottom: .4rem;
+}
+ 
+.news-source {
+  font-size: 10.5px;
+  color: var(--fg3);
+  font-weight: 300;
+}
+ 
+/* ── SPEAKING ── */
+.speaking-list { margin-top: 1.5rem; }
+ 
+.speaking-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--b);
+  gap: 1.4rem;
+  align-items: start;
+}
+.speaking-row:first-child { border-top: 1px solid var(--b); }
+ 
+.speaking-date {
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+  color: var(--fg3);
+  line-height: 1.75;
+  padding-top: 2px;
+}
+ 
+.speaking-upcoming {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--g1);
+  background: rgba(123,47,247,.07);
+  border: 1px solid rgba(123,47,247,.2);
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-top: 4px;
+}
+ 
+.speaking-title {
+  font-size: .95rem;
+  font-weight: 400;
+  letter-spacing: -.015em;
+  margin-bottom: .25rem;
+  line-height: 1.4;
+}
+ 
+.speaking-venue {
+  font-size: 11.5px;
+  color: var(--fg2);
+  font-weight: 300;
+}
+ 
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+ 
+.contact-big {
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
+  font-weight: 200;
+  line-height: .95;
+  letter-spacing: -.045em;
+  margin-bottom: 2.2rem;
+}
+ 
+.grad3 {
+  background: linear-gradient(105deg, var(--g4), var(--g1), var(--g2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+ 
+.contact-link {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--fg2);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .3rem 0;
+  letter-spacing: -.01em;
+  transition: color .15s;
+}
+.contact-link:hover { color: var(--fg); }
+.contact-link::before {
+  content: '';
+  width: 13px;
+  height: 1px;
+  background: currentColor;
+  opacity: .3;
+  flex-shrink: 0;
+}
+ 
+.contact-cards { display: flex; flex-direction: column; gap: .8rem; }
+ 
+.contact-card {
+  padding: 1.7rem;
+  border: 1px solid var(--b);
+  border-radius: 11px;
+}
+ 
+.contact-card-label {
+  font-size: 9.5px;
+  font-family: ui-monospace, monospace;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin-bottom: .65rem;
+}
+ 
+.contact-card-value {
+  font-size: .89rem;
+  color: var(--fg2);
+  line-height: 2;
+  font-weight: 300;
+}
+ 
+/* ── FOOTER ── */
+footer {
+  padding: 1.6rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--b);
+}
+.footer-left, .footer-right {
+  font-size: 11px;
+  color: var(--fg3);
+  letter-spacing: -.01em;
+}
+ 
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.hero-left > * {
+  animation: fadeUp .7s ease both;
+}
+.hero-left > *:nth-child(1) { animation-delay: .05s; }
+.hero-left > *:nth-child(2) { animation-delay: .15s; }
+.hero-left > *:nth-child(3) { animation-delay: .25s; }
+.hero-left > *:nth-child(4) { animation-delay: .35s; }
+ 
+.hero-right {
+  animation: fadeUp .8s .2s ease both;
+}
+</style>
 </head>
 <body>
-
-  <!-- Mobile menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#home" onclick="closeMobile()">Home</a>
-    <a href="#research" onclick="closeMobile()">Research</a>
-    <a href="#publications" onclick="closeMobile()">Publications</a>
-    <a href="#news" onclick="closeMobile()">News</a>
-    <a href="#open-science" onclick="closeMobile()">Open Science</a>
-    <a href="#speaking" onclick="closeMobile()">Speaking</a>
-    <a href="#contact" onclick="closeMobile()">Contact</a>
-  </div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#home" class="nav-logo">
-      <div class="nav-logo-mark">JD</div>
-      <span class="nav-logo-name">Dr. Jane Doe</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#news">News</a></li>
-      <li><a href="#open-science">Open Science</a></li>
-      <li><a href="#speaking">Speaking</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-end">
-      <span id="navTime">—</span>
-      <span>AMS</span>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+ 
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <svg class="logo-mark" viewBox="0 0 30 30" fill="none">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#7b2ff7"/>
+          <stop offset="55%" stop-color="#2b8fff"/>
+          <stop offset="100%" stop-color="#00d4aa"/>
+        </linearGradient>
+      </defs>
+      <circle cx="15" cy="15" r="14" stroke="url(#lg)" stroke-width="1.4" fill="none"/>
+      <path d="M8.5 9.5v11M8.5 15h7M15.5 9.5v11" stroke="url(#lg)" stroke-width="1.7" stroke-linecap="round"/>
+      <circle cx="22" cy="15" r="3.8" stroke="url(#lg)" stroke-width="1.1" fill="none" opacity=".6"/>
+      <circle cx="22" cy="15" r="1.3" fill="url(#lg)"/>
+    </svg>
+    <span class="logo-text">Hugo Aerts</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#research"     class="nav-link">Research</a>
+    <a href="#publications" class="nav-link">Publications</a>
+    <a href="#news"         class="nav-link">News</a>
+    <a href="#speaking"     class="nav-link">Speaking</a>
+    <a href="#contact"      class="nav-link">Contact</a>
   </nav>
-
-  <!-- HERO -->
-  <section id="home">
-    <div class="hero-bg-num">01</div>
-    <div class="hero-main">
-      <div class="hero-left">
-        <div>
-          <div class="hero-eyebrow">Cognitive Neuroscientist — University of Amsterdam</div>
-          <h1>The<br><span class="serif">architecture</span><br>of thought.</h1>
-        </div>
-        <p class="hero-desc">Studying how the brain constructs meaning from uncertainty — at the intersection of perception, memory, and language. Rigor as a form of care.</p>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+ 
+  <div class="hero-left">
+    <p class="eyebrow">Professor · Harvard &amp; Maastricht University</p>
+    <h1>AI that sees<br>what medicine<br><span class="grad">cannot yet see.</span></h1>
+    <p class="hero-sub">I'm Hugo Aerts — director of the AI in Medicine program at Mass General Brigham and Harvard. My lab builds deep learning systems that decode disease from medical images, unlocking biomarkers that transform how we predict and treat cancer.</p>
+    <div class="hero-btns">
+      <a href="#research"                                   class="btn-primary">Explore research ↗</a>
+      <a href="https://aim.mgh.harvard.edu" target="_blank" class="btn-ghost">AIM Lab ↗</a>
+      <a href="#contact"                                    class="btn-ghost">Contact</a>
+    </div>
+  </div>
+ 
+  <div class="hero-right">
+    <div class="headshot-wrap">
+      <div class="headshot">
+        <img
+          src="https://aim.mgh.harvard.edu/content/dam/32a/32a60f72-7a19-4e7d-a18d-3c5ac19f8f78/hugo-headshot.jpeg"
+          alt="Hugo Aerts"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        >
+        <div class="headshot-fallback">HA</div>
       </div>
-      <div class="hero-right">
-        <div class="hero-meta-list">
-          <div class="hero-meta-item">
-            <span class="hm-label">Position</span>
-            <span class="hm-val">Associate Professor</span>
-          </div>
-          <div class="hero-meta-item">
-            <span class="hm-label">Institution</span>
-            <span class="hm-val">University of Amsterdam</span>
-          </div>
-          <div class="hero-meta-item">
-            <span class="hm-label">Department</span>
-            <span class="hm-val">Brain & Cognition</span>
-          </div>
-          <div class="hero-meta-item">
-            <span class="hm-label">Research Focus</span>
-            <span class="hm-val">Perception · Memory<br>Language · Computation</span>
-          </div>
-          <div class="hero-meta-item">
-            <span class="hm-label">Status</span>
-            <span class="hm-val">Open to collaboration</span>
-          </div>
-        </div>
-        <a href="#contact" class="hero-cta">Get in touch <span class="hero-cta-arrow">→</span></a>
+      <div class="headshot-badge">Director, AIM — Harvard · MGB</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">80k+</div>
+    <div class="stat-label">Citations</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">428</div>
+    <div class="stat-label">Publications</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">Top 1%</div>
+    <div class="stat-label">Cited worldwide</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">€2M</div>
+    <div class="stat-label">ERC Consolidator Grant</div>
+  </div>
+</div>
+ 
+<!-- RESEARCH -->
+<section class="section" id="research">
+  <div class="section-label">Research</div>
+  <h2 class="section-heading">Teaching machines to read<br>the <span class="grad2">language of disease</span></h2>
+  <p class="section-subtext">Our lab develops deep learning approaches that integrate medical imaging, pathology, and genomic data to drive precision medicine — working at the intersection of radiology, oncology, cardiology, and bioinformatics.</p>
+ 
+  <div class="research-grid">
+    <div class="research-card">
+      <span class="research-icon">⬡</span>
+      <div class="research-title">Radiomics &amp; deep radiomics</div>
+      <div class="research-desc">Quantifying thousands of imaging features from CT, PET, and MRI to build non-invasive biomarkers predicting tumour biology and survival. Our seminal 2014 Nature Comm. paper has 4,600+ citations.</div>
+    </div>
+    <div class="research-card">
+      <span class="research-icon">◈</span>
+      <div class="research-title">Foundation models for medicine</div>
+      <div class="research-desc">Large-scale self-supervised models pre-trained on 11 million medical images to discover novel cancer imaging biomarkers — dramatically reducing reliance on labelled training data.</div>
+    </div>
+    <div class="research-card">
+      <span class="research-icon">♡</span>
+      <div class="research-title">AI in cardiology — DeepCAC</div>
+      <div class="research-desc">Predicting cardiovascular risk from routine chest X-rays and CT. Linking cancer therapy toxicity to heart disease via AI-automated body composition. Featured on CNN Morning Show, 2022.</div>
+    </div>
+    <div class="research-card">
+      <span class="research-icon">◉</span>
+      <div class="research-title">FaceAge — biological ageing</div>
+      <div class="research-desc">Deep learning system estimating biological age from facial photographs, achieving ~80% accuracy predicting cancer patient survival. Published in Lancet Digital Health, 2025. Covered by NYT, WaPo, CNN, BBC.</div>
+    </div>
+    <div class="research-card">
+      <span class="research-icon">⌬</span>
+      <div class="research-title">Radiogenomics</div>
+      <div class="research-desc">Linking imaging phenotypes to molecular and genomic profiles — developing multimodal AI that integrates CT scans, genomics, and pathology slides to understand tumour biology non-invasively.</div>
+    </div>
+    <div class="research-card">
+      <span class="research-icon">⬚</span>
+      <div class="research-title">LLMs in clinical care</div>
+      <div class="research-desc">Evaluating and developing large language models for patient messaging, cancer treatment recommendations, and extraction of social determinants of health from clinical notes.</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PUBLICATIONS -->
+<section class="section" id="publications" style="padding-top: 0; border-top: none;">
+  <div class="section-label">Selected publications</div>
+ 
+  <div class="pub-list">
+    <div class="pub-row">
+      <span class="pub-year">2025</span>
+      <div>
+        <div class="pub-title">FaceAge: a deep learning system to estimate biological age from face photographs to improve cancer prognostication</div>
+        <div class="pub-meta">Lancet Digital Health · Bontempi D, Zalay O, Bitterman DS … Aerts HJWL · Covered by NYT, Washington Post, CNN, BBC</div>
+      </div>
+      <span class="pub-badge oa">Open Access</span>
+    </div>
+    <div class="pub-row">
+      <span class="pub-year">2025</span>
+      <div>
+        <div class="pub-title">Responding to patient messages using large language models in oncology care</div>
+        <div class="pub-meta">Lancet Digital Health · Chen S, Guevara M … Aerts HJWL</div>
+      </div>
+      <span class="pub-badge oa">Open Access</span>
+    </div>
+    <div class="pub-row">
+      <span class="pub-year">2024</span>
+      <div>
+        <div class="pub-title">A foundation model for cancer imaging biomarkers trained on 11 million medical images</div>
+        <div class="pub-meta">Nature Communications · Pai S, Bontempi D … Aerts HJWL · Highlighted by ScienceMag, ecancer, MGB News</div>
+      </div>
+      <span class="pub-badge oa">Open Access</span>
+    </div>
+    <div class="pub-row">
+      <span class="pub-year">2023</span>
+      <div>
+        <div class="pub-title">AI applied to chest X-rays as a new biomarker source for cancer prognosis</div>
+        <div class="pub-meta">Nature Communications · Weiss J, Raghu VK, Lu MT … Aerts HJWL</div>
+      </div>
+      <span class="pub-badge oa">Open Access</span>
+    </div>
+    <div class="pub-row">
+      <span class="pub-year">2022</span>
+      <div>
+        <div class="pub-title">Deep learning to predict cardiovascular risk from chest radiographs — validated on 40,000+ patients</div>
+        <div class="pub-meta">Nature Medicine · Lu MT, Raghu VK … Aerts HJWL · Featured on CNN Morning Show</div>
+      </div>
+      <span class="pub-badge oa">Open Access</span>
+    </div>
+    <div class="pub-row">
+      <span class="pub-year">2017</span>
+      <div>
+        <div class="pub-title">Decoding tumour phenotype by noninvasive imaging using a quantitative radiomics approach</div>
+        <div class="pub-meta">Nature Communications · Aerts HJWL et al. · 4,600+ citations — most-cited radiomics paper worldwide</div>
+      </div>
+      <span class="pub-badge oa">Open Access</span>
+    </div>
+  </div>
+ 
+  <div style="margin-top: 1.4rem;">
+    <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="btn-ghost" style="font-size: 12px;">
+      Full list on Google Scholar — 428 papers, 80k+ citations ↗
+    </a>
+  </div>
+</section>
+ 
+<!-- NEWS -->
+<section class="section" id="news">
+  <div class="section-label">News &amp; press</div>
+  <h2 class="section-heading">As seen <span class="grad2">in the news</span></h2>
+ 
+  <div class="press-bar">
+    <span class="press-label">Featured in</span>
+ 
+    <svg class="press-logo" height="18" viewBox="0 0 58 22">
+      <text y="18" font-family="Arial Black, Arial" font-weight="900" font-size="20" fill="#cc0000">CNN</text>
+    </svg>
+ 
+    <svg class="press-logo" height="14" viewBox="0 0 195 17">
+      <text y="14" font-family="Georgia, Times New Roman, serif" font-weight="700" font-size="14" fill="#000" letter-spacing=".3">The New York Times</text>
+    </svg>
+ 
+    <svg class="press-logo" height="13" viewBox="0 0 200 16">
+      <text y="13" font-family="Georgia, Times New Roman, serif" font-weight="700" font-size="13" fill="#000">The Washington Post</text>
+    </svg>
+ 
+    <svg class="press-logo" height="18" viewBox="0 0 64 20">
+      <rect x="0"  y="1" width="17" height="17" fill="#000"/>
+      <rect x="23" y="1" width="17" height="17" fill="#000"/>
+      <rect x="46" y="1" width="17" height="17" fill="#000"/>
+      <text x="3"  y="14" font-family="Arial" font-weight="900" font-size="11" fill="#fff">B</text>
+      <text x="26" y="14" font-family="Arial" font-weight="900" font-size="11" fill="#fff">B</text>
+      <text x="49" y="14" font-family="Arial" font-weight="900" font-size="11" fill="#fff">C</text>
+    </svg>
+ 
+    <svg class="press-logo" height="13" viewBox="0 0 84 16">
+      <text y="13" font-family="Arial Black, Arial" font-weight="900" font-size="14" fill="#000" letter-spacing="1.5">FORBES</text>
+    </svg>
+ 
+    <svg class="press-logo" height="15" viewBox="0 0 40 19">
+      <text y="15" font-family="Georgia, Times New Roman, serif" font-weight="700" font-size="17" fill="#000">WSJ</text>
+    </svg>
+ 
+    <svg class="press-logo" height="14" viewBox="0 0 70 18">
+      <text y="14" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#000">Nature</text>
+    </svg>
+ 
+    <svg class="press-logo" height="13" viewBox="0 0 80 17">
+      <text y="13" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#000" letter-spacing="1">SCIENCE</text>
+    </svg>
+ 
+    <svg class="press-logo" height="15" viewBox="0 0 44 19">
+      <text y="15" font-family="Arial Black, Arial" font-weight="900" font-size="17" fill="#000">NPR</text>
+    </svg>
+  </div>
+ 
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-date">May 2025 · The New York Times</div>
+      <div class="news-title">An AI can guess your biological age from a selfie. Here's what doctors think.</div>
+      <div class="news-source">FaceAge · Lancet Digital Health 2025</div>
+    </div>
+    <div class="news-card">
+      <div class="news-date">May 2025 · The Washington Post</div>
+      <div class="news-title">AI estimates biological age from face photos — and it could reshape cancer prognosis</div>
+      <div class="news-source">FaceAge · Mass General Brigham</div>
+    </div>
+    <div class="news-card">
+      <div class="news-date">May 2025 · CNN</div>
+      <div class="news-title">Scientists develop AI that reads your biological age from a photograph</div>
+      <div class="news-source">FaceAge · AIM Program, Harvard</div>
+    </div>
+    <div class="news-card">
+      <div class="news-date">May 2025 · BBC / ScienceAlert</div>
+      <div class="news-title">A revolutionary algorithm picks your biological age from a photo</div>
+      <div class="news-source">Lancet Digital Health · Harvard MGB</div>
+    </div>
+    <div class="news-card">
+      <div class="news-date">2022 · CNN Morning Show</div>
+      <div class="news-title">Harvard AI predicts heart disease risk from a routine chest X-ray</div>
+      <div class="news-source">Nature Medicine · DeepCAC · AIM Harvard</div>
+    </div>
+    <div class="news-card">
+      <div class="news-date">2024 · Science / ScienceMag</div>
+      <div class="news-title">Foundation model trained on 11 million medical scans finds new cancer biomarkers</div>
+      <div class="news-source">Nature Communications · AIM Harvard</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- SPEAKING -->
+<section class="section" id="speaking">
+  <div class="section-label">Speaking</div>
+  <h2 class="section-heading">Talks &amp; <span class="grad2">keynotes</span></h2>
+ 
+  <div class="speaking-list">
+    <div class="speaking-row">
+      <div class="speaking-date">2026<br><span class="speaking-upcoming">Upcoming</span></div>
+      <div>
+        <div class="speaking-title">The next frontier of AI in oncology imaging — from biomarkers to clinical deployment</div>
+        <div class="speaking-venue">MICCAI 2026 Keynote · Marrakech, Morocco</div>
       </div>
     </div>
-    <div class="hero-bar">
-      <div class="hero-bar-item">
-        <span class="hbi-num">24</span>
-        <span class="hbi-label">Publications</span>
-      </div>
-      <div class="hero-bar-item">
-        <span class="hbi-num">1.4k</span>
-        <span class="hbi-label">Citations</span>
-      </div>
-      <div class="hero-bar-item">
-        <span class="hbi-num">€1.2M</span>
-        <span class="hbi-label">ERC Grant</span>
-      </div>
-      <div class="hero-bar-item">
-        <span class="hbi-num">14</span>
-        <span class="hbi-label">Countries spoken</span>
+    <div class="speaking-row">
+      <div class="speaking-date">Apr 2026</div>
+      <div>
+        <div class="speaking-title">FaceAge and biological age estimation as a clinical tool in cancer treatment planning</div>
+        <div class="speaking-venue">AACR Annual Meeting · Chicago, USA</div>
       </div>
     </div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section id="research" class="sec">
-    <div class="sec-head">
-      <div class="sec-num">§ 01 — Research</div>
-      <div class="sec-head-inner">
-        <h2>Active <span class="serif">enquiry</span></h2>
-        <div class="sec-head-desc">Four research streams.<br>Twelve active projects.<br>Eight lab members.</div>
+    <div class="speaking-row">
+      <div class="speaking-date">2025</div>
+      <div>
+        <div class="speaking-title">Foundation models for medical imaging: progress, pitfalls, and the path to clinical use</div>
+        <div class="speaking-venue">RSNA Annual Meeting · Chicago, USA</div>
       </div>
     </div>
-    <div class="sec-body">
-      <div class="research-grid">
-        <div class="rg-item">
-          <div class="rg-n">01 / 04</div>
-          <div class="rg-title">Predictive Perception</div>
-          <div class="rg-desc">How prior knowledge shapes what we see, hear, and feel — and when those predictions fail us in meaningful ways.</div>
-          <div class="rg-corner">→</div>
-        </div>
-        <div class="rg-item">
-          <div class="rg-n">02 / 04</div>
-          <div class="rg-title">Memory Consolidation</div>
-          <div class="rg-desc">The slow process by which experience becomes knowledge. Sleep, time, and the gradual rewriting of what we remember.</div>
-          <div class="rg-corner">→</div>
-        </div>
-        <div class="rg-item">
-          <div class="rg-n">03 / 04</div>
-          <div class="rg-title">Language & Thought</div>
-          <div class="rg-desc">Whether language shapes the concepts we can form — and what happens at the boundaries of the unspeakable.</div>
-          <div class="rg-corner">→</div>
-        </div>
-        <div class="rg-item">
-          <div class="rg-n">04 / 04</div>
-          <div class="rg-title">Computational Models</div>
-          <div class="rg-desc">Building formal models precise enough to be proven wrong — and sometimes, remarkably, aren't.</div>
-          <div class="rg-corner">→</div>
-        </div>
+    <div class="speaking-row">
+      <div class="speaking-date">2024</div>
+      <div>
+        <div class="speaking-title">Large language models for clinical oncology — reliability, bias, and real-world deployment</div>
+        <div class="speaking-venue">ASCO Annual Meeting · Chicago, USA</div>
       </div>
     </div>
-  </section>
-
-  <!-- PUBLICATIONS -->
-  <section id="publications" class="sec">
-    <div class="sec-head">
-      <div class="sec-num">§ 02 — Publications</div>
-      <div class="sec-head-inner">
-        <h2>Selected <span class="serif">work</span></h2>
-        <div class="sec-head-desc">h-index 14 · 1,400+ citations<br>Full list on Google Scholar.</div>
+    <div class="speaking-row">
+      <div class="speaking-date">2023</div>
+      <div>
+        <div class="speaking-title">Artificial intelligence for medical imaging — from radiomics to deep learning at scale</div>
+        <div class="speaking-venue">CANSSI Ontario STAGE Invited Speaker · University of Toronto</div>
       </div>
     </div>
-    <div class="sec-body">
-      <div class="pub-item">
-        <div class="pub-yr">2024</div>
-        <div>
-          <div class="pub-title">The Quiet Architecture of Expectation: Predictive Coding in Naturalistic Scenes</div>
-          <div class="pub-meta">Nature Neuroscience · Doe J., Vermeer L., Singh R. et al.</div>
-        </div>
-        <div class="pub-links"><a href="#" class="tag">PDF</a><a href="#" class="tag">DOI</a></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-yr">2023</div>
-        <div>
-          <div class="pub-title">Sleep-Dependent Memory Transformation in Episodic Recall</div>
-          <div class="pub-meta">Journal of Neuroscience · Doe J., Hartmann K.</div>
-        </div>
-        <div class="pub-links"><a href="#" class="tag">PDF</a></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-yr">2022</div>
-        <div>
-          <div class="pub-title">Linguistic Relativity Revisited: fMRI Evidence for Language-Mediated Conceptual Structure</div>
-          <div class="pub-meta">PNAS · Doe J., Chen W., Okafor M., Brandt S.</div>
-        </div>
-        <div class="pub-links"><a href="#" class="tag">PDF</a><a href="#" class="tag">DOI</a></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-yr">2021</div>
-        <div>
-          <div class="pub-title">Uncertainty as Signal: A Computational Account of Perceptual Ambiguity</div>
-          <div class="pub-meta">Psychological Review · Doe J.</div>
-        </div>
-        <div class="pub-links"><a href="#" class="tag">PDF</a></div>
+    <div class="speaking-row">
+      <div class="speaking-date">2022</div>
+      <div>
+        <div class="speaking-title">Radiomics: there is more than meets the eye in medical imaging</div>
+        <div class="speaking-venue">SPIE Medical Imaging Plenary · San Diego, USA</div>
       </div>
     </div>
-  </section>
-
-  <!-- NEWS -->
-  <section id="news" class="sec">
-    <div class="sec-head">
-      <div class="sec-num">§ 03 — News</div>
-      <div class="sec-head-inner">
-        <h2>Latest <span class="serif">updates</span></h2>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-label">Contact</div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-big">Let's talk<br><span class="grad3">science.</span></div>
+      <div class="contact-links">
+        <a href="mailto:haerts@bwh.harvard.edu"                           class="contact-link">haerts@bwh.harvard.edu</a>
+        <a href="https://aim.mgh.harvard.edu"             target="_blank" class="contact-link">aim.mgh.harvard.edu</a>
+        <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ"  target="_blank" class="contact-link">Google Scholar</a>
+        <a href="https://orcid.org/0000-0002-2122-2003"   target="_blank" class="contact-link">ORCID: 0000-0002-2122-2003</a>
+        <a href="https://twitter.com/aim_harvard"         target="_blank" class="contact-link">Twitter — @AIM_Harvard</a>
+        <a href="https://www.linkedin.com/in/hugoaerts/"  target="_blank" class="contact-link">LinkedIn</a>
       </div>
     </div>
-    <div class="sec-body">
-      <div class="news-list">
-        <div class="news-item">
-          <div class="ni-left">
-            <span class="ni-date">May 2025</span>
-            <span class="ni-tag">Grant</span>
-          </div>
-          <div class="ni-text">Awarded a €1.2M ERC Starting Grant to study cross-cultural variation in predictive processing. Recruitment begins autumn 2025.</div>
-        </div>
-        <div class="news-item">
-          <div class="ni-left">
-            <span class="ni-date">Mar 2025</span>
-            <span class="ni-tag">Publication</span>
-          </div>
-          <div class="ni-text">New paper in Nature Neuroscience on predictive coding in naturalistic visual scenes. Open access via bioRxiv preprint.</div>
-        </div>
-        <div class="news-item">
-          <div class="ni-left">
-            <span class="ni-date">Jan 2025</span>
-            <span class="ni-tag">Position</span>
-          </div>
-          <div class="ni-text">Joined the University of Amsterdam as Associate Professor in Cognitive Neuroscience.</div>
-        </div>
-        <div class="news-item">
-          <div class="ni-left">
-            <span class="ni-date">Oct 2024</span>
-            <span class="ni-tag">Talk</span>
-          </div>
-          <div class="ni-text">Keynote at the European Conference on Visual Perception (ECVP) in Groningen on perceptual uncertainty.</div>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-card-label">Harvard / Boston</div>
+        <div class="contact-card-value">
+          AI in Medicine (AIM) Program<br>
+          Mass General Brigham<br>
+          75 Francis St, Boston MA 02115<br>
+          United States
         </div>
       </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Maastricht</div>
+        <div class="contact-card-value">
+          Department of Precision Medicine<br>
+          Maastricht University<br>
+          P.O. Box 616, 6200 MD Maastricht<br>
+          Netherlands
+        </div>
+      </div>
+      <a href="#" class="btn-primary" style="display: flex; justify-content: center; width: 100%;">
+        Download CV ↓
+      </a>
     </div>
-  </section>
-
-  <!-- OPEN SCIENCE -->
-  <section id="open-science" class="sec">
-    <div class="sec-head">
-      <div class="sec-num">§ 04 — Open Science</div>
-      <div class="sec-head-inner">
-        <h2>Science <span class="serif">belongs</span><br>to everyone</h2>
-        <div class="sec-head-desc">Full transparency.<br>Open data, code, methods.</div>
-      </div>
-    </div>
-    <div class="sec-body">
-      <div class="os-grid">
-        <div class="os-card">
-          <div class="os-card-top">
-            <div class="os-glyph">∅</div>
-            <div class="os-card-label">Data</div>
-          </div>
-          <div class="os-card-title">Open Datasets</div>
-          <p>All raw and processed datasets deposited on OSF and Zenodo under CC0 licenses — no restrictions on use.</p>
-          <a href="#">View on OSF →</a>
-        </div>
-        <div class="os-card">
-          <div class="os-card-top">
-            <div class="os-glyph">&lt;/&gt;</div>
-            <div class="os-card-label">Code</div>
-          </div>
-          <div class="os-card-title">GitHub Repository</div>
-          <p>Analysis pipelines, experiment code, and computational models — fully documented and version controlled.</p>
-          <a href="#">View on GitHub →</a>
-        </div>
-        <div class="os-card">
-          <div class="os-card-top">
-            <div class="os-glyph">⊕</div>
-            <div class="os-card-label">Preregistration</div>
-          </div>
-          <div class="os-card-title">Pre-registered Studies</div>
-          <p>Hypotheses and analysis plans registered before data collection. Available on OSF for all studies from 2020.</p>
-          <a href="#">View registry →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SPEAKING -->
-  <section id="speaking" class="sec">
-    <div class="sec-head">
-      <div class="sec-num">§ 05 — Speaking</div>
-      <div class="sec-head-inner">
-        <h2>Talks &amp; <span class="serif">lectures</span></h2>
-        <div class="sec-head-desc">31 invited talks.<br>14 countries.</div>
-      </div>
-    </div>
-    <div class="sec-body">
-      <div class="speaking-item">
-        <div class="si-yr">2025</div>
-        <div class="si-name">ECVP Keynote</div>
-        <div class="si-loc">Groningen, NL</div>
-        <div class="si-type">Keynote</div>
-      </div>
-      <div class="speaking-item">
-        <div class="si-yr">2024</div>
-        <div class="si-name">Cognitive Neuroscience Society</div>
-        <div class="si-loc">Toronto, CA</div>
-        <div class="si-type">Invited Talk</div>
-      </div>
-      <div class="speaking-item">
-        <div class="si-yr">2024</div>
-        <div class="si-name">Max Planck Institute Colloquium</div>
-        <div class="si-loc">Frankfurt, DE</div>
-        <div class="si-type">Colloquium</div>
-      </div>
-      <div class="speaking-item">
-        <div class="si-yr">2023</div>
-        <div class="si-name">NeurIPS Workshop</div>
-        <div class="si-loc">New Orleans, USA</div>
-        <div class="si-type">Workshop</div>
-      </div>
-      <div class="speaking-item">
-        <div class="si-yr">2023</div>
-        <div class="si-name">The Brain Forum</div>
-        <div class="si-loc">Amsterdam, NL</div>
-        <div class="si-type">Public Lecture</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="sec">
-    <div class="sec-head">
-      <div class="sec-num">§ 06 — Contact</div>
-      <div class="sec-head-inner">
-        <h2>Get in <span class="serif">touch</span></h2>
-      </div>
-    </div>
-    <div class="sec-body">
-      <div class="contact-wrap">
-        <div>
-          <div class="contact-item">
-            <span class="ci-label">Email</span>
-            <a href="mailto:j.doe@uva.nl" class="ci-val">j.doe@uva.nl</a>
-          </div>
-          <div class="contact-item">
-            <span class="ci-label">Institution</span>
-            <span class="ci-val">University of Amsterdam</span>
-          </div>
-          <div class="contact-item">
-            <span class="ci-label">Office</span>
-            <span class="ci-val">REC G 4.02 · Nieuwe Achtergracht 129 · Amsterdam</span>
-          </div>
-          <div class="contact-item">
-            <span class="ci-label">Scholar</span>
-            <a href="#" class="ci-val">Google Scholar ↗</a>
-          </div>
-          <div class="contact-item">
-            <span class="ci-label">ORCID</span>
-            <a href="#" class="ci-val">0000-0000-0000-0000</a>
-          </div>
-        </div>
-        <div>
-          <p class="contact-note">I welcome messages from prospective PhD students, collaborators, journalists, and anyone genuinely curious about the work.<br><br>I aim to reply within a week. For media enquiries please include your deadline.</p>
-          <a href="mailto:j.doe@uva.nl" class="btn-outline">Send a message →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2025 Dr. Jane Doe</span>
-    <span id="footerTime">—</span>
-    <span>Amsterdam · The Netherlands</span>
-  </footer>
-
-  <script>
-    // Scroll reveal
-    const secs = document.querySelectorAll('.sec');
-    const obs = new IntersectionObserver(e => {
-      e.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
-    }, { threshold: 0.06 });
-    secs.forEach(s => obs.observe(s));
-
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
+  </div>
+</section>
+ 
+<footer>
+  <span class="footer-left">Hugo Aerts, PhD — Harvard University &amp; Maastricht University</span>
+  <span class="footer-right">© 2026</span>
+</footer>
+ 
+<script>
+(function () {
+  var canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+ 
+  function draw() {
+    var dpr = window.devicePixelRatio || 1;
+    var W = canvas.parentElement.clientWidth * dpr;
+    var H = canvas.parentElement.clientHeight * dpr;
+    canvas.width  = W;
+    canvas.height = H;
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, W, H);
+ 
+    var blobs = [
+      { x: .06, y: .14, r: .55, c1: '#7b2ff7', c2: '#2b8fff', op: .065 },
+      { x: .55, y: .04, r: .48, c1: '#2b8fff', c2: '#00d4aa', op: .055 },
+      { x: .96, y: .85, r: .40, c1: '#e040fb', c2: '#7b2ff7', op: .050 },
+      { x: .28, y: .96, r: .35, c1: '#00d4aa', c2: '#2b8fff', op: .045 },
+    ];
+ 
+    blobs.forEach(function (b) {
+      var grd = ctx.createRadialGradient(
+        b.x * W, b.y * H, 0,
+        b.x * W, b.y * H, b.r * W
+      );
+      var hex = Math.round(b.op * 255).toString(16).padStart(2, '0');
+      grd.addColorStop(0, b.c1 + hex);
+      grd.addColorStop(1, b.c2 + '00');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, W, H);
     });
-    function closeMobile() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    }
-
-    // Live clock
-    function tick() {
-      const t = new Date().toLocaleTimeString('en-GB', {
-        hour: '2-digit', minute: '2-digit', second: '2-digit',
-        timeZone: 'Europe/Amsterdam'
-      });
-      document.getElementById('footerTime').textContent = t;
-      document.getElementById('navTime').textContent = t;
-    }
-    tick(); setInterval(tick, 1000);
-  </script>
+  }
+ 
+  draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+ 
 </body>
 </html>

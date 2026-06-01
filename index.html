@@ -3,1068 +3,716 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hugo Aerts — AI in Medicine</title>
+<title>Hugo Aerts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-:root {
-  --bg: #ffffff;
-  --fg: #0a0812;
-  --fg2: rgba(10,8,18,.48);
-  --fg3: rgba(10,8,18,.28);
-  --b: rgba(10,8,18,.07);
-  --g1: #7b2ff7;
-  --g2: #2b8fff;
-  --g3: #00d4aa;
-  --g4: #e040fb;
-}
- 
+:root { --black: #111; --mid: #888; --light: #bbb; --rule: #e8e8e8; }
+body { font-family: 'Inter', sans-serif; background: #fff; color: var(--black); -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }
- 
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'DM Sans', sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
- 
+
 /* ── NAV ── */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255,255,255,.9);
-  border-bottom: 1px solid var(--b);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3rem;
-  height: 60px;
+  padding: 0 2.8rem;
+  height: 52px;
+  border-bottom: 1px solid var(--rule);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 50;
 }
- 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-.logo-mark { width: 30px; height: 30px; }
-.logo-text {
-  font-size: 14px;
+.nav-name {
+  font-size: .95rem;
   font-weight: 500;
-  color: var(--fg);
   letter-spacing: -.02em;
+  color: var(--black);
+  cursor: pointer;
 }
- 
-.nav-links { display: flex; gap: .1rem; }
-.nav-link {
-  font-size: 12.5px;
+.nav-links { display: flex; align-items: center; gap: 0; }
+.nav-btn {
+  font-size: .67rem;
   font-weight: 400;
-  color: var(--fg2);
-  text-decoration: none;
-  padding: .35rem .85rem;
-  border-radius: 6px;
-  transition: color .15s, background .15s;
-  letter-spacing: -.01em;
-}
-.nav-link:hover { color: var(--fg); background: rgba(10,8,18,.04); }
- 
-/* ── HERO ── */
-.hero {
-  min-height: 88vh;
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  position: relative;
-  overflow: hidden;
-}
- 
-#hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
- 
-.hero-left {
-  padding: 5rem 3rem 5rem 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  position: relative;
-  z-index: 1;
-}
- 
-.hero-right {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding: 3rem 3rem 5rem 2rem;
-  position: relative;
-  z-index: 1;
-}
- 
-.eyebrow {
-  font-size: 10.5px;
-  font-weight: 400;
-  color: var(--fg3);
-  letter-spacing: .18em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  margin-bottom: 1.6rem;
+  color: var(--mid);
+  padding: 0 1rem;
+  height: 52px;
   display: flex;
   align-items: center;
-  gap: .65rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  transition: color .12s;
 }
-.eyebrow::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--fg3);
-  flex-shrink: 0;
+.nav-btn:hover, .nav-btn.active { color: var(--black); }
+
+/* ── SECTIONS ── */
+.section { display: block; scroll-margin-top: 52px; }
+.section + .section { border-top: 1px solid var(--rule); }
+
+/* ── HOME ── */
+/* Hero intro */
+.home-intro {
+  padding: 3.5rem 2.8rem 2rem;
+  max-width: 640px;
 }
- 
-h1 {
-  font-size: clamp(3rem, 5vw, 5.4rem);
-  font-weight: 200;
-  line-height: 1.02;
-  letter-spacing: -.04em;
-  margin-bottom: 1.8rem;
-}
- 
-.grad {
-  background: linear-gradient(105deg, var(--g1), var(--g2), var(--g3));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 300;
-}
- 
-.hero-sub {
+.home-intro h1 {
   font-size: 1.05rem;
-  font-weight: 300;
-  color: var(--fg2);
-  line-height: 1.8;
-  max-width: 500px;
-  margin-bottom: 2.5rem;
-  letter-spacing: -.01em;
-}
- 
-.hero-btns { display: flex; gap: .75rem; flex-wrap: wrap; }
- 
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  background: linear-gradient(105deg, var(--g1), var(--g2));
-  color: #fff;
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: .68rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  letter-spacing: -.01em;
-  transition: opacity .2s;
-  font-family: 'DM Sans', sans-serif;
-}
-.btn-primary:hover { opacity: .85; }
- 
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  background: transparent;
-  color: var(--fg);
-  font-size: 12.5px;
   font-weight: 400;
-  padding: .68rem 1.4rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: 1px solid rgba(10,8,18,.12);
+  line-height: 1.65;
   letter-spacing: -.01em;
+  color: #333;
+}
+.home-intro h1 strong { color: var(--black); font-weight: 500; }
+
+/* Affiliation logos row */
+.affil-row {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  flex-wrap: wrap;
+  padding: .8rem 2.8rem 2rem;
+}
+.affil-logo { height: 28px; object-fit: contain; opacity: .55; filter: grayscale(1); transition: opacity .15s; }
+.affil-logo:hover { opacity: .85; }
+
+/* Grid section label */
+.grid-section-lbl {
+  font-size: .63rem;
+  font-weight: 400;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--light);
+  padding: 0 2.8rem 1rem;
+}
+
+/* AIM-style content grid */
+.aim-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
+}
+.aim-cell {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
   transition: background .15s;
-  font-family: 'DM Sans', sans-serif;
-}
-.btn-ghost:hover { background: rgba(10,8,18,.04); }
- 
-/* ── HEADSHOT ── */
-.headshot-wrap { position: relative; display: inline-block; }
- 
-.headshot {
-  width: 270px;
-  height: 330px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(10,8,18,.1);
-  background: linear-gradient(135deg, #f0edf8, #e8f3fe);
-  position: relative;
-}
- 
-.headshot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  text-decoration: none;
+  color: inherit;
   display: block;
 }
- 
-.headshot-fallback {
+.aim-cell:nth-child(4n) { border-right: none; }
+.aim-cell:hover { background: #fafafa; }
+
+.aim-cell-img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.aim-cell-img-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--light);
+}
+.aim-cell-body { padding: .8rem .9rem 1rem; }
+.aim-cell-tag {
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: .3rem;
+}
+.aim-cell-title {
+  font-size: .8rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -.01em;
+  color: var(--black);
+}
+
+/* ── CONTENT PAGES (research, pubs, news, speaking, contact) ── */
+.page { padding: 3rem 2.8rem; max-width: 860px; }
+.page-lbl {
+  font-size: .63rem;
+  font-weight: 400;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 2.4rem;
+}
+
+/* ── RESEARCH ── */
+.bio-block {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 2.4rem;
+  margin-bottom: 3rem;
+  align-items: start;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid var(--rule);
+}
+.bio-photo {
+  width: 140px;
+  height: 178px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  filter: grayscale(.8);
+}
+.bio-photo-fb {
+  width: 140px;
+  height: 178px;
+  background: #f2f2f2;
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 3.5rem;
-  font-weight: 200;
-  color: rgba(10,8,18,.15);
-  letter-spacing: -.04em;
-}
- 
-.headshot-badge {
-  position: absolute;
-  bottom: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #fff;
-  border: 1px solid var(--b);
-  border-radius: 9px;
-  padding: .48rem 1.1rem;
-  white-space: nowrap;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--fg2);
-  letter-spacing: -.01em;
-  box-shadow: 0 2px 16px rgba(10,8,18,.06);
-}
- 
-/* ── STATS ── */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--b);
-  border-bottom: 1px solid var(--b);
-}
- 
-.stat {
-  padding: 1.8rem 3rem;
-  text-align: center;
-  border-right: 1px solid var(--b);
-}
-.stat:last-child { border-right: none; }
- 
-.stat-num {
-  font-size: 2.1rem;
-  font-weight: 200;
-  letter-spacing: -.05em;
-  line-height: 1;
-  background: linear-gradient(105deg, var(--g1), var(--g2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
- 
-.stat-label {
-  font-size: 10px;
-  font-weight: 400;
-  color: var(--fg3);
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  margin-top: .35rem;
-}
- 
-/* ── SECTIONS ── */
-.section {
-  padding: 5.5rem 3rem;
-  border-bottom: 1px solid var(--b);
-}
-.section:last-of-type { border-bottom: none; }
- 
-.section-label {
-  font-size: 10.5px;
-  font-weight: 400;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--fg3);
-  margin-bottom: 2.5rem;
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
-.section-label::before {
-  content: '';
-  width: 16px;
-  height: 1px;
-  background: var(--fg3);
-  flex-shrink: 0;
-}
- 
-.section-heading {
-  font-size: clamp(2rem, 3.2vw, 3.2rem);
-  font-weight: 200;
-  line-height: 1.08;
-  letter-spacing: -.035em;
-  margin-bottom: 1.1rem;
-}
- 
-.grad2 {
-  background: linear-gradient(105deg, var(--g2), var(--g3));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
- 
-.section-subtext {
-  font-size: 1rem;
+  font-size: 1.8rem;
   font-weight: 300;
-  color: var(--fg2);
-  line-height: 1.82;
-  max-width: 580px;
-  letter-spacing: -.01em;
-  margin-bottom: 2.8rem;
+  color: #ccc;
 }
- 
-/* ── RESEARCH GRID ── */
+.bio-name { font-size: 1.25rem; font-weight: 300; letter-spacing: -.02em; margin-bottom: .2rem; }
+.bio-role { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: 1rem; }
+.bio-text { font-size: .82rem; line-height: 1.78; color: #444; font-weight: 300; }
+.bio-text p + p { margin-top: .8rem; }
+.bio-links { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+.blink {
+  font-size: .63rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1px;
+  transition: color .12s, border-color .12s;
+}
+.blink:hover { color: var(--black); border-color: var(--black); }
+
+/* Research areas as AIM-style grid */
 .research-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--b);
-  border-radius: 14px;
-  overflow: hidden;
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
 }
- 
-.research-card {
-  background: #fff;
-  padding: 2.2rem 2rem;
-  border-right: 1px solid var(--b);
-  border-bottom: 1px solid var(--b);
-  transition: background .15s;
+.rg-cell {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.6rem 1.4rem;
 }
-.research-card:nth-child(3n) { border-right: none; }
-.research-card:nth-child(4),
-.research-card:nth-child(5),
-.research-card:nth-child(6) { border-bottom: none; }
-.research-card:hover { background: #fafafa; }
- 
-.research-icon {
-  font-size: 18px;
-  color: rgba(10,8,18,.22);
-  margin-bottom: 1.3rem;
-  display: block;
-}
- 
-.research-title {
-  font-size: .97rem;
-  font-weight: 500;
-  line-height: 1.32;
-  letter-spacing: -.02em;
-  margin-bottom: .5rem;
-}
- 
-.research-desc {
-  font-size: .84rem;
-  color: var(--fg2);
-  line-height: 1.68;
-  font-weight: 300;
-}
- 
+.rg-num { font-size: .6rem; color: var(--light); margin-bottom: .7rem; font-family: monospace; }
+.rg-title { font-size: .84rem; font-weight: 500; letter-spacing: -.01em; margin-bottom: .45rem; line-height: 1.32; }
+.rg-desc { font-size: .76rem; color: #555; line-height: 1.65; font-weight: 300; }
+.rg-tag { font-size: .59rem; letter-spacing: .1em; text-transform: uppercase; color: var(--light); margin-top: .6rem; display: block; }
+
 /* ── PUBLICATIONS ── */
-.pub-list { margin-top: 1.5rem; }
- 
+.pub-list { display: flex; flex-direction: column; }
 .pub-row {
   display: grid;
-  grid-template-columns: 3.2rem 1fr auto;
-  gap: 1.2rem;
+  grid-template-columns: 2.8rem 1fr auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
   align-items: baseline;
-  padding: 1.15rem 0;
-  border-bottom: 1px solid var(--b);
 }
-.pub-row:first-child { border-top: 1px solid var(--b); }
- 
-.pub-year {
-  font-size: 11px;
-  color: var(--fg3);
-  font-family: ui-monospace, monospace;
-  padding-top: 2px;
-  flex-shrink: 0;
-}
- 
-.pub-title {
-  font-size: .95rem;
-  font-weight: 400;
-  line-height: 1.44;
-  letter-spacing: -.015em;
-  margin-bottom: .22rem;
-}
- 
-.pub-meta {
-  font-size: 11px;
-  color: var(--fg2);
-  font-weight: 300;
-  font-style: italic;
-}
- 
+.pub-row:first-child { border-top: 1px solid var(--rule); }
+.pub-yr { font-size: .63rem; color: var(--light); font-family: monospace; }
+.pub-title { font-size: .82rem; font-weight: 400; line-height: 1.44; letter-spacing: -.01em; margin-bottom: .18rem; }
+.pub-meta { font-size: .71rem; color: var(--mid); font-weight: 300; font-style: italic; }
 .pub-badge {
-  font-size: 9px;
+  font-size: .57rem;
   font-weight: 500;
-  letter-spacing: .07em;
+  letter-spacing: .08em;
   text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 4px;
-  white-space: nowrap;
+  padding: 2px 7px;
   border: 1px solid;
+  white-space: nowrap;
   flex-shrink: 0;
   align-self: start;
   margin-top: 2px;
 }
-.pub-badge.oa {
-  border-color: rgba(0,212,170,.35);
-  color: #008f72;
-  background: rgba(0,212,170,.07);
-}
-.pub-badge.peer {
-  border-color: var(--b);
-  color: var(--fg3);
-  background: transparent;
-}
- 
-/* ── PRESS ── */
-.press-bar {
+.pub-badge.oa { border-color: #bde8da; color: #2a8f72; background: #f0faf7; }
+.pub-badge.pr { border-color: #e0e0e0; color: var(--mid); }
+
+/* ── NEWS ── */
+/* Press logos styled like AIM shields */
+.press-block {
   display: flex;
   align-items: center;
-  gap: 2.8rem;
+  gap: 2rem;
   flex-wrap: wrap;
-  padding: 1.4rem 2rem;
-  border: 1px solid var(--b);
-  border-radius: 11px;
-  margin-bottom: 2.8rem;
+  padding: 1.2rem 0 2rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2rem;
 }
- 
-.press-label {
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--fg3);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
- 
-.press-logo {
-  opacity: .28;
-  filter: grayscale(1);
-  transition: opacity .2s;
-  flex-shrink: 0;
-}
-.press-logo:hover { opacity: .6; }
- 
-/* ── NEWS GRID ── */
+.press-lbl { font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--light); flex-shrink: 0; }
+.pl { opacity: .22; filter: grayscale(1); flex-shrink: 0; transition: opacity .15s; }
+.pl:hover { opacity: .55; }
+
+/* News as AIM-style grid */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--b);
-  border-radius: 14px;
-  overflow: hidden;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
 }
- 
-.news-card {
-  background: #fff;
-  padding: 1.9rem;
-  border-right: 1px solid var(--b);
-  border-bottom: 1px solid var(--b);
-  transition: background .15s;
+.news-cell {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1.2rem 1rem 1.3rem;
+  cursor: pointer;
+  transition: background .12s;
 }
-.news-card:nth-child(3n) { border-right: none; }
-.news-card:nth-child(4),
-.news-card:nth-child(5),
-.news-card:nth-child(6) { border-bottom: none; }
-.news-card:hover { background: #fafafa; }
- 
-.news-date {
-  font-size: 10px;
-  font-family: ui-monospace, monospace;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--fg3);
-  margin-bottom: .75rem;
-}
- 
-.news-title {
-  font-size: .93rem;
-  font-weight: 400;
-  line-height: 1.48;
-  letter-spacing: -.015em;
-  margin-bottom: .4rem;
-}
- 
-.news-source {
-  font-size: 10.5px;
-  color: var(--fg3);
-  font-weight: 300;
-}
- 
+.news-cell:nth-child(4n) { border-right: none; }
+.news-cell:hover { background: #fafafa; }
+.news-cell-tag { font-size: .59rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .35rem; }
+.news-cell-title { font-size: .78rem; font-weight: 400; line-height: 1.42; letter-spacing: -.01em; color: var(--black); margin-bottom: .3rem; }
+.news-cell-src { font-size: .67rem; color: var(--light); font-weight: 300; }
+
 /* ── SPEAKING ── */
-.speaking-list { margin-top: 1.5rem; }
- 
-.speaking-row {
+.speak-list { display: flex; flex-direction: column; }
+.speak-row {
   display: grid;
-  grid-template-columns: 8rem 1fr;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--b);
-  gap: 1.4rem;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.2rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
   align-items: start;
 }
-.speaking-row:first-child { border-top: 1px solid var(--b); }
- 
-.speaking-date {
-  font-size: 11px;
-  font-family: ui-monospace, monospace;
-  color: var(--fg3);
-  line-height: 1.75;
-  padding-top: 2px;
-}
- 
-.speaking-upcoming {
+.speak-row:first-child { border-top: 1px solid var(--rule); }
+.speak-date { font-size: .64rem; color: var(--light); font-family: monospace; line-height: 1.7; }
+.speak-up {
   display: inline-block;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: .12em;
+  font-size: .56rem;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--g1);
-  background: rgba(123,47,247,.07);
-  border: 1px solid rgba(123,47,247,.2);
-  border-radius: 4px;
-  padding: 2px 7px;
-  margin-top: 4px;
+  color: #555;
+  border: 1px solid #ddd;
+  padding: 1px 5px;
+  margin-top: 3px;
 }
- 
-.speaking-title {
-  font-size: .95rem;
-  font-weight: 400;
-  letter-spacing: -.015em;
-  margin-bottom: .25rem;
-  line-height: 1.4;
-}
- 
-.speaking-venue {
-  font-size: 11.5px;
-  color: var(--fg2);
-  font-weight: 300;
-}
- 
+.speak-title { font-size: .83rem; font-weight: 400; line-height: 1.36; letter-spacing: -.01em; margin-bottom: .2rem; }
+.speak-venue { font-size: .71rem; color: var(--mid); font-weight: 300; }
+
 /* ── CONTACT ── */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: start;
-}
- 
-.contact-big {
-  font-size: clamp(2.8rem, 5vw, 5.5rem);
-  font-weight: 200;
-  line-height: .95;
-  letter-spacing: -.045em;
-  margin-bottom: 2.2rem;
-}
- 
-.grad3 {
-  background: linear-gradient(105deg, var(--g4), var(--g1), var(--g2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
- 
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: .45rem;
-}
- 
-.contact-link {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--fg2);
-  text-decoration: none;
+.ct-name { font-size: 1.6rem; font-weight: 300; letter-spacing: -.035em; margin-bottom: .25rem; }
+.ct-role { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: 2rem; }
+
+/* Affiliation logos in contact */
+.ct-affils {
   display: flex;
   align-items: center;
-  gap: .6rem;
-  padding: .3rem 0;
-  letter-spacing: -.01em;
-  transition: color .15s;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
 }
-.contact-link:hover { color: var(--fg); }
-.contact-link::before {
-  content: '';
-  width: 13px;
-  height: 1px;
-  background: currentColor;
-  opacity: .3;
-  flex-shrink: 0;
-}
- 
-.contact-cards { display: flex; flex-direction: column; gap: .8rem; }
- 
-.contact-card {
-  padding: 1.7rem;
-  border: 1px solid var(--b);
-  border-radius: 11px;
-}
- 
-.contact-card-label {
-  font-size: 9.5px;
-  font-family: ui-monospace, monospace;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--fg3);
-  margin-bottom: .65rem;
-}
- 
-.contact-card-value {
-  font-size: .89rem;
-  color: var(--fg2);
-  line-height: 2;
-  font-weight: 300;
-}
- 
-/* ── FOOTER ── */
-footer {
-  padding: 1.6rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--b);
-}
-.footer-left, .footer-right {
-  font-size: 11px;
-  color: var(--fg3);
-  letter-spacing: -.01em;
-}
- 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
- 
-.hero-left > * {
-  animation: fadeUp .7s ease both;
-}
-.hero-left > *:nth-child(1) { animation-delay: .05s; }
-.hero-left > *:nth-child(2) { animation-delay: .15s; }
-.hero-left > *:nth-child(3) { animation-delay: .25s; }
-.hero-left > *:nth-child(4) { animation-delay: .35s; }
- 
-.hero-right {
-  animation: fadeUp .8s .2s ease both;
-}
+.ct-affil-logo { height: 30px; object-fit: contain; opacity: .5; filter: grayscale(1); transition: opacity .15s; }
+.ct-affil-logo:hover { opacity: .8; }
+
+table.ct { width: 100%; max-width: 440px; border-collapse: collapse; }
+table.ct td { font-size: .79rem; font-weight: 300; color: #333; padding: .5rem 0; border-bottom: 1px solid #f2f2f2; vertical-align: top; }
+table.ct td:first-child { font-size: .61rem; letter-spacing: .1em; text-transform: uppercase; color: var(--light); width: 5.5rem; padding-right: 1rem; padding-top: .56rem; }
+table.ct a { color: #333; text-decoration: none; border-bottom: 1px solid #e0e0e0; }
+table.ct a:hover { color: var(--black); border-color: var(--black); }
 </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">
-    <svg class="logo-mark" viewBox="0 0 30 30" fill="none">
-      <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#7b2ff7"/>
-          <stop offset="55%" stop-color="#2b8fff"/>
-          <stop offset="100%" stop-color="#00d4aa"/>
-        </linearGradient>
-      </defs>
-      <circle cx="15" cy="15" r="14" stroke="url(#lg)" stroke-width="1.4" fill="none"/>
-      <path d="M8.5 9.5v11M8.5 15h7M15.5 9.5v11" stroke="url(#lg)" stroke-width="1.7" stroke-linecap="round"/>
-      <circle cx="22" cy="15" r="3.8" stroke="url(#lg)" stroke-width="1.1" fill="none" opacity=".6"/>
-      <circle cx="22" cy="15" r="1.3" fill="url(#lg)"/>
-    </svg>
-    <span class="logo-text">Hugo Aerts</span>
-  </a>
-  <nav class="nav-links">
-    <a href="#research"     class="nav-link">Research</a>
-    <a href="#publications" class="nav-link">Publications</a>
-    <a href="#news"         class="nav-link">News</a>
-    <a href="#speaking"     class="nav-link">Speaking</a>
-    <a href="#contact"      class="nav-link">Contact</a>
-  </nav>
+  <span class="nav-name" onclick="scrollTo('home')">Hugo Aerts</span>
+  <div class="nav-links">
+    <button class="nav-btn" onclick="scrollTo('home')">Home</button>
+    <button class="nav-btn" onclick="scrollTo('research')">Research</button>
+    <button class="nav-btn" onclick="scrollTo('publications')">Publications</button>
+    <button class="nav-btn" onclick="scrollTo('news')">News</button>
+    <button class="nav-btn" onclick="scrollTo('speaking')">Speaking</button>
+    <button class="nav-btn" onclick="scrollTo('contact')">Contact</button>
+  </div>
 </nav>
- 
-<!-- HERO -->
-<section class="hero">
-  <canvas id="hero-canvas"></canvas>
- 
-  <div class="hero-left">
-    <p class="eyebrow">Professor · Harvard &amp; Maastricht University</p>
-    <h1>AI that sees<br>what medicine<br><span class="grad">cannot yet see.</span></h1>
-    <p class="hero-sub">I'm Hugo Aerts — director of the AI in Medicine program at Mass General Brigham and Harvard. My lab builds deep learning systems that decode disease from medical images, unlocking biomarkers that transform how we predict and treat cancer.</p>
-    <div class="hero-btns">
-      <a href="#research"                                   class="btn-primary">Explore research ↗</a>
-      <a href="https://aim.mgh.harvard.edu" target="_blank" class="btn-ghost">AIM Lab ↗</a>
-      <a href="#contact"                                    class="btn-ghost">Contact</a>
-    </div>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div id="sec-home" class="section">
+
+  <div class="home-intro">
+    <h1><strong>Hugo Aerts</strong> is a Professor at Harvard University and Director of the <strong>AI in Medicine (AIM) Program</strong> at Mass General Brigham. His lab builds deep learning systems that decode disease from medical images — unlocking biomarkers that transform how we predict and treat cancer.</h1>
   </div>
- 
-  <div class="hero-right">
-    <div class="headshot-wrap">
-      <div class="headshot">
-        <img
-          src="https://aim.mgh.harvard.edu/content/dam/32a/32a60f72-7a19-4e7d-a18d-3c5ac19f8f78/hugo-headshot.jpeg"
-          alt="Hugo Aerts"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-        >
-        <div class="headshot-fallback">HA</div>
+
+  <!-- Affiliation logos -->
+  <div class="affil-row">
+    <img class="affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4760348c-479b-479a-be64-a3d3c9c6b8e5/Brigham+Women+Hospital.png" alt="Brigham and Women's Hospital">
+    <img class="affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4f4dc1c8-d0b0-40b6-835d-46b5de7cc289/MGH+Social+Emergency+Medicine.png" alt="Massachusetts General Hospital">
+    <img class="affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/9146437b-43a4-49c8-8251-567f91543692/newshields.png" alt="Harvard shields" style="height:32px">
+  </div>
+
+  <div class="grid-section-lbl">Latest updates</div>
+
+  <div class="aim-grid">
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/faceage-paper" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1747318571397-E6H3BGWT3G41CDFSTBZQ/faceage_lancet.png" alt="FaceAge" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">Publication · 2025</div>
+        <div class="aim-cell-title">Novel AI for estimation of biological age from face photographs</div>
       </div>
-      <div class="headshot-badge">Director, AIM — Harvard · MGB</div>
-    </div>
-  </div>
-</section>
- 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num">80k+</div>
-    <div class="stat-label">Citations</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">428</div>
-    <div class="stat-label">Publications</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">Top 1%</div>
-    <div class="stat-label">Cited worldwide</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">€2M</div>
-    <div class="stat-label">ERC Consolidator Grant</div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/faceage-nyt" target="_blank">
+      <div class="aim-cell-img-placeholder" style="background:#f5f5f5;">
+        <svg width="80" height="18" viewBox="0 0 190 18"><text y="14" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333" letter-spacing=".2">The New York Times</text></svg>
+      </div>
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2025</div>
+        <div class="aim-cell-title">New York Times features AIM Study on Biological Age using Face Photos</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/faceage-fox" target="_blank">
+      <div class="aim-cell-img-placeholder" style="background:#f5f5f5;">
+        <svg width="80" height="22" viewBox="0 0 120 22"><text y="17" font-family="Arial Black,Arial" font-weight="900" font-size="18" fill="#003087" letter-spacing="1">FOX</text><text x="60" y="17" font-family="Arial Black,Arial" font-weight="900" font-size="13" fill="#c00">NEWS</text></svg>
+      </div>
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2025</div>
+        <div class="aim-cell-title">AIM Study on Biological Age using Face Photos picked up by Fox News</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/bitterman-grant" target="_blank">
+      <div class="aim-cell-img-placeholder" style="background:#f8f8f8;">
+        <svg width="60" height="22" viewBox="0 0 80 22"><text y="16" font-family="Arial Black,Arial" font-weight="900" font-size="14" fill="#555" letter-spacing=".5">NIH</text></svg>
+      </div>
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2025</div>
+        <div class="aim-cell-title">AIM Investigator awarded 5-year grant to improve cancer survivorship</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/tripod" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1738006929524-BGAUZJ3GQFGV9AMYICRR/tripod_cover.png" alt="TRIPOD" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">Publication · 2025</div>
+        <div class="aim-cell-title">Guidelines for studies using large language models (TRIPOD+AI)</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/llm-lancet" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1733768793082-XAUPYOQ9FW6BTZW1HHQJ/llm_lancet.png" alt="LLM Lancet" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">Publication · 2024</div>
+        <div class="aim-cell-title">Responding to patient messages using LLMs in oncology care</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/shan-phd" target="_blank">
+      <div class="aim-cell-img-placeholder" style="background:#f5f5f5;">
+        <svg width="80" height="22" viewBox="0 0 120 22"><text y="16" font-family="Arial" font-weight="700" font-size="15" fill="#4285f4">G</text><text x="14" y="16" font-family="Arial" font-weight="700" font-size="15" fill="#ea4335">o</text><text x="24" y="16" font-family="Arial" font-weight="700" font-size="15" fill="#fbbc05">o</text><text x="34" y="16" font-family="Arial" font-weight="700" font-size="15" fill="#4285f4">g</text><text x="44" y="16" font-family="Arial" font-weight="700" font-size="15" fill="#34a853">l</text><text x="51" y="16" font-family="Arial" font-weight="700" font-size="15" fill="#ea4335">e</text></svg>
+      </div>
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2024</div>
+        <div class="aim-cell-title">AIM Student Awarded 2024 Google PhD Fellowship in Natural Language Processing</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/bitterman-nyt" target="_blank">
+      <div class="aim-cell-img-placeholder" style="background:#f5f5f5;">
+        <svg width="80" height="18" viewBox="0 0 190 18"><text y="14" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333" letter-spacing=".2">The New York Times</text></svg>
+      </div>
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2024</div>
+        <div class="aim-cell-title">AIM Study on LLMs for patient portal messaging featured in the New York Times</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/news-fmcib" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1709226692527-WNQG4GZJ89CKRR87E7JG/fmcib_cover.png" alt="Foundation model" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2024</div>
+        <div class="aim-cell-title">AIM foundation model study in the news — ScienceMag, MGB News, ecancer</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/foundation-cancer-image-biomarker" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1709226692527-WNQG4GZJ89CKRR87E7JG/fmcib_cover.png" alt="Foundation model" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">Publication · 2024</div>
+        <div class="aim-cell-title">Discovering cancer image biomarkers using a foundation model trained on 11M images</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/llm-sdoh" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1707268453073-HKGG7PNZJZK3GX0X68EW/sdoh_cover.png" alt="SDOH" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">Publication · 2024</div>
+        <div class="aim-cell-title">LLMs for social determinants of health from clinical notes</div>
+      </div>
+    </a>
+
+    <a class="aim-cell" href="https://aim.mgh.harvard.edu/content/news-chatgpt" target="_blank">
+      <img class="aim-cell-img" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1695752614741-XU3VZ7QXQG5H0GT4IF4K/chatgpt_cover.png" alt="ChatGPT" onerror="this.style.display='none'">
+      <div class="aim-cell-body">
+        <div class="aim-cell-tag">News · 2023</div>
+        <div class="aim-cell-title">AIM ChatGPT reliability study headlines Bloomberg, WBUR, Yahoo and major outlets</div>
+      </div>
+    </a>
+
   </div>
 </div>
- 
-<!-- RESEARCH -->
-<section class="section" id="research">
-  <div class="section-label">Research</div>
-  <h2 class="section-heading">Teaching machines to read<br>the <span class="grad2">language of disease</span></h2>
-  <p class="section-subtext">Our lab develops deep learning approaches that integrate medical imaging, pathology, and genomic data to drive precision medicine — working at the intersection of radiology, oncology, cardiology, and bioinformatics.</p>
- 
-  <div class="research-grid">
-    <div class="research-card">
-      <span class="research-icon">⬡</span>
-      <div class="research-title">Radiomics &amp; deep radiomics</div>
-      <div class="research-desc">Quantifying thousands of imaging features from CT, PET, and MRI to build non-invasive biomarkers predicting tumour biology and survival. Our seminal 2014 Nature Comm. paper has 4,600+ citations.</div>
-    </div>
-    <div class="research-card">
-      <span class="research-icon">◈</span>
-      <div class="research-title">Foundation models for medicine</div>
-      <div class="research-desc">Large-scale self-supervised models pre-trained on 11 million medical images to discover novel cancer imaging biomarkers — dramatically reducing reliance on labelled training data.</div>
-    </div>
-    <div class="research-card">
-      <span class="research-icon">♡</span>
-      <div class="research-title">AI in cardiology — DeepCAC</div>
-      <div class="research-desc">Predicting cardiovascular risk from routine chest X-rays and CT. Linking cancer therapy toxicity to heart disease via AI-automated body composition. Featured on CNN Morning Show, 2022.</div>
-    </div>
-    <div class="research-card">
-      <span class="research-icon">◉</span>
-      <div class="research-title">FaceAge — biological ageing</div>
-      <div class="research-desc">Deep learning system estimating biological age from facial photographs, achieving ~80% accuracy predicting cancer patient survival. Published in Lancet Digital Health, 2025. Covered by NYT, WaPo, CNN, BBC.</div>
-    </div>
-    <div class="research-card">
-      <span class="research-icon">⌬</span>
-      <div class="research-title">Radiogenomics</div>
-      <div class="research-desc">Linking imaging phenotypes to molecular and genomic profiles — developing multimodal AI that integrates CT scans, genomics, and pathology slides to understand tumour biology non-invasively.</div>
-    </div>
-    <div class="research-card">
-      <span class="research-icon">⬚</span>
-      <div class="research-title">LLMs in clinical care</div>
-      <div class="research-desc">Evaluating and developing large language models for patient messaging, cancer treatment recommendations, and extraction of social determinants of health from clinical notes.</div>
-    </div>
-  </div>
-</section>
- 
-<!-- PUBLICATIONS -->
-<section class="section" id="publications" style="padding-top: 0; border-top: none;">
-  <div class="section-label">Selected publications</div>
- 
-  <div class="pub-list">
-    <div class="pub-row">
-      <span class="pub-year">2025</span>
+
+<!-- ══════════════ RESEARCH ══════════════ -->
+<div id="sec-research" class="section">
+  <div class="page">
+    <div class="page-lbl">Research</div>
+
+    <div class="bio-block">
       <div>
-        <div class="pub-title">FaceAge: a deep learning system to estimate biological age from face photographs to improve cancer prognostication</div>
-        <div class="pub-meta">Lancet Digital Health · Bontempi D, Zalay O, Bitterman DS … Aerts HJWL · Covered by NYT, Washington Post, CNN, BBC</div>
+        <img class="bio-photo" src="http://static1.squarespace.com/static/5ddf0513dca85a1b752fd0f1/t/5e0f8c0797fa5b105ee6ef8a/1578077197160/IMG_0581_editv1-e1426705971839.jpg?format=400w" alt="Hugo Aerts" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="bio-photo-fb">HA</div>
       </div>
-      <span class="pub-badge oa">Open Access</span>
-    </div>
-    <div class="pub-row">
-      <span class="pub-year">2025</span>
       <div>
-        <div class="pub-title">Responding to patient messages using large language models in oncology care</div>
-        <div class="pub-meta">Lancet Digital Health · Chen S, Guevara M … Aerts HJWL</div>
-      </div>
-      <span class="pub-badge oa">Open Access</span>
-    </div>
-    <div class="pub-row">
-      <span class="pub-year">2024</span>
-      <div>
-        <div class="pub-title">A foundation model for cancer imaging biomarkers trained on 11 million medical images</div>
-        <div class="pub-meta">Nature Communications · Pai S, Bontempi D … Aerts HJWL · Highlighted by ScienceMag, ecancer, MGB News</div>
-      </div>
-      <span class="pub-badge oa">Open Access</span>
-    </div>
-    <div class="pub-row">
-      <span class="pub-year">2023</span>
-      <div>
-        <div class="pub-title">AI applied to chest X-rays as a new biomarker source for cancer prognosis</div>
-        <div class="pub-meta">Nature Communications · Weiss J, Raghu VK, Lu MT … Aerts HJWL</div>
-      </div>
-      <span class="pub-badge oa">Open Access</span>
-    </div>
-    <div class="pub-row">
-      <span class="pub-year">2022</span>
-      <div>
-        <div class="pub-title">Deep learning to predict cardiovascular risk from chest radiographs — validated on 40,000+ patients</div>
-        <div class="pub-meta">Nature Medicine · Lu MT, Raghu VK … Aerts HJWL · Featured on CNN Morning Show</div>
-      </div>
-      <span class="pub-badge oa">Open Access</span>
-    </div>
-    <div class="pub-row">
-      <span class="pub-year">2017</span>
-      <div>
-        <div class="pub-title">Decoding tumour phenotype by noninvasive imaging using a quantitative radiomics approach</div>
-        <div class="pub-meta">Nature Communications · Aerts HJWL et al. · 4,600+ citations — most-cited radiomics paper worldwide</div>
-      </div>
-      <span class="pub-badge oa">Open Access</span>
-    </div>
-  </div>
- 
-  <div style="margin-top: 1.4rem;">
-    <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="btn-ghost" style="font-size: 12px;">
-      Full list on Google Scholar — 428 papers, 80k+ citations ↗
-    </a>
-  </div>
-</section>
- 
-<!-- NEWS -->
-<section class="section" id="news">
-  <div class="section-label">News &amp; press</div>
-  <h2 class="section-heading">As seen <span class="grad2">in the news</span></h2>
- 
-  <div class="press-bar">
-    <span class="press-label">Featured in</span>
- 
-    <svg class="press-logo" height="18" viewBox="0 0 58 22">
-      <text y="18" font-family="Arial Black, Arial" font-weight="900" font-size="20" fill="#cc0000">CNN</text>
-    </svg>
- 
-    <svg class="press-logo" height="14" viewBox="0 0 195 17">
-      <text y="14" font-family="Georgia, Times New Roman, serif" font-weight="700" font-size="14" fill="#000" letter-spacing=".3">The New York Times</text>
-    </svg>
- 
-    <svg class="press-logo" height="13" viewBox="0 0 200 16">
-      <text y="13" font-family="Georgia, Times New Roman, serif" font-weight="700" font-size="13" fill="#000">The Washington Post</text>
-    </svg>
- 
-    <svg class="press-logo" height="18" viewBox="0 0 64 20">
-      <rect x="0"  y="1" width="17" height="17" fill="#000"/>
-      <rect x="23" y="1" width="17" height="17" fill="#000"/>
-      <rect x="46" y="1" width="17" height="17" fill="#000"/>
-      <text x="3"  y="14" font-family="Arial" font-weight="900" font-size="11" fill="#fff">B</text>
-      <text x="26" y="14" font-family="Arial" font-weight="900" font-size="11" fill="#fff">B</text>
-      <text x="49" y="14" font-family="Arial" font-weight="900" font-size="11" fill="#fff">C</text>
-    </svg>
- 
-    <svg class="press-logo" height="13" viewBox="0 0 84 16">
-      <text y="13" font-family="Arial Black, Arial" font-weight="900" font-size="14" fill="#000" letter-spacing="1.5">FORBES</text>
-    </svg>
- 
-    <svg class="press-logo" height="15" viewBox="0 0 40 19">
-      <text y="15" font-family="Georgia, Times New Roman, serif" font-weight="700" font-size="17" fill="#000">WSJ</text>
-    </svg>
- 
-    <svg class="press-logo" height="14" viewBox="0 0 70 18">
-      <text y="14" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#000">Nature</text>
-    </svg>
- 
-    <svg class="press-logo" height="13" viewBox="0 0 80 17">
-      <text y="13" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#000" letter-spacing="1">SCIENCE</text>
-    </svg>
- 
-    <svg class="press-logo" height="15" viewBox="0 0 44 19">
-      <text y="15" font-family="Arial Black, Arial" font-weight="900" font-size="17" fill="#000">NPR</text>
-    </svg>
-  </div>
- 
-  <div class="news-grid">
-    <div class="news-card">
-      <div class="news-date">May 2025 · The New York Times</div>
-      <div class="news-title">An AI can guess your biological age from a selfie. Here's what doctors think.</div>
-      <div class="news-source">FaceAge · Lancet Digital Health 2025</div>
-    </div>
-    <div class="news-card">
-      <div class="news-date">May 2025 · The Washington Post</div>
-      <div class="news-title">AI estimates biological age from face photos — and it could reshape cancer prognosis</div>
-      <div class="news-source">FaceAge · Mass General Brigham</div>
-    </div>
-    <div class="news-card">
-      <div class="news-date">May 2025 · CNN</div>
-      <div class="news-title">Scientists develop AI that reads your biological age from a photograph</div>
-      <div class="news-source">FaceAge · AIM Program, Harvard</div>
-    </div>
-    <div class="news-card">
-      <div class="news-date">May 2025 · BBC / ScienceAlert</div>
-      <div class="news-title">A revolutionary algorithm picks your biological age from a photo</div>
-      <div class="news-source">Lancet Digital Health · Harvard MGB</div>
-    </div>
-    <div class="news-card">
-      <div class="news-date">2022 · CNN Morning Show</div>
-      <div class="news-title">Harvard AI predicts heart disease risk from a routine chest X-ray</div>
-      <div class="news-source">Nature Medicine · DeepCAC · AIM Harvard</div>
-    </div>
-    <div class="news-card">
-      <div class="news-date">2024 · Science / ScienceMag</div>
-      <div class="news-title">Foundation model trained on 11 million medical scans finds new cancer biomarkers</div>
-      <div class="news-source">Nature Communications · AIM Harvard</div>
-    </div>
-  </div>
-</section>
- 
-<!-- SPEAKING -->
-<section class="section" id="speaking">
-  <div class="section-label">Speaking</div>
-  <h2 class="section-heading">Talks &amp; <span class="grad2">keynotes</span></h2>
- 
-  <div class="speaking-list">
-    <div class="speaking-row">
-      <div class="speaking-date">2026<br><span class="speaking-upcoming">Upcoming</span></div>
-      <div>
-        <div class="speaking-title">The next frontier of AI in oncology imaging — from biomarkers to clinical deployment</div>
-        <div class="speaking-venue">MICCAI 2026 Keynote · Marrakech, Morocco</div>
-      </div>
-    </div>
-    <div class="speaking-row">
-      <div class="speaking-date">Apr 2026</div>
-      <div>
-        <div class="speaking-title">FaceAge and biological age estimation as a clinical tool in cancer treatment planning</div>
-        <div class="speaking-venue">AACR Annual Meeting · Chicago, USA</div>
-      </div>
-    </div>
-    <div class="speaking-row">
-      <div class="speaking-date">2025</div>
-      <div>
-        <div class="speaking-title">Foundation models for medical imaging: progress, pitfalls, and the path to clinical use</div>
-        <div class="speaking-venue">RSNA Annual Meeting · Chicago, USA</div>
-      </div>
-    </div>
-    <div class="speaking-row">
-      <div class="speaking-date">2024</div>
-      <div>
-        <div class="speaking-title">Large language models for clinical oncology — reliability, bias, and real-world deployment</div>
-        <div class="speaking-venue">ASCO Annual Meeting · Chicago, USA</div>
-      </div>
-    </div>
-    <div class="speaking-row">
-      <div class="speaking-date">2023</div>
-      <div>
-        <div class="speaking-title">Artificial intelligence for medical imaging — from radiomics to deep learning at scale</div>
-        <div class="speaking-venue">CANSSI Ontario STAGE Invited Speaker · University of Toronto</div>
-      </div>
-    </div>
-    <div class="speaking-row">
-      <div class="speaking-date">2022</div>
-      <div>
-        <div class="speaking-title">Radiomics: there is more than meets the eye in medical imaging</div>
-        <div class="speaking-venue">SPIE Medical Imaging Plenary · San Diego, USA</div>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="section-label">Contact</div>
-  <div class="contact-grid">
-    <div>
-      <div class="contact-big">Let's talk<br><span class="grad3">science.</span></div>
-      <div class="contact-links">
-        <a href="mailto:haerts@bwh.harvard.edu"                           class="contact-link">haerts@bwh.harvard.edu</a>
-        <a href="https://aim.mgh.harvard.edu"             target="_blank" class="contact-link">aim.mgh.harvard.edu</a>
-        <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ"  target="_blank" class="contact-link">Google Scholar</a>
-        <a href="https://orcid.org/0000-0002-2122-2003"   target="_blank" class="contact-link">ORCID: 0000-0002-2122-2003</a>
-        <a href="https://twitter.com/aim_harvard"         target="_blank" class="contact-link">Twitter — @AIM_Harvard</a>
-        <a href="https://www.linkedin.com/in/hugoaerts/"  target="_blank" class="contact-link">LinkedIn</a>
-      </div>
-    </div>
-    <div class="contact-cards">
-      <div class="contact-card">
-        <div class="contact-card-label">Harvard / Boston</div>
-        <div class="contact-card-value">
-          AI in Medicine (AIM) Program<br>
-          Mass General Brigham<br>
-          75 Francis St, Boston MA 02115<br>
-          United States
+        <div class="bio-name">Hugo Aerts</div>
+        <div class="bio-role">Director, AIM Program · Professor, Harvard University</div>
+        <div class="bio-text">
+          <p>Hugo Aerts PhD is a Professor at Harvard University and the Director of the Artificial Intelligence in Medicine (AIM) Program. AIM's mission is to accelerate the application of AI algorithms in medical sciences and clinical practice. This academic program centralizes AI expertise stimulating cross-pollination among clinical and technical expertise areas, and provides a common platform to address a wide range of clinical challenges.</p>
+          <p>Dr. Aerts is a leader in medical AI and Principal Investigator on major NIH-supported efforts, including the Quantitative Imaging Network (U01) and Informatics Technology for Cancer Research (U24) initiatives of the NCI. In 2020 he was awarded a prestigious ERC Consolidator grant from the European Union's Horizon program. In 2022 he was recognized by Web of Science as among the top 1% highest cited scientists worldwide.</p>
+          <p>Dr. Aerts is a Professor at Harvard University and an Adjunct Professor at Maastricht University. He earned his Master in Engineering from Eindhoven Institute of Technology, his PhD from Maastricht University, and his postdoctoral fellowship from Harvard School of Public Health.</p>
+        </div>
+        <div class="bio-links">
+          <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="blink">Google Scholar</a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/?term=aerts+hjwl" target="_blank" class="blink">PubMed</a>
+          <a href="https://orcid.org/0000-0002-2122-2003" target="_blank" class="blink">ORCID</a>
+          <a href="https://connects.catalyst.harvard.edu/Profiles/display/Person/100404" target="_blank" class="blink">Harvard Profiles</a>
+          <a href="mailto:haerts@bwh.harvard.edu" class="blink">Email</a>
         </div>
       </div>
-      <div class="contact-card">
-        <div class="contact-card-label">Maastricht</div>
-        <div class="contact-card-value">
-          Department of Precision Medicine<br>
-          Maastricht University<br>
-          P.O. Box 616, 6200 MD Maastricht<br>
-          Netherlands
-        </div>
+    </div>
+
+    <div class="research-grid">
+      <div class="rg-cell">
+        <div class="rg-num">01</div>
+        <div class="rg-title">Radiomics &amp; Deep Radiomics</div>
+        <div class="rg-desc">Quantifying thousands of imaging features from CT, PET, and MRI to build non-invasive biomarkers predicting tumour biology, treatment response, and patient survival. Our 2014 Nature Communications paper has 4,600+ citations — the most-cited in the field.</div>
+        <span class="rg-tag">Imaging · Biomarkers · NCI U01</span>
       </div>
-      <a href="#" class="btn-primary" style="display: flex; justify-content: center; width: 100%;">
-        Download CV ↓
-      </a>
+      <div class="rg-cell">
+        <div class="rg-num">02</div>
+        <div class="rg-title">Foundation Models for Cancer Imaging</div>
+        <div class="rg-desc">Large-scale self-supervised models pre-trained on 11 million medical images to discover novel cancer imaging biomarkers across organ systems — reducing the need for manually labelled training data. Nature Communications, 2024.</div>
+        <span class="rg-tag">Deep Learning · NCI · Nature Comm 2024</span>
+      </div>
+      <div class="rg-cell">
+        <div class="rg-num">03</div>
+        <div class="rg-title">FaceAge — Biological Ageing AI</div>
+        <div class="rg-desc">Deep learning system estimating biological age from facial photographs, achieving ~80% accuracy predicting cancer patient survival. Lancet Digital Health, 2025. Covered by NYT, Washington Post, CNN, BBC, Fox News.</div>
+        <span class="rg-tag">Ageing · Lancet Digital Health 2025</span>
+      </div>
+      <div class="rg-cell">
+        <div class="rg-num">04</div>
+        <div class="rg-title">AI in Cardiology — DeepCAC</div>
+        <div class="rg-desc">Predicting cardiovascular risk from routine chest X-rays and CT, linking cancer therapy toxicity to heart disease via AI-automated body composition. Validated on 40,000+ patients. Nature Medicine, 2022 — CNN Morning Show.</div>
+        <span class="rg-tag">Cardiology · Nature Medicine 2022</span>
+      </div>
+      <div class="rg-cell">
+        <div class="rg-num">05</div>
+        <div class="rg-title">LLMs in Clinical Care</div>
+        <div class="rg-desc">Evaluating and developing large language models for patient portal messaging, cancer treatment recommendations, and social determinants of health from clinical notes — including TRIPOD+AI guideline development.</div>
+        <span class="rg-tag">LLMs · Lancet · NEJM AI</span>
+      </div>
+      <div class="rg-cell">
+        <div class="rg-num">06</div>
+        <div class="rg-title">Radiogenomics &amp; Multimodal AI</div>
+        <div class="rg-desc">Linking imaging phenotypes to molecular and genomic profiles to understand tumour biology non-invasively. Building multimodal models that fuse CT, genomics, pathology, and clinical data into unified predictors of disease outcome.</div>
+        <span class="rg-tag">Genomics · Precision Medicine</span>
+      </div>
     </div>
   </div>
-</section>
- 
-<footer>
-  <span class="footer-left">Hugo Aerts, PhD — Harvard University &amp; Maastricht University</span>
-  <span class="footer-right">© 2026</span>
-</footer>
- 
+</div>
+
+<!-- ══════════════ PUBLICATIONS ══════════════ -->
+<div id="sec-publications" class="section">
+  <div class="page">
+    <div class="page-lbl">Publications</div>
+    <div class="pub-list">
+      <div class="pub-row"><span class="pub-yr">2025</span><div><div class="pub-title">FaceAge: a deep learning system to estimate biological age from face photographs to improve cancer prognostication</div><div class="pub-meta">Lancet Digital Health · Bontempi D, Zalay O, Bitterman DS … Aerts HJWL · NYT, WaPo, CNN, BBC, Fox News</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2025</span><div><div class="pub-title">Guidelines for studies using large language models (TRIPOD+AI)</div><div class="pub-meta">AIM Program · Harvard</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2024</span><div><div class="pub-title">Responding to patient messages using large language models in oncology care</div><div class="pub-meta">Lancet Digital Health · Chen S, Guevara M … Aerts HJWL · Featured in New York Times</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2024</span><div><div class="pub-title">A foundation model for cancer imaging biomarkers trained on 11 million medical images</div><div class="pub-meta">Nature Communications · Pai S, Bontempi D … Aerts HJWL · ScienceMag, MGB News, ecancer</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2024</span><div><div class="pub-title">LLMs for extraction of social determinants of health from clinical notes</div><div class="pub-meta">Publication · AIM Harvard</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2023</span><div><div class="pub-title">Reliability of large language models for cancer treatment recommendations</div><div class="pub-meta">NEJM AI · Bitterman DS, Chen S … Aerts HJWL · Bloomberg, WBUR, Yahoo</div></div><span class="pub-badge pr">Peer-reviewed</span></div>
+      <div class="pub-row"><span class="pub-yr">2023</span><div><div class="pub-title">Tracking muscle mass in children through young adulthood with AI</div><div class="pub-meta">Publication · AIM Harvard</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2022</span><div><div class="pub-title">Deep learning to predict cardiovascular risk from chest radiographs — 40,000+ patients</div><div class="pub-meta">Nature Medicine · Lu MT, Raghu VK … Aerts HJWL · CNN Morning Show</div></div><span class="pub-badge oa">Open Access</span></div>
+      <div class="pub-row"><span class="pub-yr">2017</span><div><div class="pub-title">Decoding tumour phenotype by noninvasive imaging using a quantitative radiomics approach</div><div class="pub-meta">Nature Communications · Aerts HJWL et al. · 4,600+ citations — most-cited radiomics paper worldwide</div></div><span class="pub-badge oa">Open Access</span></div>
+    </div>
+    <div style="margin-top:1.4rem">
+      <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="blink">Full list on Google Scholar — 428 papers, 80k+ citations ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ NEWS ══════════════ -->
+<div id="sec-news" class="section">
+  <div class="page" style="max-width:100%">
+    <div class="page-lbl">News &amp; Press</div>
+
+    <!-- Press logos -->
+    <div class="press-block">
+      <span class="press-lbl">Featured in</span>
+      <svg class="pl" height="15" viewBox="0 0 54 18"><text y="14" font-family="Arial Black,Arial" font-weight="900" font-size="16" fill="#c00">CNN</text></svg>
+      <svg class="pl" height="12" viewBox="0 0 188 15"><text y="12" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#000" letter-spacing=".2">The New York Times</text></svg>
+      <svg class="pl" height="11" viewBox="0 0 192 14"><text y="11" font-family="Georgia,serif" font-weight="700" font-size="11" fill="#000">The Washington Post</text></svg>
+      <svg class="pl" height="15" viewBox="0 0 62 18"><rect width="16" height="16" y="1" fill="#000"/><rect width="16" height="16" x="23" y="1" fill="#000"/><rect width="16" height="16" x="46" y="1" fill="#000"/><text x="3" y="13" font-family="Arial" font-weight="900" font-size="10" fill="#fff">B</text><text x="26" y="13" font-family="Arial" font-weight="900" font-size="10" fill="#fff">B</text><text x="49" y="13" font-family="Arial" font-weight="900" font-size="10" fill="#fff">C</text></svg>
+      <svg class="pl" height="12" viewBox="0 0 118 15"><text y="11" font-family="Arial Black,Arial" font-weight="900" font-size="12" fill="#003087" letter-spacing="1">FOX </text><text x="48" y="11" font-family="Arial Black,Arial" font-weight="900" font-size="12" fill="#c00">NEWS</text></svg>
+      <svg class="pl" height="12" viewBox="0 0 76 15"><text y="12" font-family="Arial Black,Arial" font-weight="900" font-size="12" fill="#000" letter-spacing="1.2">FORBES</text></svg>
+      <svg class="pl" height="13" viewBox="0 0 34 16"><text y="13" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#000">WSJ</text></svg>
+      <svg class="pl" height="12" viewBox="0 0 62 15"><text y="12" font-family="Arial" font-weight="700" font-size="13" fill="#000">Nature</text></svg>
+      <svg class="pl" height="11" viewBox="0 0 74 14"><text y="11" font-family="Arial" font-weight="700" font-size="12" fill="#000" letter-spacing=".8">SCIENCE</text></svg>
+      <svg class="pl" height="13" viewBox="0 0 38 16"><text y="13" font-family="Arial Black,Arial" font-weight="900" font-size="14" fill="#000">NPR</text></svg>
+      <svg class="pl" height="11" viewBox="0 0 88 14"><text y="11" font-family="Arial Black,Arial" font-weight="900" font-size="11" fill="#000" letter-spacing=".4">BLOOMBERG</text></svg>
+    </div>
+
+    <!-- News grid same style as AIM home -->
+    <div class="news-grid">
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2025 · Fox News</div>
+        <div class="news-cell-title">AIM Study on Biological Age using Face Photos picked up by Fox News</div>
+        <div class="news-cell-src">FaceAge · Lancet Digital Health</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2025 · The New York Times</div>
+        <div class="news-cell-title">New York Times features AIM Study on Biological Age using Face Photos</div>
+        <div class="news-cell-src">FaceAge · Harvard MGB</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2025 · CNN / WaPo / BBC</div>
+        <div class="news-cell-title">Novel AI for estimation of biological age from face photographs</div>
+        <div class="news-cell-src">FaceAge · Lancet Digital Health 2025</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2025 · NIH</div>
+        <div class="news-cell-title">AIM Investigator awarded 5-year grant to improve cancer survivorship</div>
+        <div class="news-cell-src">NIH Grant · AIM Program</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2024 · New York Times</div>
+        <div class="news-cell-title">AIM Study on LLMs for patient portal messaging featured in the New York Times</div>
+        <div class="news-cell-src">Lancet Digital Health</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2024 · Google</div>
+        <div class="news-cell-title">AIM Student Awarded 2024 Google PhD Fellowship in Natural Language Processing</div>
+        <div class="news-cell-src">AIM Program · Harvard</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2024 · ScienceMag · ecancer</div>
+        <div class="news-cell-title">AIM study highlighted by MGB News, ScienceMag, Science Daily and ecancer</div>
+        <div class="news-cell-src">Nature Comm · Foundation model</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2023 · Bloomberg · WBUR</div>
+        <div class="news-cell-title">AIM ChatGPT reliability study headlines across Bloomberg, WBUR, Yahoo and more</div>
+        <div class="news-cell-src">NEJM AI · ChatGPT study</div>
+      </div>
+      <div class="news-cell">
+        <div class="news-cell-tag">News · 2022 · CNN Morning Show</div>
+        <div class="news-cell-title">Harvard AI predicts cardiovascular risk directly from a routine chest X-ray</div>
+        <div class="news-cell-src">Nature Medicine · DeepCAC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SPEAKING ══════════════ -->
+<div id="sec-speaking" class="section">
+  <div class="page">
+    <div class="page-lbl">Speaking</div>
+    <div class="speak-list">
+      <div class="speak-row"><div class="speak-date">2026<br><span class="speak-up">Upcoming</span></div><div><div class="speak-title">The next frontier of AI in oncology imaging — from biomarkers to clinical deployment</div><div class="speak-venue">MICCAI 2026 Keynote · Marrakech, Morocco</div></div></div>
+      <div class="speak-row"><div class="speak-date">Apr 2026</div><div><div class="speak-title">FaceAge and biological age estimation as a clinical tool in cancer treatment planning</div><div class="speak-venue">AACR Annual Meeting · Chicago, USA</div></div></div>
+      <div class="speak-row"><div class="speak-date">2025</div><div><div class="speak-title">Foundation models for medical imaging: progress, pitfalls, and the path to clinical use</div><div class="speak-venue">RSNA Annual Meeting · Chicago, USA</div></div></div>
+      <div class="speak-row"><div class="speak-date">2024</div><div><div class="speak-title">Large language models for clinical oncology — reliability, bias, and real-world deployment</div><div class="speak-venue">ASCO Annual Meeting · Chicago, USA</div></div></div>
+      <div class="speak-row"><div class="speak-date">2023</div><div><div class="speak-title">Artificial intelligence for medical imaging — from radiomics to deep learning at scale</div><div class="speak-venue">CANSSI Ontario STAGE · University of Toronto</div></div></div>
+      <div class="speak-row"><div class="speak-date">2022</div><div><div class="speak-title">Radiomics: there is more than meets the eye in medical imaging</div><div class="speak-venue">SPIE Medical Imaging Plenary · San Diego, USA</div></div></div>
+      <div class="speak-row"><div class="speak-date">2022</div><div><div class="speak-title">Deep learning applied to X-rays as a new biomarker source: cardiovascular risk prediction</div><div class="speak-venue">NCI CBIIT Speaker Series · Bethesda, USA</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<div id="sec-contact" class="section">
+  <div class="page">
+    <div class="page-lbl">Contact</div>
+    <div class="ct-name">Hugo Aerts</div>
+    <div class="ct-role">Director, AIM Program · Professor, Harvard University</div>
+
+    <!-- Affiliation logos with labels -->
+    <div class="ct-affils">
+      <div style="text-align:center">
+        <img class="ct-affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4760348c-479b-479a-be64-a3d3c9c6b8e5/Brigham+Women+Hospital.png" alt="Brigham and Women's Hospital">
+        <div style="font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.4rem">Brigham &amp; Women's Hospital</div>
+      </div>
+      <div style="text-align:center">
+        <img class="ct-affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4f4dc1c8-d0b0-40b6-835d-46b5de7cc289/MGH+Social+Emergency+Medicine.png" alt="Massachusetts General Hospital">
+        <div style="font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.4rem">Mass General Hospital</div>
+      </div>
+      <div style="text-align:center">
+        <img class="ct-affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/9146437b-43a4-49c8-8251-567f91543692/newshields.png" alt="Harvard" style="height:32px">
+        <div style="font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.4rem">Harvard University</div>
+      </div>
+    </div>
+
+    <table class="ct">
+      <tr><td>Email</td><td><a href="mailto:haerts@bwh.harvard.edu">haerts@bwh.harvard.edu</a></td></tr>
+      <tr><td>Lab</td><td><a href="https://aim.mgh.harvard.edu" target="_blank">aim.mgh.harvard.edu</a></td></tr>
+      <tr><td>Harvard</td><td>AI in Medicine (AIM) Program<br>Mass General Brigham<br>75 Francis St, Boston MA 02115</td></tr>
+      <tr><td>Maastricht</td><td>Dept. of Precision Medicine<br>Maastricht University<br>P.O. Box 616, 6200 MD, NL</td></tr>
+      <tr><td>Scholar</td><td><a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank">Google Scholar — 80k+ citations</a></td></tr>
+      <tr><td>ORCID</td><td><a href="https://orcid.org/0000-0002-2122-2003" target="_blank">0000-0002-2122-2003</a></td></tr>
+      <tr><td>Twitter</td><td><a href="https://twitter.com/hugoaerts" target="_blank">@hugoaerts</a></td></tr>
+      <tr><td>LinkedIn</td><td><a href="https://www.linkedin.com/in/hugoaerts/" target="_blank">linkedin.com/in/hugoaerts</a></td></tr>
+    </table>
+  </div>
+</div>
+
 <script>
-(function () {
-  var canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
- 
-  function draw() {
-    var dpr = window.devicePixelRatio || 1;
-    var W = canvas.parentElement.clientWidth * dpr;
-    var H = canvas.parentElement.clientHeight * dpr;
-    canvas.width  = W;
-    canvas.height = H;
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, W, H);
- 
-    var blobs = [
-      { x: .06, y: .14, r: .55, c1: '#7b2ff7', c2: '#2b8fff', op: .065 },
-      { x: .55, y: .04, r: .48, c1: '#2b8fff', c2: '#00d4aa', op: .055 },
-      { x: .96, y: .85, r: .40, c1: '#e040fb', c2: '#7b2ff7', op: .050 },
-      { x: .28, y: .96, r: .35, c1: '#00d4aa', c2: '#2b8fff', op: .045 },
-    ];
- 
-    blobs.forEach(function (b) {
-      var grd = ctx.createRadialGradient(
-        b.x * W, b.y * H, 0,
-        b.x * W, b.y * H, b.r * W
-      );
-      var hex = Math.round(b.op * 255).toString(16).padStart(2, '0');
-      grd.addColorStop(0, b.c1 + hex);
-      grd.addColorStop(1, b.c2 + '00');
-      ctx.fillStyle = grd;
-      ctx.fillRect(0, 0, W, H);
-    });
-  }
- 
-  draw();
-  window.addEventListener('resize', draw);
-})();
+var NAV_H = 52;
+
+function scrollTo(name) {
+  var el = document.getElementById('sec-' + name);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - NAV_H, behavior: 'smooth' });
+}
+
+// Highlight active nav item based on scroll position
+var sections = ['home','research','publications','news','speaking','contact'];
+var btns = document.querySelectorAll('.nav-btn');
+
+function onScroll() {
+  var scrollY = window.pageYOffset + NAV_H + 8;
+  var current = sections[0];
+  sections.forEach(function(id) {
+    var el = document.getElementById('sec-' + id);
+    if (el && el.offsetTop <= scrollY) current = id;
+  });
+  btns.forEach(function(b) {
+    var matches = b.getAttribute('onclick') === "scrollTo('" + current + "')";
+    b.classList.toggle('active', matches);
+  });
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 </script>
- 
 </body>
-</html> 
+</html>

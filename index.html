@@ -150,6 +150,23 @@ nav {
 }
 
 
+/* ── VISION ── */
+.vision-heading {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 1.2rem;
+}
+.vision-text {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #333;
+}
+.vision-text p + p { margin-top: 1.1rem; }
+
 /* ── BIO TEXT ONLY ── */
 .bio-text-only {
   max-width: 640px;
@@ -205,6 +222,29 @@ nav {
 .blink:hover { color: var(--black); border-color: var(--black); }
 
 /* Research areas as AIM-style grid */
+.res-pillars { border-top: 1px solid var(--rule); margin-bottom: 3rem; }
+.res-pillar {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 3rem;
+  padding: 2.2rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+.rp-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: var(--black);
+  padding-top: .1rem;
+}
+.rp-body {
+  font-size: .82rem;
+  line-height: 1.78;
+  color: #444;
+  font-weight: 300;
+  max-width: 680px;
+}
 .research-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -340,15 +380,24 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   border-bottom: 1px solid var(--rule);
 }
 .hero-text {
-  padding: 3.8rem 2.8rem 3.2rem;
+  padding: 4.4rem 2.8rem 3.8rem;
 }
 .hero-punchline {
-  font-size: 1.3rem;
+  font-size: 1.65rem;
   font-weight: 300;
-  line-height: 1.58;
+  line-height: 1.5;
   letter-spacing: -.025em;
   color: var(--black);
-  max-width: 580px;
+  max-width: 560px;
+}
+.hero-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: -.01em;
+  color: var(--mid);
+  max-width: 520px;
+  margin-top: .8rem;
 }
 .hero-affils {
   display: flex;
@@ -365,7 +414,7 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 }
 .hero-photo {
   display: block;
-  width: 210px;
+  width: 420px;
   height: auto;
   object-fit: contain;
   object-position: bottom;
@@ -413,11 +462,10 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 <nav>
   <span class="nav-name" onclick="goTo('home')">Hugo Aerts</span>
   <div class="nav-links">
-    <button class="nav-btn" onclick="goTo('about')">About</button>
     <button class="nav-btn" onclick="goTo('research')">Research</button>
     <button class="nav-btn" onclick="goTo('publications')">Publications</button>
     <button class="nav-btn" onclick="goTo('media')">Media</button>
-    <button class="nav-btn" onclick="goTo('speaking')">Speaking</button>
+    <button class="nav-btn" onclick="goTo('about')">About</button>
     <button class="nav-btn" onclick="goTo('contact')">Contact</button>
   </div>
 </nav>
@@ -428,11 +476,9 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   <!-- HERO -->
   <div class="hero-block">
     <div class="hero-text">
-      <p class="hero-punchline">I am Hugo Aerts, a professor, scientist, and entrepreneur using artificial intelligence to uncover new insights into cancer, aging, and human health.</p>
+      <p class="hero-punchline">Professor, scientist, and builder on a mission to improve human health by uncovering new insights into cancer, aging, and disease through artificial intelligence.</p>
       <div class="hero-affils">
-        <img class="affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4760348c-479b-479a-be64-a3d3c9c6b8e5/Brigham+Women+Hospital.png" alt="Brigham and Women's Hospital">
-        <img class="affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4f4dc1c8-d0b0-40b6-835d-46b5de7cc289/MGH+Social+Emergency+Medicine.png" alt="Massachusetts General Hospital">
-        <img class="affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/9146437b-43a4-49c8-8251-567f91543692/newshields.png" alt="Harvard shields" style="height:32px">
+        <img class="affil-logo" src="Harvard-Emblem.png" alt="Harvard University" style="height:76px">
       </div>
     </div>
     <div class="hero-photo-wrap">
@@ -442,25 +488,15 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 
 </div>
 
-<!-- ══════════════ ABOUT ══════════════ -->
-<div id="sec-about" class="section">
-  <div class="page">
-    <div class="page-lbl">About</div>
-
-    <div class="bio-text-only">
-      <div class="bio-name">Hugo Aerts</div>
-      <div class="bio-role">Director, AIM Program · Professor, Harvard University</div>
-      <div class="bio-text">
-        <p>Hugo Aerts PhD is a Professor at Harvard University and the Director of the Artificial Intelligence in Medicine (AIM) Program. AIM's mission is to accelerate the application of AI algorithms in medical sciences and clinical practice. This academic program centralizes AI expertise stimulating cross-pollination among clinical and technical expertise areas, and provides a common platform to address a wide range of clinical challenges.</p>
-        <p>Dr. Aerts is a leader in medical AI and Principal Investigator on major NIH-supported efforts, including the Quantitative Imaging Network (U01) and Informatics Technology for Cancer Research (U24) initiatives of the NCI. In 2020 he was awarded a prestigious ERC Consolidator grant from the European Union's Horizon program. In 2022 he was recognized by Web of Science as among the top 1% highest cited scientists worldwide.</p>
-        <p>Dr. Aerts is a Professor at Harvard University and an Adjunct Professor at Maastricht University. He earned his Master in Engineering from Eindhoven Institute of Technology, his PhD from Maastricht University, and his postdoctoral fellowship from Harvard School of Public Health.</p>
-      </div>
-      <div class="bio-links">
-        <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="blink">Google Scholar</a>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=aerts+hjwl" target="_blank" class="blink">PubMed</a>
-        <a href="https://orcid.org/0000-0002-2122-2003" target="_blank" class="blink">ORCID</a>
-        <a href="https://connects.catalyst.harvard.edu/Profiles/display/Person/100404" target="_blank" class="blink">Harvard Profiles</a>
-        <a href="mailto:haerts@bwh.harvard.edu" class="blink">Email</a>
+<!-- ══════════════ VISION ══════════════ -->
+<div id="sec-vision" class="section">
+  <div class="page" style="max-width:760px">
+    <div class="page-lbl">From AI Breakthroughs to Patient Impact</div>
+    <div class="vision-block">
+      <div class="vision-text">
+        <p>Artificial intelligence is one of the most important technological breakthroughs of our time. Yet for all of its promise, its impact on everyday medicine has so far fallen short of expectations.</p>
+        <p>I believe the reason is simple: healthcare is not fundamentally a technology problem — it is a biology problem. Real progress will come not from building larger models alone, but from using AI to uncover new biological insights, rigorously validating them, and translating them into clinical practice.</p>
+        <p>My mission is to bridge that gap. By combining artificial intelligence, medicine, and scientific discovery, I work to uncover new insights into cancer, aging, and human health that can ultimately improve the prevention, diagnosis, and treatment of disease.</p>
       </div>
     </div>
   </div>
@@ -470,44 +506,27 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 <div id="sec-research" class="section">
   <div class="page" style="max-width:100%">
     <div class="page-lbl">Research</div>
-    <div class="research-grid">
-      <div class="rg-cell">
-        <div class="rg-num">01</div>
-        <div class="rg-title">Radiomics &amp; Deep Radiomics</div>
-        <div class="rg-desc">Quantifying thousands of imaging features from CT, PET, and MRI to build non-invasive biomarkers predicting tumour biology, treatment response, and patient survival. Our 2014 Nature Communications paper has 4,600+ citations — the most-cited in the field.</div>
-        <span class="rg-tag">Imaging · Biomarkers · NCI U01</span>
+
+    <!-- Research pillars -->
+    <div class="res-pillars">
+      <div class="res-pillar">
+        <div class="rp-title">Cancer</div>
+        <div class="rp-body">Cancer remains one of the greatest challenges in medicine. My research focuses on developing new approaches to understand cancer biology, predict treatment response, and personalize care. By applying artificial intelligence to clinical data, we have shown that routine data contain a wealth of biological information that was previously invisible to physicians. These discoveries have helped establish new opportunities for precision oncology.</div>
       </div>
-      <div class="rg-cell">
-        <div class="rg-num">02</div>
-        <div class="rg-title">Foundation Models for Cancer Imaging</div>
-        <div class="rg-desc">Large-scale self-supervised models pre-trained on 11 million medical images to discover novel cancer imaging biomarkers across organ systems — reducing the need for manually labelled training data. Nature Communications, 2024.</div>
-        <span class="rg-tag">Deep Learning · NCI · Nature Comm 2024</span>
+      <div class="res-pillar">
+        <div class="rp-title">Aging</div>
+        <div class="rp-body">People age at different rates, yet medicine largely relies on chronological age rather than biological age. My work seeks to better understand the biological processes that drive aging and resilience. Through advances in artificial intelligence, we have demonstrated that routine medical images contain measurable signals of biological aging that are associated with health outcomes, disease risk, and survival. Our goal is to develop new tools that help identify risk earlier and promote healthier aging.</div>
       </div>
-      <div class="rg-cell">
-        <div class="rg-num">03</div>
-        <div class="rg-title">FaceAge — Biological Ageing AI</div>
-        <div class="rg-desc">Deep learning system estimating biological age from facial photographs, achieving ~80% accuracy predicting cancer patient survival. Lancet Digital Health, 2025. Covered by NYT, Washington Post, CNN, BBC, Fox News.</div>
-        <span class="rg-tag">Ageing · Lancet Digital Health 2025</span>
+      <div class="res-pillar">
+        <div class="rp-title">Immune Health</div>
+        <div class="rp-body">The immune system plays a central role in cancer, aging, infection, and chronic disease, yet many aspects of immune health remain poorly understood and difficult to measure. Our recent work has challenged long-standing assumptions about the adult thymus, revealing that this often-overlooked organ remains strongly associated with mortality, cancer risk, cardiovascular disease, and response to immunotherapy. By developing new ways to measure immune health, we aim to better understand resilience, disease susceptibility, and treatment outcomes across the lifespan.</div>
       </div>
-      <div class="rg-cell">
-        <div class="rg-num">04</div>
-        <div class="rg-title">AI in Cardiology — DeepCAC</div>
-        <div class="rg-desc">Predicting cardiovascular risk from routine chest X-rays and CT, linking cancer therapy toxicity to heart disease via AI-automated body composition. Validated on 40,000+ patients. Nature Medicine, 2022 — CNN Morning Show.</div>
-        <span class="rg-tag">Cardiology · Nature Medicine 2022</span>
-      </div>
-      <div class="rg-cell">
-        <div class="rg-num">05</div>
-        <div class="rg-title">LLMs in Clinical Care</div>
-        <div class="rg-desc">Evaluating and developing large language models for patient portal messaging, cancer treatment recommendations, and social determinants of health from clinical notes — including TRIPOD+AI guideline development.</div>
-        <span class="rg-tag">LLMs · Lancet · NEJM AI</span>
-      </div>
-      <div class="rg-cell">
-        <div class="rg-num">06</div>
-        <div class="rg-title">Radiogenomics &amp; Multimodal AI</div>
-        <div class="rg-desc">Linking imaging phenotypes to molecular and genomic profiles to understand tumour biology non-invasively. Building multimodal models that fuse CT, genomics, pathology, and clinical data into unified predictors of disease outcome.</div>
-        <span class="rg-tag">Genomics · Precision Medicine</span>
+      <div class="res-pillar">
+        <div class="rp-title">AI Foundation Models</div>
+        <div class="rp-body">Artificial intelligence is transforming how we analyze and interpret medical data. My research has helped pioneer the use of AI and machine learning in medical data, from deep learning to foundation models. While recent advances in AI have demonstrated extraordinary potential, meaningful clinical impact requires rigorous validation, biological understanding, and real-world implementation. My goal is to bridge the gap between technological breakthroughs and patient care, ensuring that advances in AI translate into measurable improvements in human health.</div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -749,18 +768,27 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   </div>
 </div>
 
-<!-- ══════════════ SPEAKING ══════════════ -->
-<div id="sec-speaking" class="section">
+<!-- ══════════════ ABOUT ══════════════ -->
+<div id="sec-about" class="section">
   <div class="page">
-    <div class="page-lbl">Speaking</div>
-    <div class="speak-list">
-      <div class="speak-row"><div class="speak-date">2026<br><span class="speak-up">Upcoming</span></div><div><div class="speak-title">The next frontier of AI in oncology imaging — from biomarkers to clinical deployment</div><div class="speak-venue">MICCAI 2026 Keynote · Marrakech, Morocco</div></div></div>
-      <div class="speak-row"><div class="speak-date">Apr 2026</div><div><div class="speak-title">FaceAge and biological age estimation as a clinical tool in cancer treatment planning</div><div class="speak-venue">AACR Annual Meeting · Chicago, USA</div></div></div>
-      <div class="speak-row"><div class="speak-date">2025</div><div><div class="speak-title">Foundation models for medical imaging: progress, pitfalls, and the path to clinical use</div><div class="speak-venue">RSNA Annual Meeting · Chicago, USA</div></div></div>
-      <div class="speak-row"><div class="speak-date">2024</div><div><div class="speak-title">Large language models for clinical oncology — reliability, bias, and real-world deployment</div><div class="speak-venue">ASCO Annual Meeting · Chicago, USA</div></div></div>
-      <div class="speak-row"><div class="speak-date">2023</div><div><div class="speak-title">Artificial intelligence for medical imaging — from radiomics to deep learning at scale</div><div class="speak-venue">CANSSI Ontario STAGE · University of Toronto</div></div></div>
-      <div class="speak-row"><div class="speak-date">2022</div><div><div class="speak-title">Radiomics: there is more than meets the eye in medical imaging</div><div class="speak-venue">SPIE Medical Imaging Plenary · San Diego, USA</div></div></div>
-      <div class="speak-row"><div class="speak-date">2022</div><div><div class="speak-title">Deep learning applied to X-rays as a new biomarker source: cardiovascular risk prediction</div><div class="speak-venue">NCI CBIIT Speaker Series · Bethesda, USA</div></div></div>
+    <div class="page-lbl">About</div>
+
+    <div class="bio-text-only">
+      <div class="bio-text">
+        <p>My name is Hugo Aerts (pronounced 'Arts'), and I am a professor, scientist, and builder dedicated to improving human health through scientific discovery and artificial intelligence.</p>
+        <p>Over the past two decades, my work has focused on uncovering biological signals hidden within medical data. This research has contributed to the development of foundation models for medicine, and led to new insights into cancer, aging, and immune health. More recently, my team has challenged long-standing assumptions about the adult thymus, revealing its important role in cancer, aging, and overall health.</p>
+        <p>I currently serve as Professor at Harvard University and Director of the AI in Medicine Program at Mass General Brigham, where I lead multidisciplinary teams of scientists, clinicians, and engineers working at the intersection of artificial intelligence, medicine, and biology.</p>
+        <p>I believe we are at a unique moment in history. Artificial intelligence has demonstrated extraordinary potential, yet meaningful transformation of healthcare remains limited. The challenge is no longer simply building better algorithms, but using these technologies to generate new biological insights, rigorously validate discoveries, and translate them into clinical practice. My work focuses on bridging that gap.</p>
+        <p>My long-term goal is to help create a future in which medicine can better understand, predict, and prevent disease by measuring the biological processes that shape health, aging, resilience, and treatment response. By combining advances in AI, imaging, and biomedical science, I hope to contribute to a deeper understanding of human biology and ultimately improve outcomes for patients worldwide.</p>
+        <p>Originally from the Netherlands and now based in Boston, I continue to be inspired by the convergence of science, technology, and medicine.</p>
+      </div>
+      <div class="bio-links">
+        <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="blink">Google Scholar</a>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=aerts+hjwl" target="_blank" class="blink">PubMed</a>
+        <a href="https://orcid.org/0000-0002-2122-2003" target="_blank" class="blink">ORCID</a>
+        <a href="https://connects.catalyst.harvard.edu/Profiles/display/Person/100404" target="_blank" class="blink">Harvard Profiles</a>
+        <a href="mailto:haerts@bwh.harvard.edu" class="blink">Email</a>
+      </div>
     </div>
   </div>
 </div>
@@ -811,7 +839,7 @@ function goTo(name) {
 }
 
 // Highlight active nav item based on scroll position
-var sections = ['home','about','research','publications','media','speaking','contact'];
+var sections = ['home','research','publications','media','about','contact'];
 var btns = document.querySelectorAll('.nav-btn');
 
 function onScroll() {

@@ -209,6 +209,9 @@ nav {
 .bio-text { font-size: .82rem; line-height: 1.78; color: #444; font-weight: 300; }
 .bio-text p + p { margin-top: .8rem; }
 .bio-links { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+.bio-affils { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.8rem; }
+.bio-affil-logo { height: 36px; width: auto; object-fit: contain; opacity: .6; filter: grayscale(1); transition: opacity .15s; }
+.bio-affil-logo:hover { opacity: .9; }
 .blink {
   font-size: .63rem;
   letter-spacing: .08em;
@@ -222,6 +225,26 @@ nav {
 .blink:hover { color: var(--black); border-color: var(--black); }
 
 /* Research areas as AIM-style grid */
+.pub-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.6rem;
+}
+.pub-filter {
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mid);
+  background: none;
+  border: 1px solid #ddd;
+  padding: .35rem .85rem;
+  cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.pub-filter:hover { color: var(--black); border-color: var(--black); }
+.pub-filter.active { background: var(--black); color: #fff; border-color: var(--black); }
+.tile.hidden { display: none; }
 .res-pillars { border-top: 1px solid var(--rule); margin-bottom: 3rem; }
 .res-pillar {
   display: grid;
@@ -295,15 +318,17 @@ nav {
 .press-block {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
+  gap: 2rem 3rem;
   flex-wrap: wrap;
-  padding: 1.2rem 0 2rem;
+  padding: 2rem 0 2.4rem;
+  border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   margin-bottom: 2rem;
 }
-.press-lbl { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--light); width: 100%; margin-bottom: -.4rem; }
-.pl { opacity: .22; filter: grayscale(1); flex-shrink: 0; transition: opacity .15s; height: 22px; width: auto; }
-.pl:hover { opacity: .55; }
+.press-lbl { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--light); width: 100%; text-align: center; margin-bottom: .4rem; }
+.pl { opacity: .18; filter: grayscale(1); flex-shrink: 0; transition: opacity .15s; width: auto; }
+.pl:hover { opacity: .5; }
 
 /* News as AIM-style grid */
 .news-grid {
@@ -351,7 +376,7 @@ nav {
 
 /* ── CONTACT ── */
 .ct-name { font-size: 1.6rem; font-weight: 300; letter-spacing: -.035em; margin-bottom: .25rem; }
-.ct-role { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: 2rem; }
+.ct-role { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .8rem; }
 
 /* Affiliation logos in contact */
 .ct-affils {
@@ -359,8 +384,8 @@ nav {
   align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
-  margin-bottom: 2.4rem;
-  padding-bottom: 2rem;
+  margin: .8rem 0 2rem;
+  padding-bottom: 1.6rem;
   border-bottom: 1px solid var(--rule);
 }
 .ct-affil-logo { height: 30px; object-fit: contain; opacity: .5; filter: grayscale(1); transition: opacity .15s; }
@@ -462,7 +487,8 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 <nav>
   <span class="nav-name" onclick="goTo('home')">Hugo Aerts</span>
   <div class="nav-links">
-    <button class="nav-btn" onclick="goTo('research')">Research</button>
+    <button class="nav-btn" onclick="goTo('home')">Home</button>
+    <button class="nav-btn" onclick="goTo('research')">Focus Areas</button>
     <button class="nav-btn" onclick="goTo('publications')">Publications</button>
     <button class="nav-btn" onclick="goTo('media')">Media</button>
     <button class="nav-btn" onclick="goTo('about')">About</button>
@@ -494,9 +520,8 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
     <div class="page-lbl">From AI Breakthroughs to Patient Impact</div>
     <div class="vision-block">
       <div class="vision-text">
-        <p>Artificial intelligence is one of the most important technological breakthroughs of our time. Yet for all of its promise, its impact on everyday medicine has so far fallen short of expectations.</p>
-        <p>I believe the reason is simple: healthcare is not fundamentally a technology problem — it is a biology problem. Real progress will come not from building larger models alone, but from using AI to uncover new biological insights, rigorously validating them, and translating them into clinical practice.</p>
-        <p>My mission is to bridge that gap. By combining artificial intelligence, medicine, and scientific discovery, I work to uncover new insights into cancer, aging, and human health that can ultimately improve the prevention, diagnosis, and treatment of disease.</p>
+        <p>We are at a unique moment in history. Artificial intelligence has demonstrated extraordinary potential, yet meaningful transformation of healthcare remains limited. The challenge is not only to build larger models, but also to use these technologies to generate new biological insights, rigorously validate discoveries, and translate them into clinical practice.</p>
+        <p>My mission is to bridge that gap. By combining artificial intelligence, medicine, and scientific discovery, I work to uncover hidden signals in human biology — signals that can change how we understand aging, cancer, and disease. The goal is not simply to extend lifespan, but to extend healthy years of life.</p>
       </div>
     </div>
   </div>
@@ -505,25 +530,26 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 <!-- ══════════════ RESEARCH ══════════════ -->
 <div id="sec-research" class="section">
   <div class="page" style="max-width:100%">
-    <div class="page-lbl">Research</div>
+    <div class="page-lbl">Focus Areas</div>
+    <div class="vision-text" style="margin-bottom:2.4rem; max-width:680px">These are the areas I am currently working on — combining artificial intelligence, medicine, and biology to uncover new insights that can improve human health.</div>
 
     <!-- Research pillars -->
     <div class="res-pillars">
       <div class="res-pillar">
-        <div class="rp-title">Cancer</div>
-        <div class="rp-body">Cancer remains one of the greatest challenges in medicine. My research focuses on developing new approaches to understand cancer biology, predict treatment response, and personalize care. By applying artificial intelligence to clinical data, we have shown that routine data contain a wealth of biological information that was previously invisible to physicians. These discoveries have helped establish new opportunities for precision oncology.</div>
-      </div>
-      <div class="res-pillar">
-        <div class="rp-title">Aging</div>
-        <div class="rp-body">People age at different rates, yet medicine largely relies on chronological age rather than biological age. My work seeks to better understand the biological processes that drive aging and resilience. Through advances in artificial intelligence, we have demonstrated that routine medical images contain measurable signals of biological aging that are associated with health outcomes, disease risk, and survival. Our goal is to develop new tools that help identify risk earlier and promote healthier aging.</div>
-      </div>
-      <div class="res-pillar">
         <div class="rp-title">Immune Health</div>
-        <div class="rp-body">The immune system plays a central role in cancer, aging, infection, and chronic disease, yet many aspects of immune health remain poorly understood and difficult to measure. Our recent work has challenged long-standing assumptions about the adult thymus, revealing that this often-overlooked organ remains strongly associated with mortality, cancer risk, cardiovascular disease, and response to immunotherapy. By developing new ways to measure immune health, we aim to better understand resilience, disease susceptibility, and treatment outcomes across the lifespan.</div>
+        <div class="rp-body">The immune system plays a central role in cancer, aging, infection, and chronic disease, yet many aspects of immune health remain invisible to medicine. My research focuses on developing new ways to measure immune function and resilience, with the goal of understanding why some individuals remain healthy while others become vulnerable to disease. Recent work has challenged long-standing assumptions about the adult thymus, revealing its important role in longevity, cancer, cardiovascular disease, and response to therapy.</div>
+      </div>
+      <div class="res-pillar">
+        <div class="rp-title">Aging &amp; Longevity</div>
+        <div class="rp-body">Aging is the single greatest risk factor for many of the world's most common diseases. My work seeks to develop new ways of measuring biological aging and resilience, helping to identify risk earlier and better understand the processes that shape health across the lifespan. Ultimately, the goal is not simply to extend lifespan, but to extend healthy years of life.</div>
+      </div>
+      <div class="res-pillar">
+        <div class="rp-title">Cancer</div>
+        <div class="rp-body">Cancer remains one of the greatest challenges in medicine. My research focuses on uncovering hidden biological signals that can improve the prevention, diagnosis, and treatment of cancer. By combining artificial intelligence with clinical and imaging data, we seek to better understand why cancers develop, why patients respond differently to treatment, and how therapies can be tailored to each individual.</div>
       </div>
       <div class="res-pillar">
         <div class="rp-title">AI Foundation Models</div>
-        <div class="rp-body">Artificial intelligence is transforming how we analyze and interpret medical data. My research has helped pioneer the use of AI and machine learning in medical data, from deep learning to foundation models. While recent advances in AI have demonstrated extraordinary potential, meaningful clinical impact requires rigorous validation, biological understanding, and real-world implementation. My goal is to bridge the gap between technological breakthroughs and patient care, ensuring that advances in AI translate into measurable improvements in human health.</div>
+        <div class="rp-body">Artificial intelligence has the potential to transform medicine, but meaningful clinical impact remains limited. My research develops foundation models and other AI technologies that help uncover new biological insights and accelerate scientific discovery. By combining advances in AI with rigorous clinical validation, we aim to bridge the gap between technological breakthroughs and improvements in human health.</div>
       </div>
     </div>
 
@@ -534,110 +560,145 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 <div id="sec-publications" class="section">
   <div class="page-lbl" style="padding:2.8rem 2.8rem 0">Publications</div>
   <div style="padding:0 2.8rem">
-  <div style="padding: 1.6rem 0 .8rem">
-    <span class="press-lbl" style="width:auto">Selected highlights</span>
+  <div class="vision-text" style="margin: 1.6rem 0 1.6rem; max-width:720px">Selected contributions spanning cancer, aging, immune health, and medical AI. Together, these studies reflect a common goal: using artificial intelligence and scientific discovery to uncover new biological insights and translate them into better prevention, diagnosis, and treatment of disease.</div>
+  <div class="pub-filters">
+    <button class="pub-filter active" data-filter="all">All</button>
+    <button class="pub-filter" data-filter="immune">Immune Health</button>
+    <button class="pub-filter" data-filter="aging">Aging &amp; Longevity</button>
+    <button class="pub-filter" data-filter="cancer">Cancer</button>
+    <button class="pub-filter" data-filter="ai">AI Foundation Models</button>
   </div>
   <div class="tile-grid">
 
-    <a class="tile" href="https://www.nature.com/articles/s41586-026-10242-y" target="_blank">
-      <div class="tile-img">
-        <img src="data:image/jpeg;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//Z" alt="Nature — Thymic Health">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2026 · Nature</div>
-        <div class="tile-title">Thymic Health consequences in adults</div>
-        <div class="tile-sub">AI thymus biomarker linked to mortality and disease incidence</div>
-      </div>
-    </a>
-
-    <a class="tile" href="https://www.nature.com/articles/s41586-026-10243-x" target="_blank">
-      <div class="tile-img">
-        <img src="data:image/jpeg;base64,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" alt="Thymic Health and Immunotherapy">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2026 · Nature</div>
-        <div class="tile-title">Thymic Health and Immunotherapy Outcomes</div>
-        <div class="tile-sub">Thymus Health linked to immunotherapy outcomes in patients with cancer</div>
-      </div>
-    </a>
-
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.nature.com/articles/s41586-026-10242-y" target="_blank" data-topics="immune aging ai">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 220 64" style="width:130px"><text y="52" font-family="Georgia,serif" font-weight="700" font-size="58" fill="#111" letter-spacing="-2">nature</text></svg>
+        <svg viewBox="0 0 120 36" style="width:135px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333">Nature</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">Publication · 2025</div>
-        <div class="tile-title">Guidelines for studies using large language models (TRIPOD+AI)</div>
+        <div class="tile-tag">Nature · Immune Health</div>
+        <div class="tile-title">AI reveals the thymus as a key predictor of longevity and disease</div>
+        <div class="tile-sub">A new AI biomarker of thymic health linked to mortality, cancer risk, and disease incidence in adults</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
-      <div class="tile-img">
-        <img src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1733768793082-XAUPYOQ9FW6BTZW1HHQJ/llm_lancet.png" alt="LLMs" onerror="this.parentElement.classList.add('logo-box');this.style.display='none'">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2024</div>
-        <div class="tile-title">Responding to patient messages using large language models in oncology care</div>
-      </div>
-    </a>
-
-    <a class="tile" href="#" target="_blank">
-      <div class="tile-img">
-        <img src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1709226692527-WNQG4GZJ89CKRR87E7JG/fmcib_cover.png" alt="Foundation model" onerror="this.parentElement.classList.add('logo-box');this.style.display='none'">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2024</div>
-        <div class="tile-title">A foundation model for cancer imaging biomarkers trained on 11 million medical images</div>
-      </div>
-    </a>
-
-    <a class="tile" href="#" target="_blank">
-      <div class="tile-img">
-        <img src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1707268453073-HKGG7PNZJZK3GX0X68EW/sdoh_cover.png" alt="SDOH" onerror="this.parentElement.classList.add('logo-box');this.style.display='none'">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2024</div>
-        <div class="tile-title">LLMs for extraction of social determinants of health from clinical notes</div>
-      </div>
-    </a>
-
-    <a class="tile" href="#" target="_blank">
-      <div class="tile-img">
-        <img src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1695752614741-XU3VZ7QXQG5H0GT4IF4K/chatgpt_cover.png" alt="ChatGPT" onerror="this.parentElement.classList.add('logo-box');this.style.display='none'">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2023</div>
-        <div class="tile-title">Reliability of large language models for cancer treatment recommendations</div>
-      </div>
-    </a>
-
-    <a class="tile" href="#" target="_blank">
-      <div class="tile-img">
-        <img src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/1648054672697-KJNZ8RQKKVXSAQPCHPFB/deepcac_cover.png" alt="DeepCAC" onerror="this.parentElement.classList.add('logo-box');this.style.display='none'">
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Publication · 2022</div>
-        <div class="tile-title">Deep learning to predict cardiovascular risk from chest radiographs</div>
-      </div>
-    </a>
-
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.nature.com/articles/s41586-026-10243-x" target="_blank" data-topics="immune cancer ai">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 220 64" style="width:130px"><text y="52" font-family="Georgia,serif" font-weight="700" font-size="58" fill="#111" letter-spacing="-2">nature</text></svg>
+        <svg viewBox="0 0 120 36" style="width:135px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333">Nature</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">Publication · 2017</div>
-        <div class="tile-title">Decoding tumour phenotype by noninvasive imaging using a quantitative radiomics approach</div>
+        <div class="tile-tag">Nature · Immune Health</div>
+        <div class="tile-title">Thymic health predicts response to immunotherapy in cancer patients</div>
+        <div class="tile-sub">Patients with healthier thymus function show markedly better outcomes on immune checkpoint therapy</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.nature.com/articles/s42256-024-00807-9" target="_blank" data-topics="ai cancer">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 320 64" style="width:180px"><text y="50" font-family="Georgia,serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1">nature</text><text x="176" y="50" font-family="Georgia,serif" font-weight="400" font-size="28" fill="#555">medicine</text></svg>
+        <svg viewBox="0 0 240 36" style="width:240px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">Nature Machine Intelligence</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">Publication · 2019</div>
-        <div class="tile-title">Deep learning for prediction of obstructive disease from fast myocardial perfusion SPECT</div>
+        <div class="tile-tag">Nature Machine Intelligence · AI</div>
+        <div class="tile-title">A foundation model for cancer biomarker discovery</div>
+        <div class="tile-sub">Self-supervised AI pre-trained on millions of medical images uncovers novel cancer biomarkers across organ systems</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00926-8/abstract" target="_blank" data-topics="immune">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 120 36" style="width:135px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333">Lancet</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Lancet · Perspective</div>
+        <div class="tile-title">Digitising the thymus — a new frontier for AI in medicine</div>
+        <div class="tile-sub">Perspective with Eric Topol on the transformative potential of AI thymus biomarkers for human health</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.thelancet.com/journals/landig/article/PIIS2589-7500(25)00042-1/fulltext" target="_blank" data-topics="aging">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 240 36" style="width:240px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">Lancet Digital Health</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Lancet Digital Health · Aging</div>
+        <div class="tile-title">FaceAge — reading biological age from a photograph</div>
+        <div class="tile-sub">AI estimates biological age from facial images with accuracy predictive of cancer survival and longevity</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.nature.com/articles/s41568-018-0016-5" target="_blank" data-topics="ai cancer">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 240 36" style="width:240px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">Nature Reviews Cancer</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Nature Reviews Cancer · AI</div>
+        <div class="tile-title">How AI is reshaping the future of radiology and cancer care</div>
+        <div class="tile-sub">A landmark perspective on the transformative impact of artificial intelligence across medical imaging and oncology</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://ai.nejm.org/doi/10.1056/AIoa2400937" target="_blank" data-topics="ai">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 120 36" style="width:135px"><text y="22" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="#333">NEJM AI</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">NEJM AI · Cardiovascular</div>
+        <div class="tile-title">AI predicts cardiovascular disease across a major US health system</div>
+        <div class="tile-sub">A scalable AI algorithm validated across a large healthcare network for cardiovascular risk prediction</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.nature.com/articles/s41586-020-2766-y" target="_blank" data-topics="ai">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 120 36" style="width:135px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333">Nature</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Nature · AI</div>
+        <div class="tile-title">The case for transparency and reproducibility in medical AI</div>
+        <div class="tile-sub">A vision article calling for higher standards of openness and rigor in the development of AI for medicine</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.thelancet.com/journals/lanhl/article/PIIS2666-7568(25)00047-9/fulltext" target="_blank" data-topics="aging ai">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 240 36" style="width:248px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333">Lancet Healthy Longevity</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Lancet Healthy Longevity · Aging</div>
+        <div class="tile-title">AI approaches to measuring biological age</div>
+        <div class="tile-sub">A perspective on how AI techniques — from imaging to multimodal models — can capture biological aging beyond chronological age</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.nature.com/articles/s41467-021-20966-2" target="_blank" data-topics="ai">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 240 36" style="width:248px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">Nature Communications</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Nature Communications · Cardiovascular</div>
+        <div class="tile-title">Deep learning predicts cardiovascular risk from routine radiology</div>
+        <div class="tile-sub">A robust and scalable AI system that automatically extracts cardiovascular risk signals from standard radiological scans</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.sciencedirect.com/science/article/pii/S0923753419312025" target="_blank" data-topics="cancer ai">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 240 36" style="width:248px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">Annals of Oncology</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Annals of Oncology · Cancer</div>
+        <div class="tile-title">AI imaging biomarker predicts who benefits from immunotherapy</div>
+        <div class="tile-sub">An AI-derived imaging biomarker identifies cancer patients most likely to respond to immune checkpoint treatments</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.nature.com/articles/s41467-024-51202-2" target="_blank" data-topics="ai">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 240 36" style="width:248px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">Nature Communications</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Nature Communications · AI</div>
+        <div class="tile-title">End-to-end reproducible AI pipelines for radiology in the cloud</div>
+        <div class="tile-sub">An open platform enabling fully reproducible, scalable AI workflows for medical imaging research and clinical deployment</div>
       </div>
     </a>
 
@@ -648,25 +709,31 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   </div>
 </div>
 
+
 <!-- ══════════════ MEDIA ══════════════ -->
 <div id="sec-media" class="section">
   <div class="page-lbl" style="padding:2.8rem 2.8rem 0">Media</div>
 
   <div style="padding:0 2.8rem">
+  <div class="vision-text" style="margin: 1.6rem 0 1.6rem; max-width:720px">My research has been covered by leading media outlets worldwide — from science journalism to broadcast news.</div>
   <!-- Press logos -->
     <div class="press-block">
       <span class="press-lbl">Featured in</span>
-      <svg class="pl" height="15" viewBox="0 0 54 18"><text y="14" font-family="Arial Black,Arial" font-weight="900" font-size="16" fill="#c00">CNN</text></svg>
-      <svg class="pl" height="12" viewBox="0 0 188 15"><text y="12" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#000" letter-spacing=".2">The New York Times</text></svg>
-      <svg class="pl" height="11" viewBox="0 0 192 14"><text y="11" font-family="Georgia,serif" font-weight="700" font-size="11" fill="#000">The Washington Post</text></svg>
-      <svg class="pl" height="15" viewBox="0 0 62 18"><rect width="16" height="16" y="1" fill="#000"/><rect width="16" height="16" x="23" y="1" fill="#000"/><rect width="16" height="16" x="46" y="1" fill="#000"/><text x="3" y="13" font-family="Arial" font-weight="900" font-size="10" fill="#fff">B</text><text x="26" y="13" font-family="Arial" font-weight="900" font-size="10" fill="#fff">B</text><text x="49" y="13" font-family="Arial" font-weight="900" font-size="10" fill="#fff">C</text></svg>
-      <svg class="pl" height="12" viewBox="0 0 118 15"><text y="11" font-family="Arial Black,Arial" font-weight="900" font-size="12" fill="#003087" letter-spacing="1">FOX </text><text x="48" y="11" font-family="Arial Black,Arial" font-weight="900" font-size="12" fill="#c00">NEWS</text></svg>
-      <svg class="pl" height="12" viewBox="0 0 76 15"><text y="12" font-family="Arial Black,Arial" font-weight="900" font-size="12" fill="#000" letter-spacing="1.2">FORBES</text></svg>
-      <svg class="pl" height="13" viewBox="0 0 34 16"><text y="13" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#000">WSJ</text></svg>
-      <svg class="pl" height="12" viewBox="0 0 62 15"><text y="12" font-family="Arial" font-weight="700" font-size="13" fill="#000">Nature</text></svg>
-      <svg class="pl" height="11" viewBox="0 0 74 14"><text y="11" font-family="Arial" font-weight="700" font-size="12" fill="#000" letter-spacing=".8">SCIENCE</text></svg>
-      <svg class="pl" height="13" viewBox="0 0 38 16"><text y="13" font-family="Arial Black,Arial" font-weight="900" font-size="14" fill="#000">NPR</text></svg>
-      <svg class="pl" height="11" viewBox="0 0 88 14"><text y="11" font-family="Arial Black,Arial" font-weight="900" font-size="11" fill="#000" letter-spacing=".4">BLOOMBERG</text></svg>
+      <svg class="pl" style="height:37px;width:auto" viewBox="0 0 80 32"><text y="25" font-family="Arial Black,Arial" font-weight="900" font-size="26" fill="#c00">CNN</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 280 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000" letter-spacing=".3">The New York Times</text></svg>
+      <svg class="pl" style="height:26px;width:auto" viewBox="0 0 270 22"><text y="17" font-family="Georgia,serif" font-weight="700" font-size="16" fill="#000" letter-spacing=".2">The Washington Post</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 340 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000" letter-spacing=".1">The Wall Street Journal</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 230 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000">Financial Times</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 210 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000">The Guardian</text></svg>
+      <svg class="pl" style="height:32px;width:auto" viewBox="0 0 76 30"><text y="23" font-family="Arial Black,Arial" font-weight="900" font-size="22" fill="#000">NPR</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 66 24"><text y="19" font-family="Arial Black,Arial" font-weight="900" font-size="18" fill="#000">AFP</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 210 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000">The Telegraph</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 230 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000">The Independent</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 210 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000">la Repubblica</text></svg>
+      <svg class="pl" style="height:26px;width:auto" viewBox="0 0 56 22"><text y="17" font-family="Arial Black,Arial" font-weight="900" font-size="17" fill="#000">DW</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 190 24"><text y="19" font-family="Arial Black,Arial" font-weight="900" font-size="14" fill="#c00">CNN </text><text x="48" y="19" font-family="Arial Black,Arial" font-weight="900" font-size="14" fill="#006600">Brasil</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 110 24"><text y="19" font-family="Arial Black,Arial" font-weight="900" font-size="17" fill="#000">NDTV</text></svg>
+      <svg class="pl" style="height:27px;width:auto" viewBox="0 0 80 24"><text y="19" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#000">NRC</text></svg>
     </div>
 
   <div style="padding: 1.6rem 0 .8rem">
@@ -674,93 +741,135 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   </div>
   <div class="tile-grid">
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.youtube.com/watch?v=lM9P3dZD_A0" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 190 50" style="width:140px"><text y="38" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333" letter-spacing=".3">The New York Times</text></svg>
+        <svg viewBox="0 0 60 30" style="width:66px"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00">CNN</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2025</div>
-        <div class="tile-title">New York Times features AIM Study on Biological Age using Face Photos</div>
+        <div class="tile-tag">CNN</div>
+        <div class="tile-title">How a selfie can reveal your biological age</div>
+        <div class="tile-sub">Kara Swisher explores FaceAge and what AI-estimated biological age means for medicine</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.washingtonpost.com/health/2026/05/03/thymus-longevity-cancer-research/" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 160 50" style="width:120px"><text y="32" font-family="Arial Black,Arial" font-weight="900" font-size="28" fill="#003087" letter-spacing="1">FOX</text><text x="78" y="32" font-family="Arial Black,Arial" font-weight="900" font-size="18" fill="#c00"> NEWS</text></svg>
+        <svg viewBox="0 0 220 30" style="width:225px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">The Washington Post</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2025</div>
-        <div class="tile-title">AIM Study on Biological Age using Face Photos picked up by Fox News</div>
+        <div class="tile-tag">Washington Post</div>
+        <div class="tile-title">The body's most mysterious organ may play a key role in longevity and cancer</div>
+        <div class="tile-sub">A decades-old assumption about the thymus is overturned by AI analysis of 25,000 adults</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.scientificamerican.com/article/this-overlooked-organ-may-be-more-vital-for-longevity-than-scientists/" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 80 50" style="width:60px"><rect width="22" height="22" y="14" fill="#000"/><rect width="22" height="22" x="29" y="14" fill="#000"/><rect width="22" height="22" x="58" y="14" fill="#000"/><text x="4" y="30" font-family="Arial" font-weight="900" font-size="14" fill="#fff">B</text><text x="33" y="30" font-family="Arial" font-weight="900" font-size="14" fill="#fff">B</text><text x="62" y="30" font-family="Arial" font-weight="900" font-size="14" fill="#fff">C</text></svg>
+        <svg viewBox="0 0 220 30" style="width:240px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333">Scientific American</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2025</div>
-        <div class="tile-title">Novel AI for estimation of biological age from face photographs</div>
+        <div class="tile-tag">Scientific American</div>
+        <div class="tile-title">This Overlooked Organ May Be More Vital for Longevity Than Scientists Realized</div>
+        <div class="tile-sub">New research puts the thymus back on the map as a major player in healthy aging</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.nytimes.com/2025/05/08/well/biological-age-faceage.html" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 200 50" style="width:120px"><text y="36" font-family="Arial Black,Arial" font-weight="900" font-size="28" fill="#444" letter-spacing=".5">NIH</text><text x="52" y="36" font-family="Arial" font-weight="400" font-size="13" fill="#666">National Cancer Institute</text></svg>
+        <svg viewBox="0 0 190 30" style="width:210px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" letter-spacing=".2">The New York Times</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2025</div>
-        <div class="tile-title">AIM Investigator awarded 5-year grant to improve cancer survivorship</div>
+        <div class="tile-tag">New York Times</div>
+        <div class="tile-title">Can a Photograph Help Predict Who Will Survive Cancer Treatment?</div>
+        <div class="tile-sub">FaceAge reads subtle facial signals — not wrinkles, but temple hollowing — to estimate biological age</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.wsj.com/health/wellness/face-age-test-health-medicine-6ca1a4c5" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 190 50" style="width:140px"><text y="38" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333" letter-spacing=".3">The New York Times</text></svg>
+        <svg viewBox="0 0 60 30" style="width:60px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333">WSJ</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2024</div>
-        <div class="tile-title">AIM Study on LLMs for patient portal messaging featured in the New York Times</div>
+        <div class="tile-tag">Wall Street Journal</div>
+        <div class="tile-title">Your Face Age and What It Reveals About Your Health</div>
+        <div class="tile-sub">The science behind using a photograph to measure how quickly — or slowly — you are aging</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.bostonglobe.com/2025/05/09/metro/aging-ai-artificial-intelligence-cancer/" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 120 50" style="width:90px"><text x="6" y="24" font-family="Arial" font-weight="700" font-size="18" fill="#4285f4">G</text><text x="20" y="24" font-family="Arial" font-weight="700" font-size="18" fill="#ea4335">o</text><text x="32" y="24" font-family="Arial" font-weight="700" font-size="18" fill="#fbbc05">o</text><text x="44" y="24" font-family="Arial" font-weight="700" font-size="18" fill="#4285f4">g</text><text x="55" y="24" font-family="Arial" font-weight="700" font-size="18" fill="#34a853">l</text><text x="63" y="24" font-family="Arial" font-weight="700" font-size="18" fill="#ea4335">e</text></svg>
+        <svg viewBox="0 0 180 30" style="width:195px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">The Boston Globe</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">Award · 2024</div>
-        <div class="tile-title">AIM Student Awarded 2024 Google PhD Fellowship in Natural Language Processing</div>
+        <div class="tile-tag">Boston Globe</div>
+        <div class="tile-title">Can your facial features reveal your odds of surviving cancer?</div>
+        <div class="tile-sub">Harvard researchers show that biological age — not chronological age — is what matters for prognosis</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://x.com/drtaranarula/status/1598022448754339840" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 160 50" style="width:110px"><text y="36" font-family="Arial Black,Arial" font-weight="900" font-size="22" fill="#111" letter-spacing="2">BLOOMBERG</text></svg>
+        <svg viewBox="0 0 60 30" style="width:66px"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00">CNN</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2023</div>
-        <div class="tile-title">AIM ChatGPT reliability study headlines across Bloomberg, WBUR, Yahoo and major outlets</div>
+        <div class="tile-tag">CNN This Morning</div>
+        <div class="tile-title">A single chest X-ray can predict your heart attack and stroke risk</div>
+        <div class="tile-sub">AI turns one of medicine's most routine scans into a window on cardiovascular risk</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.ft.com/content/3ac60aaf-3b55-4f1c-858c-7b42b4cbd914" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 60 50" style="width:44px"><text y="34" font-family="Arial Black,Arial" font-weight="900" font-size="28" fill="#c00">CNN</text></svg>
+        <svg viewBox="0 0 60 30" style="width:60px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333">FT</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">News · 2022</div>
-        <div class="tile-title">Harvard AI predicts cardiovascular risk directly from a routine chest X-ray</div>
+        <div class="tile-tag">Financial Times</div>
+        <div class="tile-title">The AI tool that estimates your biological age from a single photograph</div>
+        <div class="tile-sub">FaceAge could change how doctors assess patient resilience before treatment</div>
       </div>
     </a>
 
-    <a class="tile" href="#" target="_blank">
+    <a class="tile" href="https://www.thetimes.com/life-style/health-fitness/article/im-52-my-biological-age-is-32-can-that-be-true-z0p835bq2" target="_blank">
       <div class="tile-img logo-box">
-        <svg viewBox="0 0 160 50" style="width:100px"><text y="36" font-family="Arial" font-weight="700" font-size="28" fill="#111">Nature</text></svg>
+        <svg viewBox="0 0 140 30" style="width:150px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333">The Times</text></svg>
       </div>
       <div class="tile-body">
-        <div class="tile-tag">Press · 2024</div>
-        <div class="tile-title">AIM foundation model study highlighted by MGB News, ScienceMag and ecancer</div>
+        <div class="tile-tag">The Times</div>
+        <div class="tile-title">I'm 52, my biological age is 32 — can that be true?</div>
+        <div class="tile-sub">A journalist puts FaceAge to the test and discovers what their face says about their health</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.theguardian.com/technology/2025/may/13/faceage-the-ai-tool-that-can-tell-your-biological-age-through-one-photo" target="_blank">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 160 30" style="width:165px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">The Guardian</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">The Guardian</div>
+        <div class="tile-title">FaceAge: the AI tool that can tell your biological age through one photo</div>
+        <div class="tile-sub">Why your face may be one of the most underused sources of medical information</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.nrc.nl/nieuws/2026/03/18/de-zwezerik-heeft-wel-betekenis-a4923268" target="_blank">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 80 30" style="width:82px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333">NRC</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">NRC</div>
+        <div class="tile-title">De zwezerik heeft wél betekenis</div>
+        <div class="tile-sub">Het orgaan dat decennialang werd genegeerd blijkt een sleutelrol te spelen in veroudering en kanker</div>
+      </div>
+    </a>
+
+    <a class="tile" href="https://www.washingtonpost.com/science/2025/05/12/ai-tool-biological-age-faceage/" target="_blank">
+      <div class="tile-img logo-box">
+        <svg viewBox="0 0 220 30" style="width:225px"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333">The Washington Post</text></svg>
+      </div>
+      <div class="tile-body">
+        <div class="tile-tag">Washington Post</div>
+        <div class="tile-title">New AI tool predicts your biological age from a selfie</div>
+        <div class="tile-sub">Cancer patients score five years older on average — and that gap predicts who survives</div>
       </div>
     </a>
 
@@ -775,19 +884,11 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 
     <div class="bio-text-only">
       <div class="bio-text">
-        <p>My name is Hugo Aerts (pronounced 'Arts'), and I am a professor, scientist, and builder dedicated to improving human health through scientific discovery and artificial intelligence.</p>
-        <p>Over the past two decades, my work has focused on uncovering biological signals hidden within medical data. This research has contributed to the development of foundation models for medicine, and led to new insights into cancer, aging, and immune health. More recently, my team has challenged long-standing assumptions about the adult thymus, revealing its important role in cancer, aging, and overall health.</p>
-        <p>I currently serve as Professor at Harvard University and Director of the AI in Medicine Program at Mass General Brigham, where I lead multidisciplinary teams of scientists, clinicians, and engineers working at the intersection of artificial intelligence, medicine, and biology.</p>
-        <p>I believe we are at a unique moment in history. Artificial intelligence has demonstrated extraordinary potential, yet meaningful transformation of healthcare remains limited. The challenge is no longer simply building better algorithms, but using these technologies to generate new biological insights, rigorously validate discoveries, and translate them into clinical practice. My work focuses on bridging that gap.</p>
-        <p>My long-term goal is to help create a future in which medicine can better understand, predict, and prevent disease by measuring the biological processes that shape health, aging, resilience, and treatment response. By combining advances in AI, imaging, and biomedical science, I hope to contribute to a deeper understanding of human biology and ultimately improve outcomes for patients worldwide.</p>
-        <p>Originally from the Netherlands and now based in Boston, I continue to be inspired by the convergence of science, technology, and medicine.</p>
-      </div>
-      <div class="bio-links">
-        <a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank" class="blink">Google Scholar</a>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=aerts+hjwl" target="_blank" class="blink">PubMed</a>
-        <a href="https://orcid.org/0000-0002-2122-2003" target="_blank" class="blink">ORCID</a>
-        <a href="https://connects.catalyst.harvard.edu/Profiles/display/Person/100404" target="_blank" class="blink">Harvard Profiles</a>
-        <a href="mailto:haerts@bwh.harvard.edu" class="blink">Email</a>
+        <p>My name is Hugo Aerts (pronounced "arts") — a professor, scientist, and builder dedicated to improving human health through scientific discovery and artificial intelligence.</p>
+        <p>Over the past two decades, my work has focused on uncovering biological signals hidden within medical data. This research has contributed to the development of foundation models for medicine, and led to new insights into aging, cancer, and immune health. More recently, my team has challenged long-standing assumptions about the adult thymus, revealing its important role in longevity, cancer risk, and treatment response.</p>
+        <p>I serve as Professor at Harvard University, Director of the AI in Medicine Program at Mass General Brigham, and Adjunct Professor at Maastricht University, where I lead multidisciplinary teams of scientists, clinicians, and engineers working at the intersection of artificial intelligence, medicine, and biology.</p>
+        <p>My research is supported by major NIH-funded initiatives, and in 2020 I was awarded a prestigious ERC Consolidator Grant from the European Union's Horizon program. Since 2022, I have been recognised by Web of Science as among the top 1% most-cited scientists worldwide.</p>
+        <p>Originally from the Netherlands and now based in Boston, I remain inspired by the convergence of science, technology, and medicine — and by the possibility that the work we do today can meaningfully change the lives of patients tomorrow.</p>
       </div>
     </div>
   </div>
@@ -798,34 +899,27 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   <div class="page">
     <div class="page-lbl">Contact</div>
     <div class="ct-name">Hugo Aerts</div>
-    <div class="ct-role">Director, AIM Program · Professor, Harvard University</div>
-
-    <!-- Affiliation logos with labels -->
-    <div class="ct-affils">
-      <div style="text-align:center">
-        <img class="ct-affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4760348c-479b-479a-be64-a3d3c9c6b8e5/Brigham+Women+Hospital.png" alt="Brigham and Women's Hospital">
-        <div style="font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.4rem">Brigham &amp; Women's Hospital</div>
-      </div>
-      <div style="text-align:center">
-        <img class="ct-affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/4f4dc1c8-d0b0-40b6-835d-46b5de7cc289/MGH+Social+Emergency+Medicine.png" alt="Massachusetts General Hospital">
-        <div style="font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.4rem">Mass General Hospital</div>
-      </div>
-      <div style="text-align:center">
-        <img class="ct-affil-logo" src="https://images.squarespace-cdn.com/content/v1/5ddf0513dca85a1b752fd0f1/9146437b-43a4-49c8-8251-567f91543692/newshields.png" alt="Harvard" style="height:32px">
-        <div style="font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-top:.4rem">Harvard University</div>
-      </div>
-    </div>
+    <div class="ct-role">Professor, Harvard University · Director, AIM Program MGB · Professor, Maastricht University</div>
 
     <table class="ct">
-      <tr><td>Email</td><td><a href="mailto:haerts@bwh.harvard.edu">haerts@bwh.harvard.edu</a></td></tr>
+      <tr><td>Email</td><td><a href="mailto:hugo@hugoaerts.com">hugo@hugoaerts.com</a></td></tr>
       <tr><td>Lab</td><td><a href="https://aim.mgh.harvard.edu" target="_blank">aim.mgh.harvard.edu</a></td></tr>
       <tr><td>Harvard</td><td>AI in Medicine (AIM) Program<br>Mass General Brigham<br>75 Francis St, Boston MA 02115</td></tr>
-      <tr><td>Maastricht</td><td>Dept. of Precision Medicine<br>Maastricht University<br>P.O. Box 616, 6200 MD, NL</td></tr>
+      <tr><td>Maastricht</td><td>Maastricht University<br>P.O. Box 616, 6200 MD<br>The Netherlands</td></tr>
       <tr><td>Scholar</td><td><a href="https://scholar.google.com/citations?user=v7G4QvIAAAAJ" target="_blank">Google Scholar — 80k+ citations</a></td></tr>
+      <tr><td>PubMed</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/?term=aerts+hjwl" target="_blank">PubMed publications</a></td></tr>
       <tr><td>ORCID</td><td><a href="https://orcid.org/0000-0002-2122-2003" target="_blank">0000-0002-2122-2003</a></td></tr>
+      <tr><td>Harvard</td><td><a href="https://connects.catalyst.harvard.edu/Profiles/display/Person/100404" target="_blank">Harvard Profiles</a></td></tr>
       <tr><td>Twitter</td><td><a href="https://twitter.com/hugoaerts" target="_blank">@hugoaerts</a></td></tr>
       <tr><td>LinkedIn</td><td><a href="https://www.linkedin.com/in/hugoaerts/" target="_blank">linkedin.com/in/hugoaerts</a></td></tr>
     </table>
+
+    <!-- Affiliation logos -->
+    <div class="ct-affils">
+      <img class="ct-affil-logo" src="Harvard-Emblem.png" alt="Harvard University" style="height:57px">
+      <img class="ct-affil-logo" src="mass-general-brigham3030.jpg" alt="Mass General Brigham" style="height:154px">
+      <img class="ct-affil-logo" src="maastricht-university-logo-vector.png" alt="Maastricht University" style="height:144px">
+    </div>
   </div>
 </div>
 
@@ -857,6 +951,23 @@ function onScroll() {
 
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
+
+// Publication filters
+document.querySelectorAll('.pub-filter').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = this.getAttribute('data-filter');
+    document.querySelectorAll('.pub-filter').forEach(function(b) { b.classList.remove('active'); });
+    this.classList.add('active');
+    document.querySelectorAll('#sec-publications .tile').forEach(function(tile) {
+      if (filter === 'all') {
+        tile.classList.remove('hidden');
+      } else {
+        var topics = tile.getAttribute('data-topics') || '';
+        tile.classList.toggle('hidden', !topics.split(' ').includes(filter));
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>

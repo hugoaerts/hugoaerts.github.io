@@ -449,6 +449,7 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--rule);
   border-left: 1px solid var(--rule);
+  align-items: start;
 }
 .tile {
   display: flex;
@@ -459,6 +460,7 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   color: inherit;
   cursor: pointer;
   transition: background .12s;
+  align-self: stretch;
 }
 .tile:hover { background: #fafafa; }
 .tile-img {
@@ -476,10 +478,12 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 .tile-cover {
   position: relative;
   aspect-ratio: 4/3;
+  max-height: 260px;
+  width: 100%;
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  flex-shrink: 0;
+  flex: 1;
 }
 .tile-cover::after {
   content: '';

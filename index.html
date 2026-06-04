@@ -478,6 +478,46 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 .tile-tag { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .38rem; }
 .tile-title { font-size: .83rem; font-weight: 500; line-height: 1.4; letter-spacing: -.01em; color: var(--black); margin-bottom: .3rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .tile-sub { font-size: .75rem; font-weight: 300; color: var(--mid); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .res-pillars { grid-template-columns: 1fr; }
+  .res-pillar { grid-template-columns: 1fr; }
+  .hero-block { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+  .hero-photo-wrap { order: -1; justify-content: center; max-height: 340px; overflow: hidden; }
+  .hero-photo { width: 100%; max-width: 340px; margin-bottom: 0; object-position: top; }
+  .hero-text { padding: 2rem 1.6rem 2rem; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 1.2rem; }
+  .nav-btn { padding: 0 .6rem; font-size: .6rem; }
+  .nav-name { font-size: .95rem; }
+  .page { padding: 2rem 1.4rem; }
+  .page-lbl { margin-bottom: 1.4rem; }
+  .hero-punchline { font-size: 1.25rem; }
+  .hero-text { padding: 2rem 1.4rem 1.8rem; }
+  .section + .section { border-top: 1px solid var(--rule); }
+  .res-pillar { padding: 1.4rem 1.2rem; }
+  .rp-title { font-size: .95rem; }
+  .vision-text { font-size: .95rem; }
+  div[style*="padding:0 2.8rem"],
+  div[style*="padding: 0 2.8rem"] { padding: 0 1.4rem !important; }
+  div[style*="padding:2.8rem 2.8rem"] { padding: 1.6rem 1.4rem 0 !important; }
+  div[style*="padding:1.6rem 2.8rem"] { padding: 1.2rem 1.4rem !important; }
+  .press-block { padding: .8rem 0; }
+  table.ct { max-width: 100%; }
+  .ct-affils { gap: 1.2rem; }
+}
+
+@media (max-width: 520px) {
+  .tile-grid { grid-template-columns: 1fr; }
+  .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-btn { padding: 0 .5rem; white-space: nowrap; }
+  .hero-punchline { font-size: 1.1rem; }
+  .ct-affils { flex-direction: column; align-items: flex-start; }
+}
 </style>
 </head>
 <body>

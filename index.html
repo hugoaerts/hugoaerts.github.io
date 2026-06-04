@@ -472,8 +472,35 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   flex-shrink: 0;
 }
 .tile-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.tile-img.logo-box { background: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 1.5rem; overflow: hidden; }
-.tile-img.logo-box svg { filter: grayscale(1); opacity: .7; height: 44px !important; width: auto !important; flex-shrink: 0; display: block; margin: auto; }
+.tile-img.logo-box { display: none; }
+.tile-cover {
+  position: relative;
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.tile-cover::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%);
+}
+.tile-logo-badge {
+  position: absolute;
+  top: .9rem; left: .9rem;
+  z-index: 2;
+}
+.tile-logo-badge svg { height: 40px !important; width: auto !important; filter: brightness(10); opacity: .9; }
+.tile-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: .9rem 1rem 1rem;
+  z-index: 2;
+}
+.tile-overlay .tile-tag { color: rgba(255,255,255,.65); margin-bottom: .3rem; }
+.tile-overlay .tile-title { color: #fff; margin-bottom: .2rem; }
+.tile-overlay .tile-sub { color: rgba(255,255,255,.6); }
 .tile-body { padding: .9rem 1rem 1.1rem; }
 .tile-tag { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .38rem; }
 .tile-title { font-size: .83rem; font-weight: 500; line-height: 1.4; letter-spacing: -.01em; color: var(--black); margin-bottom: .3rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -610,134 +637,122 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   <div class="tile-grid">
 
     <a class="tile" href="https://www.nature.com/articles/s41586-026-10242-y" target="_blank" data-topics="immune aging ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature · Immune Health</div>
-        <div class="tile-title">AI reveals the thymus as a key predictor of longevity and disease</div>
-        <div class="tile-sub">A new AI biomarker of thymic health linked to mortality, cancer risk, and disease incidence in adults</div>
+      <div class="tile-cover" style="background-image:url('ThymusArtwork_v1.png');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature · Immune Health</div>
+          <div class="tile-title">AI reveals the thymus as a key predictor of longevity and disease</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nature.com/articles/s41586-026-10243-x" target="_blank" data-topics="immune cancer ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature · Immune Health</div>
-        <div class="tile-title">Thymic health predicts response to immunotherapy in cancer patients</div>
-        <div class="tile-sub">Patients with healthier thymus function show markedly better outcomes on immune checkpoint therapy</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature · Immune Health</div>
+          <div class="tile-title">Thymic health predicts response to immunotherapy in cancer patients</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nature.com/articles/s42256-024-00807-9" target="_blank" data-topics="ai cancer">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Machine Intelligence</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature Machine Intelligence · AI</div>
-        <div class="tile-title">A foundation model for cancer biomarker discovery</div>
-        <div class="tile-sub">Self-supervised AI pre-trained on millions of medical images uncovers novel cancer biomarkers across organ systems</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Machine Intelligence</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature Machine Intelligence · AI</div>
+          <div class="tile-title">A foundation model for cancer biomarker discovery</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00926-8/abstract" target="_blank" data-topics="immune">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">Lancet</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Lancet · Perspective</div>
-        <div class="tile-title">Digitising the thymus — a new frontier for AI in medicine</div>
-        <div class="tile-sub">Perspective with Eric Topol on the transformative potential of AI thymus biomarkers for human health</div>
+      <div class="tile-cover" style="background-image:url('lancet.png');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">Lancet</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Lancet · Perspective</div>
+          <div class="tile-title">Digitising the thymus — a new frontier for AI in medicine</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.thelancet.com/journals/landig/article/PIIS2589-7500(25)00042-1/fulltext" target="_blank" data-topics="aging">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Lancet Digital Health</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Lancet Digital Health · Aging</div>
-        <div class="tile-title">FaceAge — reading biological age from a photograph</div>
-        <div class="tile-sub">AI estimates biological age from facial images with accuracy predictive of cancer survival and longevity</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Lancet Digital Health</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Lancet Digital Health · Aging</div>
+          <div class="tile-title">FaceAge — reading biological age from a photograph</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nature.com/articles/s41568-018-0016-5" target="_blank" data-topics="ai cancer">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Reviews Cancer</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature Reviews Cancer · AI</div>
-        <div class="tile-title">How AI is reshaping the future of radiology and cancer care</div>
-        <div class="tile-sub">A landmark perspective on the transformative impact of artificial intelligence across medical imaging and oncology</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1576671414121-aa0c81c869e1?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Reviews Cancer</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature Reviews Cancer · AI</div>
+          <div class="tile-title">How AI is reshaping the future of radiology and cancer care</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://ai.nejm.org/doi/10.1056/AIoa2400937" target="_blank" data-topics="ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="#333" dominant-baseline="middle">NEJM AI</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">NEJM AI · Cardiovascular</div>
-        <div class="tile-title">AI predicts cardiovascular disease across a major US health system</div>
-        <div class="tile-sub">A scalable AI algorithm validated across a large healthcare network for cardiovascular risk prediction</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1631651363531-fd29aec4cb5c?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Arial,sans-serif" font-weight="700" font-size="16" fill="#333" dominant-baseline="middle">NEJM AI</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">NEJM AI · Cardiovascular</div>
+          <div class="tile-title">AI predicts cardiovascular disease across a major US health system</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nature.com/articles/s41586-020-2766-y" target="_blank" data-topics="ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature · AI</div>
-        <div class="tile-title">The case for transparency and reproducibility in medical AI</div>
-        <div class="tile-sub">A vision article calling for higher standards of openness and rigor in the development of AI for medicine</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature · AI</div>
+          <div class="tile-title">The case for transparency and reproducibility in medical AI</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.thelancet.com/journals/lanhl/article/PIIS2666-7568(25)00047-9/fulltext" target="_blank" data-topics="aging ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333" dominant-baseline="middle">Lancet Healthy Longevity</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Lancet Healthy Longevity · Aging</div>
-        <div class="tile-title">AI approaches to measuring biological age</div>
-        <div class="tile-sub">A perspective on how AI techniques — from imaging to multimodal models — can capture biological aging beyond chronological age</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333" dominant-baseline="middle">Lancet Healthy Longevity</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Lancet Healthy Longevity · Aging</div>
+          <div class="tile-title">AI approaches to measuring biological age</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nature.com/articles/s41467-021-20966-2" target="_blank" data-topics="ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Communications</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature Communications · Cardiovascular</div>
-        <div class="tile-title">Deep learning predicts cardiovascular risk from routine radiology</div>
-        <div class="tile-sub">A robust and scalable AI system that automatically extracts cardiovascular risk signals from standard radiological scans</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Communications</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature Communications · Cardiovascular</div>
+          <div class="tile-title">Deep learning predicts cardiovascular risk from routine radiology</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.sciencedirect.com/science/article/pii/S0923753419312025" target="_blank" data-topics="cancer ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Annals of Oncology</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Annals of Oncology · Cancer</div>
-        <div class="tile-title">AI imaging biomarker predicts who benefits from immunotherapy</div>
-        <div class="tile-sub">An AI-derived imaging biomarker identifies cancer patients most likely to respond to immune checkpoint treatments</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Annals of Oncology</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Annals of Oncology · Cancer</div>
+          <div class="tile-title">AI imaging biomarker predicts who benefits from immunotherapy</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nature.com/articles/s41467-024-51202-2" target="_blank" data-topics="ai">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Communications</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Nature Communications · AI</div>
-        <div class="tile-title">End-to-end reproducible AI pipelines for radiology in the cloud</div>
-        <div class="tile-sub">An open platform enabling fully reproducible, scalable AI workflows for medical imaging research and clinical deployment</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:248px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Communications</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Nature Communications · AI</div>
+          <div class="tile-title">End-to-end reproducible AI pipelines for radiology in the cloud</div>
+        </div>
       </div>
     </a>
 
@@ -781,138 +796,127 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
   <div class="tile-grid">
 
     <a class="tile" href="https://www.youtube.com/watch?v=lM9P3dZD_A0" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 60 30" style="max-width:66px;width:100%"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00" dominant-baseline="middle">CNN</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">CNN</div>
-        <div class="tile-title">How a selfie can reveal your biological age</div>
-        <div class="tile-sub">Kara Swisher explores FaceAge and what AI-estimated biological age means for medicine</div>
+      <div class="tile-cover" style="background-image:url('cnn-faceage.png');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 60 30" style="max-width:66px;width:100%"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00" dominant-baseline="middle">CNN</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">CNN</div>
+          <div class="tile-title">Kara Swisher explores how a selfie can reveal your biological age</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.washingtonpost.com/health/2026/05/03/thymus-longevity-cancer-research/" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 220 30" style="max-width:225px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Washington Post</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Washington Post</div>
-        <div class="tile-title">The body's most mysterious organ may play a key role in longevity and cancer</div>
-        <div class="tile-sub">A decades-old assumption about the thymus is overturned by AI analysis of 25,000 adults</div>
+      <div class="tile-cover" style="background-image:url('washingtonpost-thymus.png');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 220 30" style="max-width:225px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Washington Post</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Washington Post</div>
+          <div class="tile-title">The body's most mysterious organ may play a key role in longevity and cancer</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.scientificamerican.com/article/this-overlooked-organ-may-be-more-vital-for-longevity-than-scientists/" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 220 30" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333" dominant-baseline="middle">Scientific American</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Scientific American</div>
-        <div class="tile-title">This Overlooked Organ May Be More Vital for Longevity Than Scientists Realized</div>
-        <div class="tile-sub">New research puts the thymus back on the map as a major player in healthy aging</div>
+      <div class="tile-cover" style="background-image:url('scientificamerican.jpg');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 220 30" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333" dominant-baseline="middle">Scientific American</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Scientific American</div>
+          <div class="tile-title">This Overlooked Organ May Be More Vital for Longevity Than Scientists Realized</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nytimes.com/2025/05/08/well/biological-age-faceage.html" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 190 30" style="max-width:210px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" letter-spacing=".2" dominant-baseline="middle">The New York Times</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">New York Times</div>
-        <div class="tile-title">Can a Photograph Help Predict Who Will Survive Cancer Treatment?</div>
-        <div class="tile-sub">FaceAge reads subtle facial signals — not wrinkles, but temple hollowing — to estimate biological age</div>
+      <div class="tile-cover" style="background-image:url('08WELL-FACEAGE-superJumbo.jpg');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 190 30" style="max-width:210px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" letter-spacing=".2" dominant-baseline="middle">The New York Times</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">New York Times</div>
+          <div class="tile-title">Can a Photograph Help Predict Who Will Survive Cancer Treatment?</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.wsj.com/health/wellness/face-age-test-health-medicine-6ca1a4c5" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 60 30" style="max-width:60px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">WSJ</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Wall Street Journal</div>
-        <div class="tile-title">Your Face Age and What It Reveals About Your Health</div>
-        <div class="tile-sub">The science behind using a photograph to measure how quickly — or slowly — you are aging</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 60 30" style="max-width:60px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">WSJ</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Wall Street Journal</div>
+          <div class="tile-title">Your Face Age and What It Reveals About Your Health</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.bostonglobe.com/2025/05/09/metro/aging-ai-artificial-intelligence-cancer/" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 180 30" style="max-width:195px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Boston Globe</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Boston Globe</div>
-        <div class="tile-title">Can your facial features reveal your odds of surviving cancer?</div>
-        <div class="tile-sub">Harvard researchers show that biological age — not chronological age — is what matters for prognosis</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 180 30" style="max-width:195px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Boston Globe</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Boston Globe</div>
+          <div class="tile-title">Can your facial features reveal your odds of surviving cancer?</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://x.com/drtaranarula/status/1598022448754339840" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 60 30" style="max-width:66px;width:100%"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00" dominant-baseline="middle">CNN</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">CNN This Morning</div>
-        <div class="tile-title">A single chest X-ray can predict your heart attack and stroke risk</div>
-        <div class="tile-sub">AI turns one of medicine's most routine scans into a window on cardiovascular risk</div>
+      <div class="tile-cover" style="background-image:url('cnn-x-ray.png');background-size:cover;background-position:center 30%">
+        <div class="tile-logo-badge"><svg viewBox="0 0 60 30" style="max-width:66px;width:100%"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00" dominant-baseline="middle">CNN</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">CNN This Morning</div>
+          <div class="tile-title">A single chest X-ray can predict your heart attack and stroke risk</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.ft.com/content/3ac60aaf-3b55-4f1c-858c-7b42b4cbd914" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 60 30" style="max-width:60px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">FT</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Financial Times</div>
-        <div class="tile-title">The AI tool that estimates your biological age from a single photograph</div>
-        <div class="tile-sub">FaceAge could change how doctors assess patient resilience before treatment</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 60 30" style="max-width:60px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">FT</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Financial Times</div>
+          <div class="tile-title">The AI tool that estimates your biological age from a single photograph</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.thetimes.com/life-style/health-fitness/article/im-52-my-biological-age-is-32-can-that-be-true-z0p835bq2" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 140 30" style="max-width:150px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333" dominant-baseline="middle">The Times</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">The Times</div>
-        <div class="tile-title">I'm 52, my biological age is 32 — can that be true?</div>
-        <div class="tile-sub">A journalist puts FaceAge to the test and discovers what their face says about their health</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 140 30" style="max-width:150px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#333" dominant-baseline="middle">The Times</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">The Times</div>
+          <div class="tile-title">I'm 52, my biological age is 32 — can that be true?</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.theguardian.com/technology/2025/may/13/faceage-the-ai-tool-that-can-tell-your-biological-age-through-one-photo" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 160 30" style="max-width:165px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Guardian</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">The Guardian</div>
-        <div class="tile-title">FaceAge: the AI tool that can tell your biological age through one photo</div>
-        <div class="tile-sub">Why your face may be one of the most underused sources of medical information</div>
+      <div class="tile-cover" style="background-image:url('Guardian.png');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 160 30" style="max-width:165px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Guardian</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">The Guardian</div>
+          <div class="tile-title">FaceAge: the AI tool that can tell your biological age through one photo</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.nrc.nl/nieuws/2026/03/18/de-zwezerik-heeft-wel-betekenis-a4923268" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 80 30" style="max-width:82px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">NRC</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">NRC</div>
-        <div class="tile-title">De zwezerik heeft wél betekenis</div>
-        <div class="tile-sub">Het orgaan dat decennialang werd genegeerd blijkt een sleutelrol te spelen in veroudering en kanker</div>
+      <div class="tile-cover" style="background-image:url('nrc.png');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 80 30" style="max-width:82px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">NRC</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">NRC</div>
+          <div class="tile-title">De zwezerik heeft wél betekenis</div>
+        </div>
       </div>
     </a>
 
     <a class="tile" href="https://www.washingtonpost.com/science/2025/05/12/ai-tool-biological-age-faceage/" target="_blank">
-      <div class="tile-img logo-box">
-        <svg viewBox="0 0 220 30" style="max-width:225px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Washington Post</text></svg>
-      </div>
-      <div class="tile-body">
-        <div class="tile-tag">Washington Post</div>
-        <div class="tile-title">New AI tool predicts your biological age from a selfie</div>
-        <div class="tile-sub">Cancer patients score five years older on average — and that gap predicts who survives</div>
+      <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80');background-size:cover;background-position:center">
+        <div class="tile-logo-badge"><svg viewBox="0 0 220 30" style="max-width:225px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Washington Post</text></svg></div>
+        <div class="tile-overlay">
+          <div class="tile-tag">Washington Post</div>
+          <div class="tile-title">New AI tool predicts your biological age from a selfie</div>
+        </div>
       </div>
     </a>
 
   </div>
+  <div style="padding-bottom:3rem"></div>
   </div>
 </div>
 
@@ -930,6 +934,7 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
         <p>Originally from the Netherlands and now based in Boston, I also advise and co-found ventures at the intersection of AI and medicine — and remain inspired by the possibility that the work we do today can meaningfully change the lives of patients tomorrow.</p>
       </div>
     </div>
+  <div style="padding-bottom:3rem"></div>
   </div>
 </div>
 

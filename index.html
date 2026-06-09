@@ -74,7 +74,7 @@ nav {
   flex-wrap: wrap;
   padding: .8rem 2.8rem 2rem;
 }
-.affil-logo { height: 28px; object-fit: contain; opacity: .75; filter: grayscale(1); transition: opacity .15s; }
+.affil-logo { height: 28px; object-fit: contain; opacity: .9; transition: opacity .15s; }
 .affil-logo:hover { opacity: 1; }
 
 /* Grid section label */
@@ -248,22 +248,22 @@ nav {
   flex-direction: column;
   gap: .8rem;
   padding: 2rem 2rem 2.2rem;
-  border: 1px solid var(--rule);
-  background: #fafafa;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.05);
   transition: border-color .2s, background .2s;
 }
-.res-pillar:hover { border-color: #ccc; background: #f5f5f5; }
+.res-pillar:hover { border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.1); }
 .rp-title {
   font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: -.02em;
-  color: var(--black);
+  color: #fff;
   padding-top: .1rem;
 }
 .rp-body {
   font-size: .82rem;
   line-height: 1.78;
-  color: #444;
+  color: rgba(255,255,255,.9);
   font-weight: 300;
   max-width: 680px;
 }
@@ -371,9 +371,85 @@ nav {
 .speak-title { font-size: .83rem; font-weight: 400; line-height: 1.36; letter-spacing: -.01em; margin-bottom: .2rem; }
 .speak-venue { font-size: .71rem; color: var(--mid); font-weight: 300; }
 
+/* ── RECENT SLIDER ── */
+.recent-strip {
+  padding: 2rem 0 2.4rem;
+  border-top: 1px solid var(--rule);
+  overflow: hidden;
+}
+.recent-strip-lbl {
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 1.4rem;
+  padding: 0 2.8rem;
+}
+.recent-track-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.recent-track {
+  display: flex;
+  gap: 0;
+  will-change: transform;
+  animation: recentScroll 32s linear 3s infinite;
+}
+.recent-track:hover { animation-play-state: paused; }
+@keyframes recentScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.recent-tile {
+  flex: 0 0 25vw;
+  width: 25vw;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background .12s;
+}
+.recent-tile:first-child { border-left: 1px solid var(--rule); }
+.recent-tile:hover { background: #fafafa; }
+.recent-track-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: opacity .15s;
+  font-size: .65rem;
+  color: rgba(255,255,255,.5);
+  opacity: .6;
+}
+.recent-track-nav:hover { opacity: 1; }
+.recent-track-nav.prev { left: .4rem; }
+.recent-track-nav.next { right: .4rem; }
+
 /* ── CONTACT ── */
-.ct-name { font-size: 1.6rem; font-weight: 300; letter-spacing: -.035em; margin-bottom: .25rem; }
-.ct-role { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); margin-bottom: .8rem; }
+#sec-contact { background: #0d1142; }
+#sec-contact .page-lbl { color: rgba(255,255,255,.45); }
+#sec-research { background: #0d1142; }
+#sec-research .page-lbl { color: rgba(255,255,255,.45); }
+#sec-research .vision-text { color: rgba(255,255,255,.9); }
+#sec-vision .vision-text { font-size: 1.2rem; }
+#sec-vision .page { padding-top: 1.8rem; }
+.ct-name { font-size: 1.6rem; font-weight: 300; letter-spacing: -.035em; margin-bottom: .25rem; color: #fff; }
+.ct-role { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: .8rem; }
 
 /* Affiliation logos in contact */
 .ct-affils {
@@ -383,16 +459,16 @@ nav {
   flex-wrap: wrap;
   margin: 0 0 2rem;
   padding-bottom: 1.6rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid rgba(255,255,255,.15);
 }
-.ct-affil-logo { height: 30px; object-fit: contain; opacity: .75; filter: grayscale(1); transition: opacity .15s; }
+.ct-affil-logo { height: 30px; object-fit: contain; opacity: .9; filter: brightness(0) invert(1); transition: opacity .15s; }
 .ct-affil-logo:hover { opacity: 1; }
 
 table.ct { width: 100%; max-width: 440px; border-collapse: collapse; }
-table.ct td { font-size: .79rem; font-weight: 300; color: #333; padding: .5rem 0; border-bottom: 1px solid #f2f2f2; vertical-align: top; }
-table.ct td:first-child { font-size: .61rem; letter-spacing: .1em; text-transform: uppercase; color: var(--light); width: 5.5rem; padding-right: 1rem; padding-top: .56rem; }
-table.ct a { color: #333; text-decoration: none; border-bottom: 1px solid #e0e0e0; }
-table.ct a:hover { color: var(--black); border-color: var(--black); }
+table.ct td { font-size: .79rem; font-weight: 300; color: #fff; padding: .5rem 0; border-bottom: 1px solid rgba(255,255,255,.1); vertical-align: top; }
+table.ct td:first-child { font-size: .61rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); width: 5.5rem; padding-right: 1rem; padding-top: .56rem; }
+table.ct a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.4); }
+table.ct a:hover { color: #fff; border-color: #fff; }
 
 /* ── HERO ── */
 .hero-block {
@@ -584,9 +660,85 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 
 </div>
 
+<!-- ══════════════ RECENT SLIDER ══════════════ -->
+<div class="recent-strip">
+  <div class="recent-strip-lbl">Recent Publications &amp; News</div>
+  <div class="recent-track-wrap">
+    <button class="recent-track-nav prev" onclick="recentSlide(-1)">&#8592;</button>
+    <div class="recent-track" id="recentTrack">
+
+      <!-- PUB 1 -->
+      <a class="recent-tile tile" href="https://www.nature.com/articles/s41586-026-10242-y" target="_blank">
+        <div class="tile-cover" style="background-image:url('ThymusArtwork_v1.png');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">Nature · Publication</div><div class="tile-title">AI reveals the thymus as a key predictor of longevity and disease</div></div>
+        </div>
+      </a>
+
+      <!-- NEWS 1 -->
+      <a class="recent-tile tile" href="https://www.washingtonpost.com/health/2026/05/03/thymus-longevity-cancer-research/" target="_blank">
+        <div class="tile-cover" style="background-image:url('washingtonpost-thymus.png');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 220 30" style="max-width:225px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">The Washington Post</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">Washington Post · News</div><div class="tile-title">The body's most mysterious organ may play a key role in longevity and cancer</div></div>
+        </div>
+      </a>
+
+      <!-- PUB 2 -->
+      <a class="recent-tile tile" href="https://www.nature.com/articles/s41586-026-10243-x" target="_blank">
+        <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=600&q=80');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 120 36" style="max-width:135px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#333" dominant-baseline="middle">Nature</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">Nature · Publication</div><div class="tile-title">Thymic health predicts response to immunotherapy in cancer patients</div></div>
+        </div>
+      </a>
+
+      <!-- NEWS 2 -->
+      <a class="recent-tile tile" href="https://www.scientificamerican.com/article/this-overlooked-organ-may-be-more-vital-for-longevity-than-scientists/" target="_blank">
+        <div class="tile-cover" style="background-image:url('scientificamerican.jpg');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 220 30" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="12" fill="#333" dominant-baseline="middle">Scientific American</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">Scientific American · News</div><div class="tile-title">This Overlooked Organ May Be More Vital for Longevity Than Scientists Realized</div></div>
+        </div>
+      </a>
+
+      <!-- PUB 3 -->
+      <a class="recent-tile tile" href="https://www.nature.com/articles/s42256-024-00807-9" target="_blank">
+        <div class="tile-cover" style="background-image:url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 240 36" style="max-width:240px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" dominant-baseline="middle">Nature Machine Intelligence</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">Nature Machine Intelligence · Publication</div><div class="tile-title">A foundation model for cancer biomarker discovery</div></div>
+        </div>
+      </a>
+
+      <!-- NEWS 3 -->
+      <a class="recent-tile tile" href="https://www.nytimes.com/2025/05/08/well/biological-age-faceage.html" target="_blank">
+        <div class="tile-cover" style="background-image:url('08WELL-FACEAGE-superJumbo.jpg');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 190 30" style="max-width:210px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#333" letter-spacing=".2" dominant-baseline="middle">The New York Times</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">New York Times · News</div><div class="tile-title">Can a Photograph Help Predict Who Will Survive Cancer Treatment?</div></div>
+        </div>
+      </a>
+
+      <!-- PUB 4 -->
+      <a class="recent-tile tile" href="https://www.thelancet.com/journals/landig/article/PIIS2589-7500(23)00202-7/fulltext" target="_blank">
+        <div class="tile-cover" style="background-image:url('lancet.png');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 160 36" style="max-width:170px;width:100%"><text y="22" font-family="Georgia,serif" font-weight="700" font-size="18" fill="#333" dominant-baseline="middle">The Lancet</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">The Lancet · Publication</div><div class="tile-title">FaceAge: AI estimation of biological age from facial images</div></div>
+        </div>
+      </a>
+
+      <!-- NEWS 4 -->
+      <a class="recent-tile tile" href="https://www.youtube.com/watch?v=lM9P3dZD_A0" target="_blank">
+        <div class="tile-cover" style="background-image:url('cnn-faceage.png');background-size:cover;background-position:center">
+          <div class="tile-logo-badge"><svg viewBox="0 0 60 30" style="max-width:66px;width:100%"><text y="22" font-family="Arial Black,Arial" font-weight="900" font-size="24" fill="#c00" dominant-baseline="middle">CNN</text></svg></div>
+          <div class="tile-overlay"><div class="tile-tag">CNN · News</div><div class="tile-title">Kara Swisher explores how a selfie can reveal your biological age</div></div>
+        </div>
+      </a>
+
+    </div>
+    <button class="recent-track-nav next" onclick="recentSlide(1)">&#8594;</button>
+  </div>
+</div>
+
 <!-- ══════════════ VISION ══════════════ -->
 <div id="sec-vision" class="section">
-  <div class="page" style="max-width:760px">
+  <div class="page" style="max-width:1000px;margin-left:auto;margin-right:auto">
     <div class="page-lbl">From AI Breakthroughs to Patient Impact</div>
     <div class="vision-block">
       <div class="vision-text">
@@ -601,7 +753,7 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
 <div id="sec-research" class="section">
   <div class="page" style="max-width:100%">
     <div class="page-lbl">Focus Areas</div>
-    <div class="vision-text" style="margin-bottom:2.4rem; max-width:680px">These are the areas I am currently working on — combining artificial intelligence, medicine, and biology to uncover new insights that can improve human health.</div>
+    <div class="vision-text" style="margin-bottom:2.4rem; max-width:calc(50% - 0.6rem);">These are the areas I am currently working on — combining AI, medicine, and biology to uncover new insights of human health.</div>
 
     <!-- Research pillars -->
     <div class="res-pillars">
@@ -934,7 +1086,7 @@ table.ct a:hover { color: var(--black); border-color: var(--black); }
         <p>My name is Hugo Aerts (pronounced "arts") — a professor, scientist, and builder dedicated to improving human health through scientific discovery and artificial intelligence.</p>
         <p>Over the past two decades, my work has focused on uncovering biological signals hidden within medical data. This research has contributed to the development of foundation models for medicine, and led to new insights into aging, cancer, and immune health. More recently, my team has challenged long-standing assumptions about the adult thymus, revealing its important role in longevity, cancer risk, and treatment response.</p>
         <p>I serve as Professor at Harvard University, Director of the AI in Medicine Program at Mass General Brigham, and Adjunct Professor at Maastricht University, where I lead multidisciplinary teams of scientists, clinicians, and engineers working at the intersection of artificial intelligence, medicine, and biology.</p>
-        <p>My research is supported by major NIH-funded initiatives, and in 2020 I was awarded a prestigious ERC Consolidator Grant from the European Union's Horizon program. Since 2022, I have been recognised by Web of Science as among the top 1% most-cited scientists worldwide.</p>
+        <p>My research is supported by major NIH-funded initiatives, and I was awarded a prestigious ERC Consolidator Grant from the European Union's Horizon program. Since 2022, I have been recognised by Web of Science as among the top 1% most-cited scientists worldwide.</p>
         <p>Originally from the Netherlands and now based in Boston, I also advise and co-found ventures at the intersection of AI and medicine — and remain inspired by the possibility that the work we do today can meaningfully change the lives of patients tomorrow.</p>
       </div>
     </div>
@@ -1015,6 +1167,19 @@ document.querySelectorAll('.pub-filter').forEach(function(btn) {
     });
   });
 });
+
+// ── Recent slider (continuous marquee) ──
+(function() {
+  var track = document.getElementById('recentTrack');
+  if (!track) return;
+  // Duplicate tiles for seamless loop
+  var origTiles = Array.from(track.children);
+  origTiles.forEach(function(tile) {
+    track.appendChild(tile.cloneNode(true));
+  });
+  // Hide nav arrows — not needed for continuous scroll
+  document.querySelectorAll('.recent-track-nav').forEach(function(b) { b.style.display = 'none'; });
+})();
 </script>
 </body>
 </html>

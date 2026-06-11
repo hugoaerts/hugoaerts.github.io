@@ -243,12 +243,12 @@ nav {
 .pub-filter:hover { color: var(--black); border-color: var(--black); }
 .pub-filter.active { background: var(--black); color: #fff; border-color: var(--black); }
 .tile.hidden { display: none; }
-.res-pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; }
+.res-pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 1.5rem; }
 .res-pillar {
   display: flex;
   flex-direction: column;
-  gap: .8rem;
-  padding: 2rem 2rem 2.2rem;
+  gap: .5rem;
+  padding: 1.1rem 1.2rem 1.3rem;
   border: 1px solid rgba(255,255,255,.1);
   background: rgba(255,255,255,.05);
   transition: border-color .2s, background .2s;
@@ -318,9 +318,11 @@ nav {
 .press-block {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1.4rem .6rem;
+  gap: .8rem .6rem;
   align-items: center;
   justify-items: center;
+  max-width: 720px;
+  margin: 0 auto;
   padding: 0;
   margin-bottom: 0;
 }
@@ -458,7 +460,7 @@ nav {
   align-items: center;
   gap: 4rem;
   flex-wrap: wrap;
-  margin: 2rem 0 2rem;
+  margin: 1rem 0 2rem;
   padding-bottom: 1.6rem;
   border-bottom: 1px solid rgba(255,255,255,.15);
 }
@@ -759,18 +761,22 @@ table.ct a:hover { color: #fff; border-color: #fff; }
     <!-- Research pillars -->
     <div class="res-pillars">
       <div class="res-pillar">
+        <img src="insurance.png" alt="" style="width:36px;height:36px;object-fit:contain;opacity:.85;filter:brightness(0) invert(1)">
         <div class="rp-title">Immune Health</div>
-        <div class="rp-body">The immune system plays a central role in cancer, aging, infection, and chronic disease, yet many aspects of immune health remain invisible to medicine. My research focuses on developing new ways to measure immune function and resilience, with the goal of understanding why some individuals remain healthy while others become vulnerable to disease. Recent work has challenged long-standing assumptions about the adult thymus, revealing its important role in longevity, cancer, cardiovascular disease, and response to therapy.</div>
+        <div class="rp-body">The immune system drives aging, cancer, and chronic disease, yet many aspects of immune health remains invisible to medicine. My research develops new tools to assess immune function and resilience — exploring why some individuals remain healthy while others become vulnerable to disease. Recent work has upended assumptions about the adult thymus, revealing its outsized role throughout life.</div>
       </div>
       <div class="res-pillar">
+        <img src="age-group.png" alt="" style="width:36px;height:36px;object-fit:contain;opacity:.85;filter:brightness(0) invert(1)">
         <div class="rp-title">Aging &amp; Longevity</div>
         <div class="rp-body">Aging is the single greatest risk factor for many of the world's most common diseases. My work seeks to develop new ways of measuring biological aging and resilience, helping to identify risk earlier and better understand the processes that shape health across the lifespan. Ultimately, the goal is not simply to extend lifespan, but to extend healthy years of life.</div>
       </div>
       <div class="res-pillar">
+        <img src="cancer.png" alt="" style="width:36px;height:36px;object-fit:contain;opacity:.85;filter:brightness(0) invert(1)">
         <div class="rp-title">Cancer</div>
-        <div class="rp-body">Cancer remains one of the greatest challenges in medicine. My research focuses on uncovering hidden biological signals that can improve the prevention, diagnosis, and treatment of cancer. By combining artificial intelligence with clinical and imaging data, we seek to better understand why cancers develop, why patients respond differently to treatment, and how therapies can be tailored to each individual.</div>
+        <div class="rp-body">Cancer remains one of the greatest challenges in medicine. My research focuses on uncovering hidden biological signals that can improve the prevention, diagnosis, and treatment of cancer. By combining artificial intelligence with clinical data, we seek to better understand why cancers develop, why patients respond differently to treatment, and how therapies can be tailored to each individual.</div>
       </div>
       <div class="res-pillar">
+        <img src="chip.png" alt="" style="width:36px;height:36px;object-fit:contain;opacity:.85;filter:brightness(0) invert(1)">
         <div class="rp-title">AI Foundation Models</div>
         <div class="rp-body">Artificial intelligence has the potential to transform medicine, but meaningful clinical impact remains limited. My research develops foundation models and other AI technologies that help uncover new biological insights and accelerate scientific discovery. By combining advances in AI with rigorous clinical validation, we aim to bridge the gap between technological breakthroughs and improvements in human health.</div>
       </div>
@@ -932,23 +938,23 @@ table.ct a:hover { color: #fff; border-color: #fff; }
       <span class="press-lbl">Featured in</span>
       <!-- Row 1 -->
       <!-- Row 1 -->
-      <svg class="pl" style="height:36px;width:auto" viewBox="0 0 92 38"><text x="46" y="31" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="30" fill="#cc0000" letter-spacing="1">CNN</text></svg>
-      <svg class="pl" style="width:100%;height:auto" viewBox="0 0 330 52"><text x="165" y="40" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="34" fill="#000" letter-spacing="-.3">The New York Times</text></svg>
-      <svg class="pl" style="width:100%;height:auto" viewBox="0 0 310 48"><text x="155" y="37" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-size="30" fill="#000" letter-spacing=".1">The Washington Post</text></svg>
-      <svg class="pl" style="width:100%;height:auto" viewBox="0 0 340 53"><text x="170" y="41" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-size="31" fill="#000" letter-spacing=".4">The Wall Street Journal</text></svg>
-      <svg class="pl" style="height:38px;width:auto" viewBox="0 0 200 30"><text x="100" y="22" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-style="italic" font-weight="700" font-size="20" fill="#D9520E">Financial Times</text></svg>
+      <svg class="pl" style="height:29px;width:auto" viewBox="0 0 92 38"><text x="46" y="31" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="30" fill="#cc0000" letter-spacing="1">CNN</text></svg>
+      <svg class="pl" style="height:34px;width:auto" viewBox="0 0 330 52"><text x="165" y="40" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="34" fill="#000" letter-spacing="-.3">The New York Times</text></svg>
+      <svg class="pl" style="height:31px;width:auto" viewBox="0 0 310 48"><text x="155" y="37" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-size="30" fill="#000" letter-spacing=".1">The Washington Post</text></svg>
+      <svg class="pl" style="height:29px;width:auto" viewBox="0 0 340 53"><text x="170" y="41" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-size="31" fill="#000" letter-spacing=".4">The Wall Street Journal</text></svg>
+      <svg class="pl" style="height:30px;width:auto" viewBox="0 0 200 30"><text x="100" y="22" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-style="italic" font-weight="700" font-size="20" fill="#D9520E">Financial Times</text></svg>
       <!-- Row 2 -->
-      <svg class="pl" style="height:38px;width:auto" viewBox="0 0 195 30"><text x="97" y="22" text-anchor="middle" font-family="'Trebuchet MS',Arial,sans-serif" font-weight="700" font-size="19" fill="#052962" letter-spacing="-.2">The Guardian</text></svg>
-      <svg class="pl" style="height:40px;width:auto" viewBox="0 0 75 32"><text x="37" y="25" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="24" fill="#1A1A1A" letter-spacing="1">NPR</text></svg>
-      <svg class="pl" style="height:38px;width:auto" viewBox="0 0 215 30"><text x="107" y="22" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="18" fill="#000" letter-spacing=".2">The Telegraph</text></svg>
-      <svg class="pl" style="height:38px;width:auto" viewBox="0 0 155 30"><text x="77" y="22" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="19" fill="#cc0000" letter-spacing=".1">The Times</text></svg>
-      <svg class="pl" style="width:100%;height:auto" viewBox="0 0 260 34"><text x="130" y="24" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="20" fill="#005FA8" letter-spacing=".3">Scientific American</text></svg>
+      <svg class="pl" style="height:30px;width:auto" viewBox="0 0 195 30"><text x="97" y="22" text-anchor="middle" font-family="'Trebuchet MS',Arial,sans-serif" font-weight="700" font-size="19" fill="#052962" letter-spacing="-.2">The Guardian</text></svg>
+      <svg class="pl" style="height:31px;width:auto" viewBox="0 0 75 32"><text x="37" y="25" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="24" fill="#1A1A1A" letter-spacing="1">NPR</text></svg>
+      <svg class="pl" style="height:30px;width:auto" viewBox="0 0 215 30"><text x="107" y="22" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="18" fill="#000" letter-spacing=".2">The Telegraph</text></svg>
+      <svg class="pl" style="height:30px;width:auto" viewBox="0 0 155 30"><text x="77" y="22" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="19" fill="#cc0000" letter-spacing=".1">The Times</text></svg>
+      <svg class="pl" style="height:26px;width:auto" viewBox="0 0 260 34"><text x="130" y="24" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="20" fill="#005FA8" letter-spacing=".3">Scientific American</text></svg>
       <!-- Row 3 -->
-      <svg class="pl" style="height:32px;width:auto" viewBox="0 0 225 26"><text x="112" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="16"><tspan fill="#E8022D">★ </tspan><tspan fill="#1A1A1A">The Independent</tspan></text></svg>
-      <svg class="pl" style="height:32px;width:auto" viewBox="0 0 65 26"><text x="32" y="19" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="18" fill="#003DA5" letter-spacing="1">AFP</text></svg>
-      <svg class="pl" style="height:32px;width:auto" viewBox="0 0 170 26"><text x="85" y="19" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-style="italic" font-weight="700" font-size="17" fill="#1A1A1A">la Repubblica</text></svg>
-      <svg class="pl" style="height:32px;width:auto" viewBox="0 0 55 26"><text x="27" y="19" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="19" fill="#1A1A1A" letter-spacing="1">DW</text></svg>
-      <svg class="pl" style="height:32px;width:auto" viewBox="0 0 72 26"><text x="36" y="19" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="18" fill="#1A1A1A" letter-spacing=".5">NRC</text></svg>
+      <svg class="pl" style="height:25px;width:auto" viewBox="0 0 225 26"><text x="112" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="16"><tspan fill="#E8022D">★ </tspan><tspan fill="#1A1A1A">The Independent</tspan></text></svg>
+      <svg class="pl" style="height:25px;width:auto" viewBox="0 0 65 26"><text x="32" y="19" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="18" fill="#003DA5" letter-spacing="1">AFP</text></svg>
+      <svg class="pl" style="height:25px;width:auto" viewBox="0 0 170 26"><text x="85" y="19" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-style="italic" font-weight="700" font-size="17" fill="#1A1A1A">la Repubblica</text></svg>
+      <svg class="pl" style="height:25px;width:auto" viewBox="0 0 55 26"><text x="27" y="19" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="19" fill="#1A1A1A" letter-spacing="1">DW</text></svg>
+      <svg class="pl" style="height:25px;width:auto" viewBox="0 0 72 26"><text x="36" y="19" text-anchor="middle" font-family="'Times New Roman',Times,serif" font-weight="700" font-size="18" fill="#1A1A1A" letter-spacing=".5">NRC</text></svg>
     </div>
 
   <div style="padding: 1.6rem 0 .8rem">

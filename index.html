@@ -589,6 +589,7 @@ table.ct a:hover { color: #fff; border-color: #fff; }
   .res-pillars { grid-template-columns: 1fr; }
   .res-pillar { grid-template-columns: 1fr; }
   .hero-block { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+  .focus-intro-text { max-width: 100% !important; }
   .hero-photo-wrap { order: -1; justify-content: center; max-height: 340px; overflow: hidden; }
   .hero-photo { width: 100%; max-width: 340px; margin-bottom: 0; object-position: top; }
   .hero-text { padding: 2rem 1.6rem 2rem; }
@@ -750,7 +751,7 @@ table.ct a:hover { color: #fff; border-color: #fff; }
 <div id="sec-research" class="section">
   <div class="page" style="max-width:100%">
     <div class="page-lbl">Focus Areas</div>
-    <div class="vision-text" style="margin-bottom:2.4rem; max-width:calc(50% - 0.6rem);">These are the areas I am currently working on — combining AI, medicine, and biology to uncover new insights of human health.</div>
+    <div class="vision-text focus-intro-text" style="margin-bottom:2.4rem; max-width:calc(50% - 0.6rem); min-width:280px;">These are the areas I am currently working on — combining AI, medicine, and biology to uncover new insights of human health.</div>
 
     <!-- Research pillars -->
     <div class="res-pillars">
@@ -926,9 +927,9 @@ table.ct a:hover { color: #fff; border-color: #fff; }
   <div class="page-lbl" style="padding:2.8rem 2.8rem 0">Media</div>
 
   <div style="padding:0 2.8rem">
-  <div class="vision-text" style="margin: 1.6rem 0 1.6rem; max-width:720px">My research has been covered by leading media outlets worldwide — from science journalism to broadcast news.</div>
+  <div class="vision-text" style="margin: 1.6rem 0 .8rem; max-width:720px">My research has been covered by leading media outlets worldwide — from science journalism to broadcast news.</div>
   <!-- Press logos -->
-    <div class="press-block">
+    <div class="press-block" style="padding:.4rem 0 .4rem">
       <span class="press-lbl">Featured in</span>
       <!-- Row 1 -->
       <!-- Row 1 -->
@@ -1217,7 +1218,7 @@ document.querySelectorAll('.pub-filter').forEach(function(btn) {
   }
 
   // Small delay before starting
-  setTimeout(function() { requestAnimationFrame(step); }, 800);
+  setTimeout(function() { requestAnimationFrame(step); }, 4000);
 })();
 </script>
 </body>
